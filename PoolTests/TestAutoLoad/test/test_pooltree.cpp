@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
     seal::PluginManager::get()->initialise();
     
     pool::DbReflex::setDictionaryAutoLoading( true );
-    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
+//    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
 
     pool::URIParser p;
     p.parse();
@@ -46,6 +46,7 @@ int main(int argc, char * argv[]) {
     
     boost::shared_ptr<pool::IDataSvc> svc(pool::DataSvcFactory::instance(cat));
     svc->transaction().start();
+/*
     std::string oid = 
 "[DB=F038EB17-6636-DB11-B7E4-00E08151E907][CNT=Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)][CLID=4B9F6001-FA5E-FFD1-F620-4DC0EEF423AE][TECH=00000202][OID=00000023-000003E7]";
 
@@ -55,7 +56,7 @@ int main(int argc, char * argv[]) {
               << ref.toString()
               << "\nof type "<<  typeid(*ref).name() << std::endl;
 
-
+*/
 
     //    std::string url = "FID:F038EB17-6636-DB11-B7E4-00E08151E907";
     std::string url = "PFN:/afs/cern.ch/user/i/innocent/scratch0/h2.00029004.combined.OutServ_0.0-cmsswreco.root";
