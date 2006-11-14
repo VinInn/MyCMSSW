@@ -33,7 +33,8 @@ public:
   typedef  std::vector<value_type> Container;
   typedef typename Container::iterator iterator;
   typedef typename Container::const_iterator const_iterator;
-
+  typedef std::pair<iterator, iterator> range;
+  typedef std::pair<const_iterator,const_iterator> const_range;
 
   // initialize it empty...
   explicit SparseMatrix(size_type r) : m_rank(r) {}
@@ -56,6 +57,22 @@ public:
 	  m_values.push_back(value_type(row,col,m[row][col]));
   }
   
+  const_range row(size_type i) const {
+    value_type b(i,0,0);
+    value_type e(i+1,0,0);
+    const_iterator f = std::lower_bound(values().begin(),values().end(),b);
+    const_iterator s = std::lower_bound(values().begin(),values().end(),e);
+    return const_range(f,s);
+  }
+
+  range row(size_type i)  {
+    value_type b(i,0,0);
+    value_type e(i+1,0,0);
+    iterator f = std::lower_bound(values().begin(),values().end(),b);
+    iterator s = std::lower_bound(values().begin(),values().end(),e);
+    return range(f,s);
+  }
+
   // slow
   T operator()(size_type ii, size_type jj) const {
     value_type e(ii,jj,0);
