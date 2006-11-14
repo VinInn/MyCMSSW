@@ -1,7 +1,7 @@
 #include "SparseMatrix.h"
 #include <iostream>
 #include <valarray>
-
+#include <iterator>
 
 template<class T> 
 void print(const std::valarray<T>& v) { 
@@ -23,7 +23,15 @@ int main() {
   SparseMatrix<double> m(5,1.0);
   
   std::cout << m << std::endl;
-  
+ 
+  {
+    SparseMatrix<double>::const_range r3 = m.row(3);
+    for (SparseMatrix<double>::const_iterator p=r3.first; p!=r3.second; p++)
+      std::cout << "(" << (*p).i << "," << (*p).j << ")=" << (*p).v << " "; 
+  std::cout << std::endl;
+  }
+  std::cout << std::endl;
+
   print(v);
   print(vr);
   std::cout << std::endl;
@@ -37,7 +45,18 @@ int main() {
   
   print(vr);
   std::cout << std::endl;
-  
+ 
+  {
+    m(3,1) = -0.5;
+    SparseMatrix<double>::const_range r3 = m.row(3);
+    for (SparseMatrix<double>::const_iterator p=r3.first; p!=r3.second; p++)
+      std::cout << "(" << (*p).i << "," << (*p).j << ")=" << (*p).v << " "; 
+    std::cout << std::endl;
+  }
+
+ std::cout << std::endl;
+ std::cout << std::endl;
+ 
   double vrot[][2] = { {0.,0.5,}, {-0.5, 0.} };
   
   SparseMatrix<double> rot(2,vrot);
