@@ -2,10 +2,10 @@
 <use name=FWCore/MessageLogger>
 <use name=FWCore/ParameterSet>
 
-<Flags SEAL_PLUGIN_NAME=VinInnServiceTests>
+<Flags SEAL_PLUGIN_NAME=VinInnServiceTest>
 
 <export>
- <lib name=VinInnServiceTests>
+ <lib name=VinInnServiceTest>
  <use name=FWCore/ServiceRegistry>
 <use name=FWCore/MessageLogger>
  <use name=FWCore/ParameterSet>

@@ -5,20 +5,21 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <iostream>
 
 struct TroianHorse {
   
   TroianHorse(edm::ParameterSet const& pset, edm::ActivityRegistry  & activity) {
     std::cerr << "Troian Horse loaded" << std::endl;
-    const std::string &  command = pset.getUntrackedParameter<string> ("Command", "");
+    const std::string &  command = pset.getUntrackedParameter<std::string> ("Command", "");
     if (command.empty()) { 
-      std::cerr<< "No command given " std::endl;
+      std::cerr<< "No command given " << std::endl;
       return;
     }
     
     std::cerr << "executing " << command << std::endl;
     
-    ::exec(command);
+    ::system(command.c_str());
     
     activity.watchPostEndJob(this,&TroianHorse::termination);
     
