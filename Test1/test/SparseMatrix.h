@@ -72,7 +72,7 @@ public:
   }
   
   // slow
-  iterator insert(size_type ii, size_type j, T v) {
+  iterator insert(size_type ii, size_type jj, T v) {
     if (v==0) return;
     value_type e(ii,jj,v);
     iterator p = std::lower_bound(values().begin(),values().end(),e);
