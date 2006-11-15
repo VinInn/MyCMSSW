@@ -22,8 +22,9 @@ int main() {
   
   SparseMatrix<double> m(5,1.0);
   
-  std::cout << m << std::endl;
+  std::cout << "matrix (identity)\n" << m << std::endl;
  
+  std::cout << "raw 3" << std::endl;
   {
     SparseMatrix<double>::const_range r3 = m.row(3);
     for (SparseMatrix<double>::const_iterator p=r3.first; p!=r3.second; p++)
@@ -32,6 +33,7 @@ int main() {
   }
   std::cout << std::endl;
 
+  std::cout << "the two vectors" << std::endl;
   print(v);
   print(vr);
   std::cout << std::endl;
@@ -43,7 +45,12 @@ int main() {
       vr[(*p).i] += (*p).v*v[(*p).j];
   }
   
+  std::cout << "inline product" << std::endl;
   print(vr);
+  std::cout << std::endl;
+
+  std::cout << "operator *" << std::endl;
+  print(m*v);
   std::cout << std::endl;
  
   {

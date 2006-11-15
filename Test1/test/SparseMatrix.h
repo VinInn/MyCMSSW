@@ -110,6 +110,28 @@ private:
   
 };
 
+
+template<typename V, typename T>
+V operator*(SparseMatrix<T> const & m, V const & vi) {
+  V vo(T(0),m.rank());
+  SparseMatrix<double>::const_iterator p = m.values().begin();
+  SparseMatrix<double>::const_iterator e = m.values().end();
+  for (p;p!=e;p++)
+    vo[(*p).i] += (*p).v*vi[(*p).j];
+  return vo;
+
+}
+
+template<typename V, typename T>
+V operator*(V const & vi, SparseMatrix<T> const & m) {
+  V vo(T(0),m.rank());
+  SparseMatrix<double>::const_iterator p = m.values().begin();
+  SparseMatrix<double>::const_iterator e = m.values().end();
+  for (p;p!=e;p++)
+    vo[(*p).j] += (*p).v*vi[(*p).i];
+  return vo;
+}
+
 #include<ostream>
 template<typename T>
 std::ostream & operator<<(std::ostream & os, const SparseMatrix<T> & m) {
