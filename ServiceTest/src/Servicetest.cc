@@ -41,3 +41,4 @@ struct TroianHorse {
   
 DEFINE_FWK_SERVICE (TroianHorse);
 
+#include "SetEnv.h"
