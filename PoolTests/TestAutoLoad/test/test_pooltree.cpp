@@ -29,8 +29,7 @@ int main(int argc, char * argv[]) {
 
     seal::PluginManager::get()->initialise();
     
-    pool::DbReflex::setDictionaryAutoLoading( true );
-//    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
+c//    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
 
     pool::URIParser p;
     p.parse();
