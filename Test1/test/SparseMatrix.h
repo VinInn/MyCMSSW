@@ -5,8 +5,6 @@
 #include <algorithm>
 
 // a sparse square matrix with minimal accessors
-
-
 template<typename T>
 class SparseMatrix {
 
