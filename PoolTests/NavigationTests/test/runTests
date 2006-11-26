@@ -1,0 +1,31 @@
+writeread | tee oids.list
+egrep "^oid" oids.list | cut -d" " -f3 > realOID.list
+cat > runoid.py  <<@EOF
+import os
+oids = open("realOID.list").readlines()
+os.system('writeread '+oids[1][:-1]+ ' '+oids[10][:-1]+ ' '+oids[100][:-1]+ ' '+oids[1000][:-1]+ ' '+oids[5000][:-1])
+@EOF
+python runoid.py
+
+
+multicache
+Ref2Ref
+vectorsize
+deleteObj
+testMyMap
+circular
+multifiles
+writeTraits
+# myrefs
+
+#always twice!
+
+multicache
+Ref2Ref
+vectorsize
+deleteObj
+testMyMap
+circular
+multifiles
+writeTraits
+# myrefs

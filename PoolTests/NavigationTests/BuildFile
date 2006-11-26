@@ -1,0 +1,14 @@
+
+<use name=boost>
+<use name=zlib>
+<use name=DataSvc>
+<use name=rootcore>
+
+<export>
+ <lib name=PoolTestsNavigationTests>
+ <use name=boost>
+ <use name=zlib>
+ <use name=DataSvc>
+<use name=rootcore>
+</export>
+
