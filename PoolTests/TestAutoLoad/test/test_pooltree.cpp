@@ -29,7 +29,7 @@ int main(int argc, char * argv[]) {
 
     seal::PluginManager::get()->initialise();
     
-c//    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
+//    pool::DbReflex::allowAutoLoadingFor("DataFormatsEcalRecHit");
 
     pool::URIParser p;
     p.parse();
