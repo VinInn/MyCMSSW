@@ -1,8 +1,13 @@
 #ifndef MyData_H
 #define MyData_H
-
+#include<string>
 
 namespace MyData {
+
+  struct Tag {
+    std::string name;
+    unsigned int id;
+  };
 
   struct Tr {
     Tr(): x(0),n(0){}

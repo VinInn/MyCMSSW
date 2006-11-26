@@ -23,11 +23,14 @@ public:
 
   explicit Tree1(pool::IFileCatalog * cat) :    
     svc(pool::DataSvcFactory::instance(cat)),
-    placeTr("T1.root", pool::DatabaseSpecification::PFN, "Ev(Tr)", ROOT::Reflex::Type(), 
+    placeTag("T1.root", pool::DatabaseSpecification::PFN, "Ev(Tag)", ROOT::Reflex::Type(), 
 	    pool::ROOTTREE_StorageType.type()), 
-    placeVx("T1.root", pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(), 
+    placeTr("T1.root", pool::DatabaseSpecification::PFN, "Ev(Tr)", ROOT::Reflex::Type(),
+            pool::ROOTTREE_StorageType.type()),     
+    placeVx("T1.root", 
+pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(), 
 	    pool::ROOTTREE_StorageType.type()),
-    tr(svc), vx(svc)
+    tag(svc), tr(svc), vx(svc)
   {
     // Define the policy for the implicit file handling
     pool::DatabaseConnectionPolicy policy;
@@ -55,9 +58,11 @@ public:
     // pool::Ref<MyData::Tr> tr(svc, new MyData::Tr);
     // pool::Ref<MyData::Vx> vx(svc, new MyData::Vx);
     
+    tag = new MyData::Tag;
     tr = new MyData::Tr;
     vx = new MyData::Vx;
     
+    tag.markWrite(placeTag);
     tr.markWrite(placeTr);
     vx.markWrite(placeVx);
     
@@ -76,8 +81,10 @@ private:
   
   pool::IDataSvc *svc;
   
+  pool::Placement placeTag;  
   pool::Placement placeTr;
   pool::Placement placeVx;
+  pool::Ref<MyData::Tag> tag;
   pool::Ref<MyData::Tr> tr;
   pool::Ref<MyData::Vx> vx;
 
