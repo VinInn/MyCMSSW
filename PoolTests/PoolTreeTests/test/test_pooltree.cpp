@@ -61,6 +61,8 @@ pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(),
     tag = new MyData::Tag;
     tr = new MyData::Tr;
     vx = new MyData::Vx;
+
+    if (i%3==0) (*tag).name = "hello";
     
     tag.markWrite(placeTag);
     tr.markWrite(placeTr);

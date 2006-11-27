@@ -20,6 +20,7 @@
 #include<string>
 #include "PoolTests/NavigationTests/interface/ABC.h"
 #include <stdexcept>
+#include "SealBase/Error.h"
 
 #include<iostream>
 #include<iomanip>
