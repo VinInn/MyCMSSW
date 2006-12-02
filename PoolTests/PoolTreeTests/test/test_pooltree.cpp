@@ -28,7 +28,7 @@ public:
     placeTr("T1.root", pool::DatabaseSpecification::PFN, "Ev(Tr)", ROOT::Reflex::Type(),
             pool::ROOTTREE_StorageType.type()),     
     placeVx("T1.root", 
-pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(), 
+	    pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(), 
 	    pool::ROOTTREE_StorageType.type()),
     tag(svc), tr(svc), vx(svc)
   {
