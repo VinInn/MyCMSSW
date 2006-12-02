@@ -6,7 +6,7 @@
 #include "DataSvc/Ref.h"
 #include <memory>
 
-namespacr pool {
+namespace pool {
   class IFileCatalog;
   class IDataSvc;
 }
@@ -18,9 +18,10 @@ class  OneBranchTree {
 
 public:
   explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
-			 std::string const & bname = "Ev(Prod)" )
+			 std::string const & bname = "Ev(Prod)" );
   ~OneBranchTree();
 
+  void add(edm::EDProduct * prod); 
 
 private:
 

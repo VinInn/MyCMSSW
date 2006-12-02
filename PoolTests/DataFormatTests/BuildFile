@@ -1,4 +1,4 @@
-<use name=DataFormat/Common>
+<use name=DataFormats/Common>
 <use name=boost>
 <use name=DataSvc>
 <use name=root>
@@ -6,7 +6,7 @@
 
 <export>
  <lib name=PoolTestsDataFormatTests>
-<use name=DataFormat/Common>
+<use name=DataFormats/Common>
 <use name=boost>
 <use name=DataSvc>
 <use name=root>

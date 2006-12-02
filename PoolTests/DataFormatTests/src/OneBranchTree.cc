@@ -19,9 +19,9 @@ OneBranchTree::OneBranchTree(pool::IFileCatalog * cat,
 			     std::string const & bname /* = "Ev(Prod)" */ ) :
   m_nentry(0),    
   m_svc(pool::DataSvcFactory::instance(cat)),
-  M_place(fname, pool::DatabaseSpecification::PFN, bname, ROOT::Reflex::Type(), 
+  m_place(fname, pool::DatabaseSpecification::PFN, bname, ROOT::Reflex::Type(), 
 	   pool::ROOTTREE_StorageType.type()),
-  m_product(svc)
+  m_product(*m_svc)
 {
    // Define the policy for the implicit file handling
     pool::DatabaseConnectionPolicy policy;
@@ -42,15 +42,15 @@ OneBranchTree::~OneBranchTree()
 
 
 void OneBranchTree::add(edm::EDProduct * prod) {
-  svc->transaction().start(pool::ITransaction::UPDATE);
+  m_svc->transaction().start(pool::ITransaction::UPDATE);
   m_product = prod;
   m_product.markWrite(m_place);
   m_nentry++;
-    svc->transaction().commitAndHold();
+  m_svc->transaction().commitAndHold();
     
     if (m_nentry%10==0) {
       // std::cout << "cache size before commit " << svc->cacheSvc().cacheSize() << std::endl;
-      svc->transaction().commit();
+      m_svc->transaction().commit();
       // std::cout << "cache size after commit " << svc->cacheSvc().cacheSize() << std::endl;
     }
 }
