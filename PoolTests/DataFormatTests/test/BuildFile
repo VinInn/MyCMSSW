@@ -1,0 +1,4 @@
+<bin name=test_PoolTests_OneProdWrite file=test_OneProdWrite.cpp>
+  <use name=PoolTests/DataFormatTests>
+  <use name=SimDataFormats/Track>
+</bin>
