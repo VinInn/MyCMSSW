@@ -1,5 +1,13 @@
 import sys, os, string
 
+
+# loops over DataFormats
+# find classes.h
+# extract edm::wrapper<.....>
+# generates a header that includes
+#    the classes.h in question
+#    typedef edm::wrapper<.....> TheWrapper;
+#
 class Generator :
      def __init__(self, src) :
          self.src=src
@@ -11,14 +19,14 @@ class Generator :
      def generate(self) :
          for bdir in self.dirs:
              topdir = self.src+'/'+bdir
-             print topdir
+             # print topdir
              for dir in os.listdir(topdir):
-                 self.iterate(topdir+'/'+dir)
+                 self.iterate(bdir+'/'+dir)
 
      def iterate(self,sdir) :
          classDotH = sdir+'/src/classes.h'
          try:
-             f = open(classDotH)
+             f = open(self.src+'/'+classDotH)
              try:
                  lines = string.join(f.readlines())
                  j=0
