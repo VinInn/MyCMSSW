@@ -5,6 +5,7 @@ class Generator :
          self.src=src
          self.dirs = ["DataFormats","SimDataFormats"]
          self.match="edm::Wrapper"
+         self.trans=string.maketrans('<>:','___')
          self.wrappers =[]
 
      def generate(self) :
@@ -28,7 +29,7 @@ class Generator :
                      if (j<0) : break
                      j = lines.rfind('>',i,j)
                      if (j<i) : break
-                     print lines[i:j+1]
+                     # print lines[i:j+1]
                      self.wrappers.append((lines[i:j+1],classDotH))
              finally:
                  f.close();
@@ -38,14 +39,19 @@ class Generator :
      def dump(self) :
          print self.wrappers
 
+     def genHeaders(self) :
+         for (c,h) in self.wrappers :
+             hname = c.translate(self.trans).replace(' ','')+'genH.h'
+             print hname
+
 def main():
     args = sys.argv[1:]
     if len(args) != 1:
-        print 'usage: python CMSSW_BASE/src'
+        print 'usage: python generateTests.py $CMSSW_BASE/src'
         sys.exit(-1)
     generator = Generator(args[0])
     generator.generate()
-    generator.dump()
+    generator.genHeaders()
 
 if __name__ == '__main__':
     main()
