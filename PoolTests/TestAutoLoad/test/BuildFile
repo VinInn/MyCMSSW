@@ -1,4 +1,4 @@
-<bin file=test_pooltree.cpp></bin>
+<bin name=test_autoload_pooltree  file=test_pooltree.cpp></bin>
 # <use name=DataFormats/EcalRecHit>
 <use name=boost>
 <use name=zlib>
