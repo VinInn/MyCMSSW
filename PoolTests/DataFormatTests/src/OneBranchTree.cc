@@ -16,7 +16,7 @@
 
 OneBranchTree::OneBranchTree(pool::IFileCatalog * cat, 
 			     std::string const & fname /* = "Events.root" */,
-			     std::string const & bname /* = "Ev(Prod)" */ ) :
+			     std::string const & bname /* = "Events(Prod)" */ ) :
   m_nentry(0),    
   m_svc(pool::DataSvcFactory::instance(cat)),
   m_place(fname, pool::DatabaseSpecification::PFN, bname, ROOT::Reflex::Type(), 

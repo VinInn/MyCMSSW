@@ -57,9 +57,14 @@ int main(int argc, char * argv[]) {
 
 */
 
+
+    std::string url = "PFN:Events.root";
+    std::string containerName = "Events(Prod)";
+
+
     //    std::string url = "FID:F038EB17-6636-DB11-B7E4-00E08151E907";
-    std::string url = "PFN:/afs/cern.ch/user/i/innocent/scratch0/h2.00029004.combined.OutServ_0.0-cmsswreco.root";
-    std::string containerName = "Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)";
+    //    std::string url = "PFN:/afs/cern.ch/user/i/innocent/scratch0/h2.00029004.combined.OutServ_0.0-cmsswreco.root";
+    // std::string containerName = "Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)";
     // std::string containerName = "Events(EventAux)";
  
     // typedef edm::EventAux Obj;

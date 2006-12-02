@@ -18,7 +18,7 @@ class  OneBranchTree {
 
 public:
   explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
-			 std::string const & bname = "Ev(Prod)" );
+			 std::string const & bname = "Events(Prod)" );
   ~OneBranchTree();
 
   void add(edm::EDProduct * prod); 
