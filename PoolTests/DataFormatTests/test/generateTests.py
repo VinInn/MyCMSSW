@@ -50,8 +50,10 @@ class Generator :
      def genHeaders(self) :
          for (c,h) in self.wrappers :
              hname = c.translate(self.trans).replace(' ','')+'genH.h'
-             print hname
-
+             f=open(hname,'w')
+             f.write('#include "'+h+'"\n')
+             f.write('typedef '+c+' TheWrapper\n');
+             f.close()
 def main():
     args = sys.argv[1:]
     if len(args) != 1:
