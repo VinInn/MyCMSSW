@@ -1,7 +1,7 @@
 <use name=DataFormats/Common>
 <use name=boost>
 <use name=DataSvc>
-<use name=root>
+<use name=rootcore>
 
 
 <export>
@@ -9,6 +9,6 @@
 <use name=DataFormats/Common>
 <use name=boost>
 <use name=DataSvc>
-<use name=root>
+<use name=rootcore>
 </export>
 
