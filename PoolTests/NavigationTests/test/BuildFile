@@ -14,7 +14,7 @@
 <bin file=testMyMap.cpp></bin>
 <bin file=circular.cpp></bin>
 <bin file=multifiles.cpp></bin>
-<bin file=writeTraits.cpp></bin>
+# <bin file=writeTraits.cpp></bin>
 <bin file=myrefs.cpp></bin>
 <use name=PoolTests/NavigationTests>
 <use name=Foundation/SealUtil>
