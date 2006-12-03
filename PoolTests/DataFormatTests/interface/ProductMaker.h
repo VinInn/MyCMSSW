@@ -57,7 +57,7 @@ namespace details {
   template <typename T> no_tag  has_value_helper(...);
   template <typename T> yes_tag has_value_helper(value_type<T, typename T::value_type> * dummy);
   
-  template <typename T, void (T::*)( T const &)>  struct pb_function;
+  template <typename T, void (T::*)( typename T::value_type const &)>  struct pb_function;
   template <typename T> no_tag  has_pb_helper(...);
   template <typename T> yes_tag has_pb_helper(pb_function<T, &T::push_back> * dummy);
   
