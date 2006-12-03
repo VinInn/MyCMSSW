@@ -1,10 +1,10 @@
 
 
 
-<bin file=testDict.cpp>
-<lib name=boost_serialization-gcc-mt>
-<use name=boost>
-</bin>
+#<bin file=testDict.cpp>
+#<lib name=boost_serialization-gcc-mt>
+#<use name=boost>
+#</bin>
 
 <bin file=writeread.cpp></bin>
 <bin file=multicache.cpp></bin>
