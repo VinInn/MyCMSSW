@@ -20,7 +20,6 @@
 
 int main(int argc, char * argv[]) {
 
-
   seal::PluginManager::get()->initialise();
 
   pool::URIParser p;

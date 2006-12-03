@@ -13,9 +13,14 @@ class Generator :
          self.src=src
          self.dirs = ["DataFormats","SimDataFormats"]
          self.match="edm::Wrapper"
-         self.trans=string.maketrans('<>:','___')
+         self.trans=string.maketrans('<>:,','____')
          self.wrappers =[]
-
+         bT = "<bin name=${binName} file=${cppName}>\n" \
+         + "  <use name=PoolTests/DataFormatTests>\n" \
+         + "  <use name=${package}>\n" \
+         + "  </bin>\n\n"
+         self.buildfileTemplate = string.Template(bT) 
+         self.buildfile = "#Generated BuildFile\n"
      def generate(self) :
          for bdir in self.dirs:
              topdir = self.src+'/'+bdir
@@ -47,11 +52,14 @@ class Generator :
      def dump(self) :
          print self.wrappers
 
-     def genHeaders(self) :
+     def genFiles(self) :
          for (c,h) in self.wrappers :
              name = c.translate(self.trans).replace(' ','')
              hname = name +'genH.h'
              fname = name +'evts.root'
+             cppName = name +'genH_Write.cpp'
+             binName = name +'test'
+             package = h[0:h.find('/src')]
              f=open(hname,'w')
              f.write('#include "'+h+'"\n')
              f.write('#include <string>\n')
@@ -59,6 +67,16 @@ class Generator :
              f.write('namespace {\n')
              f.write('   std::string const filename('+fname+');\n}\n\n') 
              f.close()
+             # fill buildfile
+             self.buildfile += self.buildfileTemplate.substitute(binName=binName, cppName=cppName,package=package)
+             f = open(cppName,'w')
+             f.write('#include "'+hname+'"\n')
+             f.write('#include "template_OneProdWrite.cpp\n')
+             f.close()
+         b = open("BuildFile_genH",'w')
+         b.write(self.buildfile)
+         b.close()
+         
 def main():
     args = sys.argv[1:]
     if len(args) != 1:
@@ -66,7 +84,7 @@ def main():
         sys.exit(-1)
     generator = Generator(args[0])
     generator.generate()
-    generator.genHeaders()
+    generator.genFiles()
 
 if __name__ == '__main__':
     main()
