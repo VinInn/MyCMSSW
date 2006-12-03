@@ -3,6 +3,7 @@
 
 #include "boost/mpl/if.hpp"
 #include <memory>
+#include <vector>
 
 namespace edm {
   class EDProduct;
@@ -48,6 +49,19 @@ struct MakeContainerIn {
   }
 };
 
+template<typename Wrapper> 
+struct MakeRangeMap {
+  typedef typename Wrapper::value_type RangeMap;
+  typedef typename RangeMap::value_type Object;
+  typedef typename RangeMap::mapType::key_type ID;
+  Wrapper * operator()() {
+   std::auto_ptr<RangeMap> cont(new RangeMap);
+   std::vector<Object> v; v.push_back(Object()); v.push_back(Object());
+   (*cont).put(ID(),v.begin(),v.end());
+    return new Wrapper(cont); 
+  }
+};
+
 namespace details {
 
   typedef char (& no_tag )[1]; // type indicating FALSE
@@ -57,11 +71,6 @@ namespace details {
   template <typename T> no_tag  has_value_helper(...);
   template <typename T> yes_tag has_value_helper(value_type<T, typename T::value_type> * dummy);
   
-  template <typename T, void (T::*)( typename T::value_type const &)>  struct pb_function;
-  template <typename T> no_tag  has_pb_helper(...);
-  template <typename T> yes_tag has_pb_helper(pb_function<T, &T::push_back> * dummy);
-  
-  
   template<typename T>
   struct has_value_type
   {
@@ -69,11 +78,29 @@ namespace details {
       sizeof(has_value_helper<T>(0)) == sizeof(yes_tag);
   };
 
+
+
+  template <typename T, void (T::*)( typename T::value_type const &)>  struct pb_function;
+  template <typename T> no_tag  has_pb_helper(...);
+  template <typename T> yes_tag has_pb_helper(pb_function<T, &T::push_back> * dummy);
+  
   template<typename T>
   struct has_push_back
   {
     static bool const value = 
       sizeof(has_pb_helper<T>(0)) == sizeof(yes_tag);
+  };
+
+  // very had-oc
+  template <typename T, typename V>  struct mapType;
+  template <typename T> no_tag  is_RangeMap_helper(...);
+  template <typename T> yes_tag is_RangeMap_helper(value_type<T, typename T::mapType> * dummy);
+  
+  template<typename T>
+  struct is_RangeMap
+  {
+    static bool const value = 
+      sizeof(is_RangeMap_helper<T>(0)) == sizeof(yes_tag);
   };
 
 }
@@ -86,10 +113,13 @@ public:
 
   virtual edm::EDProduct * make() {
     typename boost::mpl::if_c<details::has_value_type<Container>::value,
+      typename boost::mpl::if_c< 
+    details::is_RangeMap<Container>::value,
+      MakeRangeMap<Wrapper>, 
       typename boost::mpl::if_c<details::has_push_back<Container>::value, 
-      MakeContainerPB<Wrapper>,  MakeContainerIn<Wrapper> >::type,
-      MakeSimple<Wrapper> >::type maker;
-
+      MakeContainerPB<Wrapper>,  MakeContainerIn<Wrapper> >::type >::type,
+	MakeSimple<Wrapper>  >::type maker;
+    
     return maker();
   }
   
