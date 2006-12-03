@@ -49,10 +49,15 @@ class Generator :
 
      def genHeaders(self) :
          for (c,h) in self.wrappers :
-             hname = c.translate(self.trans).replace(' ','')+'genH.h'
+             name = c.translate(self.trans).replace(' ','')
+             hname = name +'genH.h'
+             fname = name +'evts.root'
              f=open(hname,'w')
              f.write('#include "'+h+'"\n')
-             f.write('typedef '+c+' TheWrapper\n');
+             f.write('#include <string>\n')
+             f.write('typedef '+c+' TheWrapper;\n')
+             f.write('namespace {\n')
+             f.write('   std::string const filename('+fname+');\n}\n\n') 
              f.close()
 def main():
     args = sys.argv[1:]
