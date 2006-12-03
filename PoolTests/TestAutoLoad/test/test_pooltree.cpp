@@ -92,10 +92,11 @@ int main(int argc, char * argv[]) {
 	  //                << " of type " << CMSPool::classname(aObj) 
 		  << std::endl;
     }
-    std::cout << "It contains " << n << " objects" << std::endl;
+    std::cout << "It contains " << n << " objects of type "
+	      <<  typeid(*aObj).name()<< std::endl;
     std::cout << "like " 
 	      << aObj.toString() 
-	      << "\nof type "<<  typeid(*aObj).name() << std::endl;
+	      << std::endl;
     
     
     

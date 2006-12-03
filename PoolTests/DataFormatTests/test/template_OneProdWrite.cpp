@@ -12,8 +12,6 @@
 #include "PoolTests/DataFormatTests/interface/OneBranchTree.h"
 #include "PoolTests/DataFormatTests/interface/ProductMaker.h"
 
-#include "SimDataFormats/Track/interface/SimTrack.h"
-#include "SimDataFormats/Track/interface/SimTrackContainer.h"
 #include "DataFormats/Common/interface/Wrapper.h"
 
 
