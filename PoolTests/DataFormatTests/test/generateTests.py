@@ -71,7 +71,7 @@ class Generator :
              self.buildfile += self.buildfileTemplate.substitute(binName=binName, cppName=cppName,package=package)
              f = open(cppName,'w')
              f.write('#include "'+hname+'"\n')
-             f.write('#include "template_OneProdWrite.cpp\n')
+             f.write('#include "template_OneProdWrite.cpp"\n')
              f.close()
          b = open("BuildFile_genH",'w')
          b.write(self.buildfile)
