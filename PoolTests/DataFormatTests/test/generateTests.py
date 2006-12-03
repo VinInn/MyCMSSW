@@ -13,7 +13,7 @@ class Generator :
          self.src=src
          self.dirs = ["DataFormats","SimDataFormats"]
          self.match="edm::Wrapper"
-         self.trans=string.maketrans('<>:,','____')
+         self.trans=string.maketrans('<>:,*\n','___...')
          self.wrappers =[]
          bT = "<bin name=${binName} file=${cppName}>\n" \
          + "  <use name=PoolTests/DataFormatTests>\n" \
@@ -65,7 +65,7 @@ class Generator :
              f.write('#include <string>\n')
              f.write('typedef '+c+' TheWrapper;\n')
              f.write('namespace {\n')
-             f.write('   std::string const filename('+fname+');\n}\n\n') 
+             f.write('   std::string const filename("'+fname+'");\n}\n\n') 
              f.close()
              # fill buildfile
              self.buildfile += self.buildfileTemplate.substitute(binName=binName, cppName=cppName,package=package)
