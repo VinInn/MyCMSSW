@@ -8,6 +8,8 @@ touch write.log
 foreach x ( $CMSSW_BASE/test/$SCRAM_ARCH/edm* )
 $x >>& write.log
 end
+grep "what()" write.log
+grep "Warning" write.log
 touch read.log
 foreach x ( *.root )
 $CMSSW_BASE/test/$SCRAM_ARCH/test_autoload_pooltree $x >>& read.log
