@@ -43,7 +43,7 @@ struct MakeContainerIn {
   typedef typename Container::value_type Object;
   Wrapper * operator()() {
    std::auto_ptr<Container> cont(new Container);
-    (*cont).insert((*cont).end(),Object());
+    (*cont).insert(Object());
     return new Wrapper(cont); 
   }
 };
