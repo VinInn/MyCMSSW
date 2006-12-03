@@ -27,7 +27,18 @@ struct MakeSimple {
 };
 
 template<typename Wrapper> 
-struct MakeContainer {
+struct MakeContainerPB {
+  typedef typename Wrapper::value_type Container;
+  typedef typename Container::value_type Object;
+  Wrapper * operator()() {
+   std::auto_ptr<Container> cont(new Container);
+   (*cont).push_back(Object());
+    return new Wrapper(cont); 
+  }
+};
+
+template<typename Wrapper> 
+struct MakeContainerIn {
   typedef typename Wrapper::value_type Container;
   typedef typename Container::value_type Object;
   Wrapper * operator()() {
@@ -46,6 +57,10 @@ namespace details {
   template <typename T> no_tag  has_value_helper(...);
   template <typename T> yes_tag has_value_helper(value_type<T, typename T::value_type> * dummy);
   
+  template <typename T, void (T::*)( T const &)>  struct pb_function;
+  template <typename T> no_tag  has_pb_helper(...);
+  template <typename T> yes_tag has_pb_helper(pb_function<T, &T::push_back> * dummy);
+  
   
   template<typename T>
   struct has_value_type
@@ -53,6 +68,14 @@ namespace details {
     static bool const value = 
       sizeof(has_value_helper<T>(0)) == sizeof(yes_tag);
   };
+
+  template<typename T>
+  struct has_push_back
+  {
+    static bool const value = 
+      sizeof(has_pb_helper<T>(0)) == sizeof(yes_tag);
+  };
+
 }
 
 
@@ -62,8 +85,9 @@ public:
   typedef typename Wrapper::value_type Container;
 
   virtual edm::EDProduct * make() {
-    typename boost::mpl::if_c<details::has_value_type<Container>::value, 
-      MakeContainer<Wrapper>, 
+    typename boost::mpl::if_c<details::has_value_type<Container>::value,
+      typename boost::mpl::if_c<details::has_push_back<Container>::value, 
+      MakeContainerPB<Wrapper>,  MakeContainerIn<Wrapper> >::type,
       MakeSimple<Wrapper> >::type maker;
 
     return maker();

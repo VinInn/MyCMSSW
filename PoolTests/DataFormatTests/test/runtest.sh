@@ -4,6 +4,11 @@ cd $CMSSW_BASE/src/testDF/testDF/test
 python  generateTests.py  $CMSSW_RELEASE_BASE/src
 mv BuildFile_genH BuildFile
 scramv1 b -k
+touch write.log
 foreach x ( $CMSSW_BASE/test/$SCRAM_ARCH/edm* )
-$x
+$x >>& write.log
+end
+touch read.log
+foreach x ( *.root )
+$CMSSW_BASE/test/$SCRAM_ARCH/test_autoload_pooltree $x >>& read.log
 end
