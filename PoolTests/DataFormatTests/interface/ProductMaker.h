@@ -12,9 +12,7 @@ namespace edm {
 class ProductMaker {
 public:
   virtual ~ProductMaker(){}
-  virtual edm::EDProduct * make()=0;
-  
-  
+  virtual edm::EDProduct * make()=0;  
 };
 
 
