@@ -10,8 +10,10 @@
 #include "SimDataFormats/Track/interface/SimTrack.h"
 #include "SimDataFormats/Track/interface/SimTrackContainer.h"
 #include "DataFormats/Common/interface/Wrapper.h"
+#include "DataFormats/Common/interface/EventAux.h"
 
-typedef edm::Wrapper<std::vector<SimTrack> > TheWrapper;
+// typedef edm::Wrapper<std::vector<SimTrack> > TheWrapper;
+typedef edm::Wrapper<EventAux> TheWrapper;
 
 
 int main(int argc, char * argv[]) {
