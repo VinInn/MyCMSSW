@@ -91,6 +91,17 @@ namespace details {
       sizeof(has_pb_helper<T>(0)) == sizeof(yes_tag);
   };
 
+  template <typename T, void (T::*)( typename T::value_type const &)>  struct ins_function;
+  template <typename T> no_tag  has_ins_helper(...);
+  template <typename T> yes_tag has_ins_helper(pb_function<T, &T::insert> * dummy);
+  
+  template<typename T>
+  struct has_insert
+  {
+    static bool const value = 
+      sizeof(has_ins_helper<T>(0)) == sizeof(yes_tag);
+  };
+
   // very had-oc
   template <typename T, typename V>  struct mapType;
   template <typename T> no_tag  is_RangeMap_helper(...);
@@ -112,12 +123,18 @@ public:
   typedef typename Wrapper::value_type Container;
 
   virtual edm::EDProduct * make() {
+    // container = has value_type (maybe use something else)
+    // check if RangeMap, has push_back or insert
+    // if not write it as is....
     typename boost::mpl::if_c<details::has_value_type<Container>::value,
       typename boost::mpl::if_c< 
     details::is_RangeMap<Container>::value,
       MakeRangeMap<Wrapper>, 
       typename boost::mpl::if_c<details::has_push_back<Container>::value, 
-      MakeContainerPB<Wrapper>,  MakeContainerIn<Wrapper> >::type >::type,
+      MakeContainerPB<Wrapper>,  
+      typename boost::mpl::if_c<details::has_insert<Container>::value,
+      MakeContainerIn<Wrapper>, MakeSimple<Wrapper> >::type
+      >::type >::type,
 	MakeSimple<Wrapper>  >::type maker;
     
     return maker();
