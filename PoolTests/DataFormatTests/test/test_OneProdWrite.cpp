@@ -13,7 +13,7 @@
 #include "DataFormats/Common/interface/EventAux.h"
 
 // typedef edm::Wrapper<std::vector<SimTrack> > TheWrapper;
-typedef edm::Wrapper<EventAux> TheWrapper;
+typedef edm::Wrapper<edm::EventAux> TheWrapper;
 
 
 int main(int argc, char * argv[]) {
