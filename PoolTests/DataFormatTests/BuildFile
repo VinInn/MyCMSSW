@@ -3,7 +3,6 @@
 <use name=DataSvc>
 <use name=rootcore>
 
-
 <export>
  <lib name=PoolTestsDataFormatTests>
 <use name=DataFormats/Common>

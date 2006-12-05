@@ -1,15 +1,12 @@
-
 <use name=boost>
-<use name=zlib>
 <use name=DataSvc>
-<use name=root>
+<use name=rootcore>
 
 
 <export>
  <lib name=PoolTestsPoolTreeTests>
  <use name=boost>
- <use name=zlib>
  <use name=DataSvc>
-<use name=root>
+<use name=rootcore>
 </export>
 

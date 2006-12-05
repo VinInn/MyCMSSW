@@ -1,9 +1,7 @@
 <bin name=test_autoload_pooltree  file=test_pooltree.cpp></bin>
 # <use name=DataFormats/EcalRecHit>
 <use name=boost>
-<use name=zlib>
 <use name=DataSvc>
-# <use name=Dictionary/Reflex>
 <use name=Foundation/SealUtil>
 <use name=Collection>
 <use name=DataFormats/Common>

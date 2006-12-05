@@ -1,5 +1,5 @@
 <bin file=test_pooltree.cpp></bin>
 <use name=PoolTests/PoolTreeTests>
-<use name=root>
+<use name=rootcore>
 <use name=Foundation/SealUtil>
 <use name=Collection>
