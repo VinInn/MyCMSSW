@@ -34,6 +34,7 @@ int main(int argc, char * argv[]) {
       
       WrapperMaker<TheWrapper> maker;
       
+      std::cout << "[DataFormatsTest] ";
       maker.message(std::cout);
       std::cout << std::endl;
       
@@ -43,12 +44,12 @@ int main(int argc, char * argv[]) {
       
     }
     catch (const std::exception & ce) {
-      std::cout << "[DataFormatsTest] "
+      std::cout << "[DataFormatsTest] Error: "
 		<< ce.what() << std::endl;
       ret=100;
     }
     catch (...) {
-      std::cout << "[DataFormatsTest] "
+      std::cout << "[DataFormatsTest] Error: "
 		<< "unkown error" << std::endl;
       ret=101;
     }
@@ -56,12 +57,12 @@ int main(int argc, char * argv[]) {
     cat.commit();
   }
   catch (const std::exception & ce) {
-    std::cout << "[DataFormatsTest] "
+    std::cout << "[DataFormatsTest] Error: "
 	      << ce.what() << std::endl;
     ret=102;
   }
   catch (...) {
-    std::cout << "[DataFormatsTest] "
+    std::cout << "[DataFormatsTest] Error: "
 	      << "unkown error" << std::endl;
     ret=103;
   }

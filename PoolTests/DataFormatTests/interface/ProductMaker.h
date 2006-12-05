@@ -27,7 +27,7 @@ public:
 class MakerMessage {
 public:
   MakerMessage() : 
-    m_trailer("[DataFormatTest] ")
+    m_trailer("")
 {}
  
   virtual ~MakerMessage() {}

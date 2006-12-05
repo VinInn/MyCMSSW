@@ -3,7 +3,7 @@ cp -r $CMSSW_BASE/src/PoolTests/DataFormatTests/test $CMSSW_BASE/src/testDF/test
 cd $CMSSW_BASE/src/testDF/testDF/test
 python  generateTests.py  $CMSSW_RELEASE_BASE/src
 mv BuildFile_genH BuildFile
-scramv1 b -k
+scramv1 b -k -j 4
 touch write.log
 foreach x ( $CMSSW_BASE/test/$SCRAM_ARCH/edm* )
 $x >>& write.log
