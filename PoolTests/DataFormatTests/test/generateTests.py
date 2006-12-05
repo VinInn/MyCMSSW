@@ -21,14 +21,17 @@ class Generator :
          + "  </bin>\n\n"
          self.buildfileTemplate = string.Template(bT) 
          self.buildfile = "#Generated BuildFile\n"
-     def generate(self) :
+     def parseAll(self) :
          for bdir in self.dirs:
              topdir = self.src+'/'+bdir
              # print topdir
-             for dir in os.listdir(topdir):
-                 self.iterate(bdir+'/'+dir)
-
-     def iterate(self,sdir) :
+             try:
+                  for dir in os.listdir(topdir):
+                       self.parseClassesDotH(bdir+'/'+dir)
+             except :
+                  print topdir, "not found"
+                  
+     def parseClassesDotH(self,sdir) :
          classDotH = sdir+'/src/classes.h'
          try:
              f = open(self.src+'/'+classDotH)
@@ -83,7 +86,7 @@ def main():
         print 'usage: python generateTests.py $CMSSW_BASE/src'
         sys.exit(-1)
     generator = Generator(args[0])
-    generator.generate()
+    generator.parseAll()
     generator.genFiles()
 
 if __name__ == '__main__':

@@ -1,9 +1,15 @@
 #ifndef ProductMaker_H
 #define ProductMaker_H
 
+#include "PoolTests/DataFormatTests/interface/TypeName.h"
+
+
 #include "boost/mpl/if.hpp"
 #include <memory>
 #include <vector>
+#include <ostream>
+#include <string>
+
 
 namespace edm {
   class EDProduct;
@@ -13,20 +19,56 @@ class ProductMaker {
 public:
   virtual ~ProductMaker(){}
   virtual edm::EDProduct * make()=0;  
+
+  virtual void message(std::ostream & os) const =0;
+
 };
 
+class MakerMessage {
+public:
+  MakerMessage() : 
+    m_trailer("[DataFormatTest] ")
+{}
+ 
+  virtual ~MakerMessage() {}
+ 
+  void message(std::ostream & os) const {
+    os << trailer();
+    makeMessage(os);
+  }
+  
+  std::string const & trailer() const { return m_trailer;}
+
+  template<typename T> static void typeAndSize(std::ostream & os) {
+    os << VUtils::TypeName<T>::name() << ", " << sizeof(T);
+  }
+
+  
+private:
+  
+  virtual void makeMessage(std::ostream & os) const=0;
+  
+
+  const std::string m_trailer;
+};
 
 template<typename Wrapper> 
-struct MakeSimple {
+struct MakeSimple : public  MakerMessage {
   typedef typename Wrapper::value_type Object;
   Wrapper * operator()() {
     std::auto_ptr<Object> o(new Object);
     return new Wrapper(o); 
   }
+private:
+  void makeMessage(std::ostream & os) const {
+    os << "simple Product ";
+    typeAndSize<Wrapper>(os); os<<" "; 
+    typeAndSize<Object>(os);
+  }
 };
 
 template<typename Wrapper> 
-struct MakeContainerPB {
+struct MakeContainerPB  : public  MakerMessage {
   typedef typename Wrapper::value_type Container;
   typedef typename Container::value_type Object;
   Wrapper * operator()() {
@@ -34,10 +76,18 @@ struct MakeContainerPB {
    (*cont).push_back(Object());
     return new Wrapper(cont); 
   }
+
+  void makeMessage(std::ostream & os) const {
+    os << "Container Product ";
+    typeAndSize<Wrapper>(os); os<<" "; 
+    typeAndSize<Container>(os); os<<" "; 
+    typeAndSize<Object>(os);
+  }
+
 };
 
 template<typename Wrapper> 
-struct MakeContainerIn {
+struct MakeContainerIn  : public  MakerMessage {
   typedef typename Wrapper::value_type Container;
   typedef typename Container::value_type Object;
   Wrapper * operator()() {
@@ -45,10 +95,18 @@ struct MakeContainerIn {
     (*cont).insert(Object());
     return new Wrapper(cont); 
   }
+
+  void makeMessage(std::ostream & os) const {
+    os << "Container Product ";
+    typeAndSize<Wrapper>(os); os<<" "; 
+    typeAndSize<Container>(os); os<<" "; 
+    typeAndSize<Object>(os);
+  }
+
 };
 
 template<typename Wrapper> 
-struct MakeRangeMap {
+struct MakeRangeMap  : public  MakerMessage {
   typedef typename Wrapper::value_type RangeMap;
   typedef typename RangeMap::value_type Object;
   typedef typename RangeMap::mapType::key_type ID;
@@ -58,7 +116,18 @@ struct MakeRangeMap {
    (*cont).put(ID(),v.begin(),v.end());
     return new Wrapper(cont); 
   }
+
+  void makeMessage(std::ostream & os) const {
+    os << "RangeMap Product ";
+    typeAndSize<Wrapper>(os); os<<" "; 
+    typeAndSize<RangeMap>(os); os<<" "; 
+    typeAndSize<Object>(os); os<<" "; 
+    typeAndSize<ID>(os);
+  }
+
 };
+
+
 
 namespace details {
 
@@ -119,24 +188,29 @@ template<typename Wrapper>
 class WrapperMaker : public ProductMaker{
 public:
   typedef typename Wrapper::value_type Container;
+  
+  // container = has value_type (maybe use something else)
+  // check if RangeMap, has push_back or insert
+  // if not write it as is....
+  typename boost::mpl::if_c<details::has_value_type<Container>::value,
+			    typename boost::mpl::if_c< 
+			      details::is_RangeMap<Container>::value,
+			      MakeRangeMap<Wrapper>, 
+			      typename boost::mpl::if_c<details::has_push_back<Container>::value, 
+							MakeContainerPB<Wrapper>,  
+							typename boost::mpl::if_c<details::has_insert<Container>::value,
+										  MakeContainerIn<Wrapper>, MakeSimple<Wrapper> >::type
+							>::type >::type,
+			    MakeSimple<Wrapper>  >::type maker;
 
   virtual edm::EDProduct * make() {
-    // container = has value_type (maybe use something else)
-    // check if RangeMap, has push_back or insert
-    // if not write it as is....
-    typename boost::mpl::if_c<details::has_value_type<Container>::value,
-      typename boost::mpl::if_c< 
-    details::is_RangeMap<Container>::value,
-      MakeRangeMap<Wrapper>, 
-      typename boost::mpl::if_c<details::has_push_back<Container>::value, 
-      MakeContainerPB<Wrapper>,  
-      typename boost::mpl::if_c<details::has_insert<Container>::value,
-      MakeContainerIn<Wrapper>, MakeSimple<Wrapper> >::type
-      >::type >::type,
-	MakeSimple<Wrapper>  >::type maker;
-    
     return maker();
   }
+  
+  virtual void message(std::ostream & os) const {
+    maker.message(os);
+  }
+  
   
 };
 

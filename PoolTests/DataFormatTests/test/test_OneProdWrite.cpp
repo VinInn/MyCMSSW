@@ -12,6 +12,9 @@
 #include "DataFormats/Common/interface/Wrapper.h"
 // #include "DataFormats/Common/interface/EventAux.h"
 
+
+#include<iostream>
+
 typedef edm::Wrapper<std::vector<SimTrack> > TheWrapper;
 // cannot be written by pool...
 // typedef edm::Wrapper<EventAux> TheWrapper;
@@ -33,6 +36,9 @@ int main(int argc, char * argv[]) {
   OneBranchTree tree(&cat);
 
   WrapperMaker<TheWrapper> maker;
+
+  maker.message(std::cout);
+  std::cout << std::endl;
  
   for (int i=0;i<50;i++) {
     tree.add(maker.make());

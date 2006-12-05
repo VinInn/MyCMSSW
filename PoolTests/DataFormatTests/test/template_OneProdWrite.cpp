@@ -4,45 +4,68 @@
  *
  */
 #include "PluginManager/PluginManager.h"
-#include "POOLCore/Token.h"
 #include "FileCatalog/URIParser.h"
-#include "FileCatalog/FCSystemTools.h"
 #include "FileCatalog/IFileCatalog.h"
 
 #include "PoolTests/DataFormatTests/interface/OneBranchTree.h"
 #include "PoolTests/DataFormatTests/interface/ProductMaker.h"
 
-#include "DataFormats/Common/interface/Wrapper.h"
-
+#include<iostream>
 
 
 int main(int argc, char * argv[]) {
 
-  seal::PluginManager::get()->initialise();
-
-  pool::URIParser p;
-  p.parse();
-  
-  pool::IFileCatalog cat;
-  cat.setWriteCatalog(p.contactstring());
- 
-  cat.connect();
-  cat.start();
-  OneBranchTree tree(&cat, filename);
-
-  WrapperMaker<TheWrapper> maker;
- 
-  for (int i=0;i<50;i++) {
-    tree.add(maker.make());
+  int ret=0;
+  try {
+    
+    seal::PluginManager::get()->initialise();
+    
+    pool::URIParser p;
+    p.parse();
+    
+    pool::IFileCatalog cat;
+    cat.setWriteCatalog(p.contactstring());
+    
+    cat.connect();
+    cat.start();
+    
+    try {
+      OneBranchTree tree(&cat, filename);
+      
+      WrapperMaker<TheWrapper> maker;
+      
+      maker.message(std::cout);
+      std::cout << std::endl;
+      
+      for (int i=0;i<50;i++) {
+	tree.add(maker.make());
+      }
+      
+    }
+    catch (const std::exception & ce) {
+      std::cout << "[DataFormatsTest] "
+		<< ce.what() << std::endl;
+      ret=100;
+    }
+    catch (...) {
+      std::cout << "[DataFormatsTest] "
+		<< "unkown error" << std::endl;
+      ret=101;
+    }
+    
+    cat.commit();
+  }
+  catch (const std::exception & ce) {
+    std::cout << "[DataFormatsTest] "
+	      << ce.what() << std::endl;
+    ret=102;
+  }
+  catch (...) {
+    std::cout << "[DataFormatsTest] "
+	      << "unkown error" << std::endl;
+    ret=103;
   }
   
-
-  cat.commit();
-
-  //  std::cout << "the end" << std::endl;
-
-
-
   return 0;
-
+  
 }
