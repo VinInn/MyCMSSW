@@ -74,34 +74,36 @@ class CheckDep :
          try:
              bfile =BuildFile(self.src+'/'+buildfile)
          except:
-             report += pack+" does not have a BuildFile\n"
-         else:
-             dirs = []
-             dirs.append(self.src+'/'+pack+'/interface')
-             dirs.append(self.src+'/'+pack+'/src')
-             for dir in dirs :
-                 try:
-                     #print dir
-                     os.stat(dir)
-                 except:
-                     print "NO????", dir
-                     continue
-                 else:
-                     for fname in os.listdir(dir):
-                         # print fname
-                         # for each file check if include match use
-                         if (fname.find(".h")<1 and fname.find(".cc")<1 ): continue
-                         headers = Headers(dir+'/'+fname,pack)
-                         for pk in headers.packages :
-                             if (not bfile.depend(pk)) :
-                                 report += pack + ' includes headers from ' + pk \
-                                           + ' but does not declare it in BuildFile: '
-                                 report += "Please add <use name="+pk+"> to " + pack+"/BuildFile\n"
-             # and viceversa check if any use is not included"
+             # report += pack+" does not have a BuildFile\n"
+             bfile = None
+             
+         dirs = []
+         dirs.append(self.src+'/'+pack+'/interface')
+         dirs.append(self.src+'/'+pack+'/src')
+         for dir in dirs :
+             try:
+                 #print dir
+                 os.stat(dir)
+             except:
+                 # print "NO????", dir
+                 continue
+             else:
+                 for fname in os.listdir(dir):
+                     # print fname
+                     # for each file check if include match use
+                     if (fname.find(".h")<1 and fname.find(".cc")<1 ): continue
+                     headers = Headers(dir+'/'+fname,pack)
+                     for pk in headers.packages :
+                         if (bfile==None or not bfile.depend(pk)) :
+                             report += pack + ' includes headers from ' + pk \
+                                       + ' but does not declare it in BuildFile: '
+                             report += "Please add <use name="+pk+"> to " + pack+"/BuildFile\n"
+         # and viceversa check if any use is not included"
+         if (bfile != None) :
              for pk in bfile.report() : 
                  report+= pack + ' use ' + pk + " but does not include any of its header files: "
                  report+= "Please remove <use name="+pk+"> from " +  pack+"/BuildFile\n"
- 
+                                 
          return report
               
 

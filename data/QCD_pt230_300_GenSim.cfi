@@ -27,8 +27,8 @@
   # include geant4 and Digi Zero Suppressed simulation
 
   include "SimG4Core/Application/data/SimG4Object.cfi"
+  include "IOMC/EventVertexGenerators/data/VtxSmearedGauss.cfi"
 
-  include "SimG4Core/Application/data/DigiWithEcalZeroSuppression.cff"
 
   path p1 = { VtxSmeared, g4SimHits, GEN-SIM }
 
