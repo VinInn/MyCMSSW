@@ -17,8 +17,8 @@ namespace edm {
       virtual ~PolyVectorInnerBase(){}
       virtual size_t size() const=0;
       virtual void put(const B& b)=0;
-      B& get() { return get_impl(); }
-      const B& get() const { return get_impl(); }
+      B& get(int i) { return get_impl(i); }
+      const B& get(int i) const { return get_impl(i); }
     private:
       virtual B& get_impl(int i)=0;
       
@@ -82,6 +82,14 @@ namespace edm {
 	p = this->addType<V>();
       m_indices.push_back(Index((*p).second, m_data[(*p).second]->size()));
       m_data[(*p).second]->put(v);
+    }
+
+    reference operator[](size_type i) {
+      return data(i);
+    }
+
+    const_reference operator[](size_type i) const {
+      return data(i);
     }
 
   private:

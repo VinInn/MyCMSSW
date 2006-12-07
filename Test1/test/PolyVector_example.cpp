@@ -1,7 +1,9 @@
 #include "PolyVector.h"
+#include<iostream>
 
-
-struct B{};
+struct B{
+  virtual ~B(){}
+};
 
 struct A : public B{};
 struct C : public B{};
@@ -18,6 +20,9 @@ int main() {
 
   v.push_back(a);
   v.push_back(c);
+
+  std::cout << typeid(v[0]).name() << std::endl;
+  std::cout << typeid(v[1]).name() << std::endl;
 
   return 0;
 }
