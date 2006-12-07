@@ -5,7 +5,9 @@ import string, os, sys
 class BuildFile :
     def __init__(self, filen) :
         # print filen
+        self.filen = filen
         self.use=[]
+        self.reallyUsed = []
         f = open(filen)
         lines = string.join(f.readlines())
         j=0
@@ -20,9 +22,17 @@ class BuildFile :
             if (j<i) : break
             # print lines[i:j+1]
             self.use.append(lines[i+1:j].strip())
-    def depend(self,pack):
-        return pack in self.use            
+        f.close()
         
+    def depend(self,pack):
+        self.reallyUsed.append(pack)
+        return pack in self.use            
+    def report(self) :
+        report = []
+        for pk in self.use :
+            if (pk.find('/')>0 and pk not in self.reallyUsed) : report.append(pk)
+        return report
+    
 class Headers :
     def __init__(self, filen, lpk) :
         self.localpack =lpk
@@ -64,18 +74,36 @@ class CheckDep :
          try:
              bfile =BuildFile(self.src+'/'+buildfile)
          except:
-             report += "Package "+pack+" does not have a BuildFile\n"
+             report += pack+" does not have a BuildFile\n"
          else:
-             interface = self.src+'/'+pack+'/interface'
-             for hname in os.listdir(interface):
-                 # print hname
-                 if (hname.find(".h")<1): continue
-                 headers = Headers(interface+'/'+hname,pack)
-                 for pk in headers.packages :
-                     if (not bfile.depend(pk)) :
-                         report += 'Missing use of ' + pk \
-                                   + ' in ' + pack + ' BuildFile\n'
+             dirs = []
+             dirs.append(self.src+'/'+pack+'/interface')
+             dirs.append(self.src+'/'+pack+'/src')
+             for dir in dirs :
+                 try:
+                     #print dir
+                     os.stat(dir)
+                 except:
+                     print "NO????", dir
+                     continue
+                 else:
+                     for fname in os.listdir(dir):
+                         # print fname
+                         # for each file check if include match use
+                         if (fname.find(".h")<1 and fname.find(".cc")<1 ): continue
+                         headers = Headers(dir+'/'+fname,pack)
+                         for pk in headers.packages :
+                             if (not bfile.depend(pk)) :
+                                 report += pack + ' includes headers from ' + pk \
+                                           + ' but does not declare it in BuildFile: '
+                                 report += "Please add <use name="+pk+"> to " + pack+"/BuildFile\n"
+             # and viceversa check if any use is not included"
+             for pk in bfile.report() : 
+                 report+= pack + ' use ' + pk + " but does not include any of its header files: "
+                 report+= "Please remove <use name="+pk+"> from " +  pack+"/BuildFile\n"
+ 
          return report
+              
 
 def main():
     args = sys.argv[1:]
