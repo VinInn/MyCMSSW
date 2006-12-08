@@ -24,5 +24,9 @@ int main() {
   std::cout << typeid(v[0]).name() << std::endl;
   std::cout << typeid(v[1]).name() << std::endl;
 
+  for ( edm::PolyVector<B>::const_iterator p=v.begin(); p!=v.end();p++)
+    std::cout << typeid(*p).name() << std::endl;
+
+
   return 0;
 }
