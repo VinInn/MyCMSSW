@@ -20,6 +20,8 @@ namespace edm {
     template <typename B>
     struct PolyVectorInnerBase {
       virtual ~PolyVectorInnerBase(){}
+      virtual PolyVectorInnerBase<B> * clone() const=0; 
+
       virtual bool empty() const=0;
       virtual size_t size() const=0;
       virtual void put(const B& b)=0;
@@ -35,6 +37,11 @@ namespace edm {
       typedef  std::vector<T> base;
       typedef T value_type;
       std::vector<T> v;
+      
+      virtual PolyVectorBase<T,B> * clone() const {
+	return new  PolyVectorBase<T,B>(*this);
+      }
+
       virtual bool empty() const { return v.empty();}
       virtual size_t size() const { return v.size();}
     private:
@@ -42,7 +49,13 @@ namespace edm {
       virtual T & get_impl(int i) { return v[i];}
     };
     
-    
+    template<typename P>
+    void destroy ( P & p ) { delete p; p=0;}
+
+    template<typename P>
+    P cloner ( P p ) { return p->clone();}
+
+
   }
 
 
@@ -83,6 +96,36 @@ namespace edm {
 
 
   public:
+
+    PolyVector(){}
+
+    ~PolyVector()
+    {
+      destroy();
+    }
+
+    PolyVector(const self& other) :
+      m_types(other.m_types),
+      m_indices(other.m_indices) {
+      m_data.reserve(other.m_data.size());
+      for (typename base::const_iterator p=other.m_data.begin(); p!=other.m_data.end();p++)
+	m_data.push_back((*p)->clone());
+    }
+
+    void clear() {
+      destroy();
+      m_data.clear();
+      m_indices.clear();
+      m_types.clear();
+    }
+
+    void swap(self & other) {
+      m_data.swap(other.m_data);
+      m_indices.swap(other.m_indices);
+      m_types.swap(other.m_types);
+    }
+
+
     template<typename V>  Types_citer addType() {
       Types_citer p = m_types.find(&typeid(V));
       if (p!=m_types.end()) return p ;
@@ -128,6 +171,10 @@ namespace edm {
 
 
   private:
+
+    void destroy() {
+      std::for_each(m_data.begin(),m_data.end(), details::destroy<typename base::value_type>);
+    }
 
     reference data(size_type i) {
       index_cref j = m_indices[i];
