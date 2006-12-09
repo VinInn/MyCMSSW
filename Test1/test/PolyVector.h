@@ -27,8 +27,10 @@ namespace edm {
       virtual void put(const B& b)=0;
       B& get(int i) { return get_impl(i); }
       const B& get(int i) const { return get_impl(i); }
+      const B& front() const { return get_impl(0); }
+ 
     private:
-      virtual B& get_impl(int i)=0;
+      virtual B& get_impl(int i) const =0;
       
     };
     
@@ -46,7 +48,7 @@ namespace edm {
       virtual size_t size() const { return v.size();}
     private:
       void put(const B& b) { v.push_back((T&)(b));} 
-      virtual T & get_impl(int i) { return v[i];}
+      virtual T & get_impl(int i) const { return const_cast<T&>(v[i]);}
     };
     
     template<typename P>
@@ -167,6 +169,15 @@ namespace edm {
 
     const_reference _cdata(index_cref j ) const {
       return (*m_data[j.first]).get(j.second);
+    }
+
+
+    bool verifyTypes() const {
+      for (typename base::const_iterator p=m_data.begin(); p!=m_data.end();p++) 
+	if ( (*p)->empty() || m_types.find(&typeid((*p)->front()))==m_types.end()) return false;
+      for (Types_citer p = m_types.begin(); p!=m_types.end();p++)
+	if ( m_data[(*p).second]->empty() || (&typeid( m_data[(*p).second]->front())!=(*p).first) )return false;
+      return true;
     }
 
 
