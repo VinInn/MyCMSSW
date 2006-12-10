@@ -83,6 +83,9 @@ namespace edm {
     typedef Types::const_iterator Types_citer;
     typedef Types::iterator Types_iter;
 
+  public:
+    typedef typename
+    boost::_bi::bind_t<T&, boost::_mfi::mf1<T&, self, index_cref>, boost::_bi::list2<boost::_bi::value<self *>, boost::arg<1> > > BindFunction;
     typedef typename
     boost::_bi::bind_t<const T&, boost::_mfi::cmf1<const T&, self, index_cref>, boost::_bi::list2<boost::_bi::value<self const *>, boost::arg<1> > > BindConstFunction;
 
@@ -94,7 +97,9 @@ namespace edm {
     typedef T & reference;
     typedef const T & const_reference;
     
-    typedef boost::transform_iterator<BindConstFunction,index_citer> const_iterator;
+    typedef boost::transform_iterator<BindFunction,index_citer> iterator;
+    typedef boost::transform_iterator<BindFunction,index_citer, const_reference> const_iterator;
+
 
 
   public:
@@ -113,6 +118,9 @@ namespace edm {
       for (typename base::const_iterator p=other.m_data.begin(); p!=other.m_data.end();p++)
 	m_data.push_back((*p)->clone());
     }
+
+    size_type size() const { return m_indices.size(); }
+    bool empty() const { return m_indices.empty(); }
 
     void clear() {
       destroy();
@@ -145,6 +153,14 @@ namespace edm {
       m_data[(*p).second]->put(v);
     }
 
+    iterator begin() {
+      return boost::make_transform_iterator(m_indices.begin(),boost::bind(&self::_ncdata,this,_1));
+    }
+
+    iterator end() {
+      return boost::make_transform_iterator(m_indices.end(),boost::bind(&self::_ncdata,this,_1));
+    }
+
     const_iterator begin() const {
       return boost::make_transform_iterator(m_indices.begin(),boost::bind(&self::_cdata,this,_1));
     }
@@ -171,6 +187,19 @@ namespace edm {
       return (*m_data[j.first]).get(j.second);
     }
 
+
+    void buildTypes() {
+      m_types.clear();
+      // first remove empty containers...
+      for (typename base::iterator p=m_data.begin(); p!=m_data.end();p++)
+	if ( (*p)->empty() ) { delete (*p); (*p)=0;}
+      typename base::iterator new_end = 
+	std::remove_if(m_data.begin(), m_data.end(),std::bind2nd(std::equal_to<typename base::value_type>(),0));
+      m_data.erase(new_end,m_data.end());
+      // assume no empty, no duplicate
+      for (typename base::iterator p=m_data.begin(); p!=m_data.end();p++)
+	m_types.insert(std::make_pair(&typeid((*p)->front()), p-m_data.begin()));
+    }
 
     bool verifyTypes() const {
       for (typename base::const_iterator p=m_data.begin(); p!=m_data.end();p++) 
@@ -206,5 +235,6 @@ namespace edm {
   };
   
 }
+
 
 #endif
