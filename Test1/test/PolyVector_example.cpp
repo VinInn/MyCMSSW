@@ -14,6 +14,15 @@ struct Array : public B{
 };
 
 
+template<typename T>
+void print(edm::PolyVector<T> const & v) {
+  for ( typename edm::PolyVector<T>::const_iterator p=v.begin(); p!=v.end();p++)
+    std::cout << typeid(*p).name() << ", "; 
+  if (!v.empty()) std::cout <<std::endl;
+}
+
+
+
 
 int main() {
 
@@ -37,9 +46,7 @@ int main() {
   std::cout << typeid(v[0]).name() << std::endl;
   std::cout << typeid(v[1]).name() << std::endl;
 
-  for ( edm::PolyVector<B>::const_iterator p=v.begin(); p!=v.end(); p++)
-    std::cout << typeid(*p).name() << ", "; 
-  std::cout <<std::endl;
+  print(v);
 
   for ( edm::PolyVector<B>::iterator p=w.begin(); p!=w.end();p++) {
     C * cc = dynamic_cast<C*>(&(*p)); if(cc) cc->f=3.14;

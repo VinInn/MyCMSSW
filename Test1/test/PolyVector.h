@@ -162,11 +162,11 @@ namespace edm {
     }
 
     const_iterator begin() const {
-      return boost::make_transform_iterator(m_indices.begin(),boost::bind(&self::_cdata,this,_1));
+      return boost::make_transform_iterator(m_indices.begin(),boost::bind(&self::_ncdata,const_cast<self*>(this),_1));
     }
 
     const_iterator end() const  {
-      return boost::make_transform_iterator(m_indices.end(),boost::bind(&self::_cdata,this,_1));
+      return boost::make_transform_iterator(m_indices.end(),boost::bind(&self::_ncdata,const_cast<self*>(this),_1));
     }
 
 
