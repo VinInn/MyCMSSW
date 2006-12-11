@@ -3,7 +3,7 @@
 
 namespace polyPerformace {
 
-  struct Base(){
+  struct Base {
     virtual ~Base(){}
     virtual void action() const=0;
   };
@@ -14,7 +14,6 @@ namespace polyPerformace {
     }
     T data[N];
   };
-
 
 }
 
