@@ -144,14 +144,27 @@ namespace edm {
       return p;
     }
 
+
     template<typename V> void push_back(V const & v) {
       Types_citer p = m_types.find(&typeid(V));
       // shall we addType or throw?
-      if (m_types.find(&typeid(V))==m_types.end()) 
+      if (p==m_types.end()) 
 	p = this->addType<V>();
       m_indices.push_back(Index((*p).second, m_data[(*p).second]->size()));
       m_data[(*p).second]->put(v);
     }
+
+    void push_back(T const & t) {
+      Types_citer p = m_types.find(&typeid(t));
+      // no factories yet... so we throw
+      if (p==m_types.end()) 
+	throw std::string(std::string("type not added yet: ") +std::string(typeid(t).name()));
+      m_indices.push_back(Index((*p).second, m_data[(*p).second]->size()));
+      m_data[(*p).second]->put(t);
+    }
+
+
+
 
     iterator begin() {
       return boost::make_transform_iterator(m_indices.begin(),boost::bind(&self::_ncdata,this,_1));

@@ -3,13 +3,15 @@
 
 struct B{
   virtual ~B(){}
+  virtual void b()=0;
 };
 
-struct A : public B{ int i;};
-struct C : public B{ float f;};
+struct A : public B{ void b(){} int i;};
+struct C : public B{ void b(){} float f;};
 
 template<typename T, int N> 
 struct Array : public B{
+  void b(){}
   T a[N];
 };
 
@@ -80,14 +82,56 @@ int main() {
     std::cout << typeid(*p).name() << ", "; 
   std::cout <<std::endl;
 
+  // polymorfic copy: needs types defined
   w.clear();
-  std::copy(z.begin(),z.end(),std::back_insert_iterator< edm::PolyVector<B> >(w));
+  w.addType<A>();
+  w.addType<C>(); 
+  w.addType<Array<float,4> >();
+  w.addType<Array<double,6> >();
+  w.addType<Array<long long,7> >();
+  try {
+    std::copy(z.begin(),z.end(),std::back_insert_iterator< edm::PolyVector<B> >(w));
+  }
+  catch (const std::string & s) {
+    std::cout << s << std::endl;
+  }
 
   if (z.size()!=w.size())  std::cout << "problem with copy" << std::endl;
   
   if (!v.verifyTypes()) std::cout << "problem with types in v" << std::endl;
   if (!w.verifyTypes()) std::cout << "problem with types in w" << std::endl;
   if (!z.verifyTypes()) std::cout << "problem with types in z" << std::endl;
+
+  w.clear();
+  std::vector<A> va(4);
+  std::vector<C> vc(8);
+ 
+  // does not work without type init...
+  w.addType<A>();
+  w.addType<C>(); 
+  try {
+    std::copy(va.begin(),va.end(),std::back_insert_iterator< edm::PolyVector<B> >(w));
+    std::copy(vc.begin(),vc.end(),std::back_insert_iterator< edm::PolyVector<B> >(w));
+  }
+  catch (const std::string & s) {
+    std::cout << s << std::endl;
+  }
+
+  if (w.size()!=(va.size()+vc.size()))  std::cout << "problem with copy" << std::endl;
+
+  w.clear();
+  try {
+    for (std::vector<A>::const_iterator p=va.begin();p!=va.end();p++)
+      w.push_back(*p);
+    for (std::vector<C>::const_iterator p=vc.begin();p!=vc.end();p++)
+      w.push_back(*p);
+  }
+  catch (const std::string & s) {
+    std::cout << s << std::endl;
+  }
+
+  if (w.size()!=(va.size()+vc.size()))  std::cout << "problem with copy" << std::endl;
+ 
 
   z.buildTypes();
   if (!z.verifyTypes()) std::cout << "problem with types after build" << std::endl;
