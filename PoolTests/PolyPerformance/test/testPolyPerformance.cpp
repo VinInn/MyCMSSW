@@ -48,6 +48,7 @@ namespace {
       int i=c%A::SIZE;
       a.data[i] = i;
       c++;
+      return a;
     }
 
     polyPerformance::Array<int,3> dummy1;
