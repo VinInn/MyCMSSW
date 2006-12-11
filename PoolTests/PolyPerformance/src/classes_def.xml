@@ -1,4 +1,6 @@
 <lcgdict>
+
+<class name="polyPerformance::Base"/>
 <class name="polyPerformance::Array<int,3>"/>
 <class name="polyPerformance::Array<int,6>"/>
 <class name="polyPerformance::Array<float,3>"/>
