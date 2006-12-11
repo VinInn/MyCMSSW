@@ -1,6 +1,6 @@
-<bin name=test_PoolTests_PolyPerformance file=testPolyPerformance.cpp.cpp>
+<bin name=test_PoolTests_PolyPerformance file=testPolyPerformance.cpp>
   <use name=PoolTests/PolyPerformance>
-  <use name=PoolTests/DataFormats>
+  <use name=PoolTests/DataFormatTests>
   <use name=DataFormats/Common>
 </bin>
 
