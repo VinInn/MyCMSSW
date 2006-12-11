@@ -15,29 +15,32 @@
 typedef  edm::Wrapper<edm::PolyVector<polyPerformance::Base> > TheWrapper;
 
 namespace {
+
   struct Maker {
+
     typedef  TheWrapper::value_type Container;
     edm::EDProduct * make() {
       std::auto_ptr<Container> o(new Container);
       populate(*o);
       return new TheWrapper(o); 
     }
-
-    populate(Container& cont) {
+    
+    void populate(Container& cont) {
       // fill with 120 of those
       for (int i=0; i<10;i++) {
-      cont.push_back(fill(dummy1));
-      cont.push_back(fill(dummy1));
-      cont.push_back(fill(dummy2));
-      cont.push_back(fill(dummy2));
-      cont.push_back(fill(dummy11));
-      cont.push_back(fill(dummy11));
-      cont.push_back(fill(dummy12));
-      cont.push_back(fill(dummy12));
-      cont.push_back(fill(dummy21));
-      cont.push_back(fill(dummy21));
-      cont.push_back(fill(dummy22));
-      cont.push_back(fill(dummy22));
+	cont.push_back(fill(dummy1));
+	cont.push_back(fill(dummy1));
+	cont.push_back(fill(dummy2));
+	cont.push_back(fill(dummy2));
+	cont.push_back(fill(dummy11));
+	cont.push_back(fill(dummy11));
+	cont.push_back(fill(dummy12));
+	cont.push_back(fill(dummy12));
+	cont.push_back(fill(dummy21));
+	cont.push_back(fill(dummy21));
+	cont.push_back(fill(dummy22));
+	cont.push_back(fill(dummy22));
+      }
     }
 
     template<typename A> A& fill(A& a) {
