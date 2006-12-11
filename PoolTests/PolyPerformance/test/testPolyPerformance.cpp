@@ -45,7 +45,7 @@ namespace {
 
     template<typename A> A& fill(A& a) {
       static int c=0;
-      int i=c%A::Size;
+      int i=c%A::SIZE;
       a.data[i] = i;
       c++;
     }
@@ -76,7 +76,7 @@ int main(int argc, char * argv[]) {
   cat.connect();
   cat.start();
   OneBranchTree tree(&cat);
-
+  Maker maker;
   std::cout << std::endl;
  
   for (int i=0;i<50;i++) {
