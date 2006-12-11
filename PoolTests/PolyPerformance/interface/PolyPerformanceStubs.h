@@ -1,7 +1,7 @@
 #ifndef PolyPerformanceStubs_H
 #define PolyPerformanceStubs_H
 
-namespace polyPerformace {
+namespace polyPerformance {
 
   struct Base {
     virtual ~Base(){}

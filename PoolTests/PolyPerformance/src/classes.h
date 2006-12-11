@@ -12,15 +12,15 @@ namespace {
     polyPerformance::Array<double,3> dummy21;
     polyPerformance::Array<double,6> dummy22;
     
-    edm::details::PolyVectorBase< polyPerformance::Array<int,3>, polyPerformance::Base> > vdummy1;
-    edm::details::PolyVectorBase<polyPerformance::Array<int,6> , polyPerformance::Base> > vdummy2;
-    edm::details::PolyVectorBase<polyPerformance::Array<float,3> , polyPerformance::Base> > vdummy11;
-    edm::details::PolyVectorBase<polyPerformance::Array<float,6> , polyPerformance::Base> > vdummy12;
-    edm::details::PolyVectorBase< polyPerformance::Array<double,3> , polyPerformance::Base> > vdummy21;
-    edm::details::PolyVectorBase<polyPerformance::Array<double,6> , polyPerformance::Base> > vdummy22;
+    edm::details::PolyVectorBase< polyPerformance::Array<int,3>, polyPerformance::Base > vdummy1;
+    edm::details::PolyVectorBase<polyPerformance::Array<int,6> , polyPerformance::Base > vdummy2;
+    edm::details::PolyVectorBase<polyPerformance::Array<float,3> , polyPerformance::Base > vdummy11;
+    edm::details::PolyVectorBase<polyPerformance::Array<float,6> , polyPerformance::Base > vdummy12;
+    edm::details::PolyVectorBase< polyPerformance::Array<double,3> , polyPerformance::Base > vdummy21;
+    edm::details::PolyVectorBase<polyPerformance::Array<double,6> , polyPerformance::Base > vdummy22;
     
     edm::PolyVector<polyPerformance::Base> pvd;
-    edm::Wrapper<edm::PolyVector<polyPerformance::Base> >pvd;
+    edm::Wrapper<edm::PolyVector<polyPerformance::Base> >pvdw;
   }
 }
 
