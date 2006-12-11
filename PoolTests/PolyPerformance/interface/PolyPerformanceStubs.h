@@ -10,6 +10,8 @@ namespace polyPerformance {
 
   template<typename T, int N> 
   struct Array : public Base{
+    enum { SIZE=N};
+    typedef T value_type;
     virtual void action() const {
     }
     T data[N];

@@ -19,7 +19,7 @@ namespace {
     typedef  TheWrapper::value_type Container;
     edm::EDProduct * make() {
       std::auto_ptr<Container> o(new Container);
-
+      populate(*o);
       return new TheWrapper(o); 
     }
 

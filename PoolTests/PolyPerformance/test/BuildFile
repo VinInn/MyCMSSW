@@ -1,0 +1,7 @@
+<bin name=test_PoolTests_PolyPerformance file=testPolyPerformance.cpp.cpp>
+  <use name=PoolTests/PolyPerformance>
+  <use name=PoolTests/DataFormats>
+  <use name=DataFormats/Common>
+</bin>
+
+
