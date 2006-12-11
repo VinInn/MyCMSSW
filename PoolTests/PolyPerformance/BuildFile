@@ -1,0 +1,9 @@
+<use name=DataFormats/Common>
+<use name=boost>
+
+<export>
+   <lib name=PoolTestsPolyPerformance>
+   <use name=DataFormats/Common>
+   <use name=boost>
+</export>
+
