@@ -28,7 +28,7 @@ namespace {
   template<typename Wrapper>
   struct WMaker : public Maker {
 
-    typedef  typename Wrapper::value_type Container;
+    typedef typename Wrapper::value_type Container;
     
     edm::EDProduct * make() {
       std::auto_ptr<Container> o(new Container);
@@ -54,14 +54,8 @@ namespace {
       }
     }
 
-    template<typename A>void fill(Container& cont, A& a) {
-      static int c=0;
-      int i=c%A::SIZE;
-      a.data[i] = i;
-      c++;
-      cont.push_back(a);
-    }
-
+    template<typename A> void fill(Container& cont, A& a);
+ 
     polyPerformance::Array<int,3> dummy1;
     polyPerformance::Array<int,6> dummy2;
     polyPerformance::Array<float,3> dummy11;
@@ -71,6 +65,15 @@ namespace {
 
 
   };
+
+  template<typename A> 
+  inline void WMaker<PolyWrapper>::fill(WMaker<PolyWrapper>::Container& cont, A& a) {
+    static int c=0;
+    int i=c%A::SIZE;
+    a.data[i] = i;
+    c++;
+    cont.push_back(a);
+  }
 
   template<typename A> 
   inline void WMaker<OwnWrapper>::fill(WMaker<OwnWrapper>::Container& cont, A& a) {
