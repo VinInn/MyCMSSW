@@ -30,8 +30,7 @@
     typedef  edm::EDProduct Obj;
 
 void act(const Obj&) {
-
-};
+}
 
 int main(int argc, char * argv[]) {
 
