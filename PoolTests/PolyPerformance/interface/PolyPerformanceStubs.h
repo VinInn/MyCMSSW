@@ -8,6 +8,9 @@ namespace polyPerformance {
     virtual void action() const=0;
     // because of ownvector
     virtual Base * clone() const=0;
+    bool operator<(const Base& rh) const {
+      return this < &rh;
+    }
   };
 
   template<typename T, int N> 
