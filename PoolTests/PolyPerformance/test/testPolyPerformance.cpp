@@ -25,6 +25,25 @@ namespace {
     virtual edm::EDProduct * make()=0;
   };
 
+
+  template<typename A> 
+  inline void fill(PolyWrapper::::value_type& cont, A& a) {
+    static int c=0;
+    int i=c%A::SIZE;
+    a.data[i] = i;
+    c++;
+    cont.push_back(a);
+  }
+
+  template<typename A> 
+  inline void fill(OwnWrapper::value_type& cont, A& a) {
+    static int c=0;
+    int i=c%A::SIZE;
+    a.data[i] = i;
+    c++;
+    cont.push_back(a.clone());
+  }
+
   template<typename Wrapper>
   struct WMaker : public Maker {
 
@@ -53,8 +72,6 @@ namespace {
 	fill(cont,dummy22);
       }
     }
-
-    template<typename A> void fill(Container& cont, A& a);
  
     polyPerformance::Array<int,3> dummy1;
     polyPerformance::Array<int,6> dummy2;
@@ -66,23 +83,6 @@ namespace {
 
   };
 
-  template<typename A> 
-  inline void WMaker<PolyWrapper>::fill(WMaker<PolyWrapper>::Container& cont, A& a) {
-    static int c=0;
-    int i=c%A::SIZE;
-    a.data[i] = i;
-    c++;
-    cont.push_back(a);
-  }
-
-  template<typename A> 
-  inline void WMaker<OwnWrapper>::fill(WMaker<OwnWrapper>::Container& cont, A& a) {
-    static int c=0;
-    int i=c%A::SIZE;
-    a.data[i] = i;
-    c++;
-    cont.push_back(a.clone());
-  }
 
 
 
