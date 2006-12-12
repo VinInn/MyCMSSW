@@ -15,17 +15,25 @@
 
 #include<iostream>
 
-typedef  edm::Wrapper<edm::PolyVector<polyPerformance::Base> > TheWrapper;
+typedef  edm::Wrapper<edm::PolyVector<polyPerformance::Base> > PolyWrapper;
+typedef  edm::Wrapper<edm::OwnVector<polyPerformance::Base> > OwnWrapper;
 
 namespace {
 
   struct Maker {
+    virtual ~Maker(){}
+    virtual edm::EDProduct * make()=0;
+    
+  };
 
-    typedef  TheWrapper::value_type Container;
+  template<Wrapper>
+  struct WMaker : public {
+
+    typedef  typename Wrapper::value_type Container;
     edm::EDProduct * make() {
       std::auto_ptr<Container> o(new Container);
       populate(*o);
-      return new TheWrapper(o); 
+      return new Wrapper(o); 
     }
     
     void populate(Container& cont) {
@@ -64,6 +72,16 @@ namespace {
 
   };
 
+  template<typename A> std::auto_ptr<A> Maker<OwnWrapper>::fill(A& a) {
+    static int c=0;
+    int i=c%A::SIZE;
+    a.data[i] = i;
+    c++;
+    return  std::auto_ptr<A>(a.clone());
+  }
+
+
+
 }
 
 int main(int argc, char * argv[]) {
@@ -86,11 +104,14 @@ int main(int argc, char * argv[]) {
   {
     
     OneBranchTree tree(&cat);
-    Maker maker;
+    std::auto_ptr<Maker> 
+      maker(argc >1 ? new WMaker<OwnWrapper>() : 
+	    new WMaker<PolyWrapper>());
+
     std::cout << std::endl;
     
     for (int i=0;i<1000;i++) {
-      tree.add(maker.make());
+      tree.add((*maker).make());
     }
   
   }
