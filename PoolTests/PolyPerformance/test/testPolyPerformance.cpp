@@ -23,11 +23,10 @@ namespace {
   struct Maker {
     virtual ~Maker(){}
     virtual edm::EDProduct * make()=0;
-    
   };
 
   template<typename Wrapper>
-  struct WMaker : public {
+  struct WMaker : public Maker {
 
     typedef  typename Wrapper::value_type Container;
     edm::EDProduct * make() {
@@ -106,8 +105,8 @@ int main(int argc, char * argv[]) {
     
     OneBranchTree tree(&cat);
     std::auto_ptr<Maker> 
-      maker(argc >1 ? new WMaker<OwnWrapper>() : 
-	    new WMaker<PolyWrapper>());
+      maker(argc >1 ? (Maker*)(new WMaker<OwnWrapper>()) : 
+	    (Maker*)(new WMaker<PolyWrapper>()));
 
     std::cout << std::endl;
     
