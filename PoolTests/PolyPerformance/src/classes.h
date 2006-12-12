@@ -21,6 +21,11 @@ namespace {
     
     edm::PolyVector<polyPerformance::Base> pvd;
     edm::Wrapper<edm::PolyVector<polyPerformance::Base> >pvdw;
+
+    edm::OwnVector<polyPerformance::Base, edm::ClonePolicy<polyPerformance::Base> > ovd;
+    edm::Wrapper<edm::OwnVector<polyPerformance::Base, edm::ClonePolicy<polyPerformance::Base> > > ovdw;
+
+
   }
 }
 

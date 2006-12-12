@@ -33,6 +33,14 @@
 
 <class name="std::vector<polyPerformance::Array<double,6> >"/>
 <class name="edm::details::PolyVectorBase<polyPerformance::Array<double,6>, polyPerformance::Base >"/>
+
+
+
+
+<class name="edm::Wrapper<edm::OwnVector<polyPerformance::Base, edm::ClonePolicy<polyPerformance::Base> > >"/>
+<class name="edm::OwnVector<polyPerformance::Base, edm::ClonePolicy<polyPerformance::Base> >"/>
+<class name="std::vector<polyPerformance::Base*>"/>
+
 <lcgdict/>
 
 
