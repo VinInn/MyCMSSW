@@ -56,8 +56,8 @@ namespace {
     }
     
     void populate(Container& cont) {
-      // fill with 120 of those
-      for (int i=0; i<10;i++) {
+      // fill with 240 of those
+      for (int i=0; i<20;i++) {
 	fill(cont,dummy1);
 	fill(cont,dummy1);
 	fill(cont,dummy2);
