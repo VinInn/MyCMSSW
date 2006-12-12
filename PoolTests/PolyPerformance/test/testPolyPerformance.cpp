@@ -27,7 +27,7 @@ namespace {
 
 
   template<typename A> 
-  inline void fill(PolyWrapper::::value_type& cont, A& a) {
+  inline void fill(PolyWrapper::value_type& cont, A& a) {
     static int c=0;
     int i=c%A::SIZE;
     a.data[i] = i;
