@@ -26,7 +26,7 @@ namespace {
     
   };
 
-  template<Wrapper>
+  template<typename Wrapper>
   struct WMaker : public {
 
     typedef  typename Wrapper::value_type Container;
@@ -72,7 +72,8 @@ namespace {
 
   };
 
-  template<typename A> std::auto_ptr<A> Maker<OwnWrapper>::fill(A& a) {
+  template<typename A> 
+  inline std::auto_ptr<A> WMaker<OwnWrapper>::fill(A& a) {
     static int c=0;
     int i=c%A::SIZE;
     a.data[i] = i;
