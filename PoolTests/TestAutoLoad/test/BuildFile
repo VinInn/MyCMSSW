@@ -5,3 +5,4 @@
 <use name=Foundation/SealUtil>
 <use name=Collection>
 <use name=DataFormats/Common>
+ <use name=Utilities/Timing>
