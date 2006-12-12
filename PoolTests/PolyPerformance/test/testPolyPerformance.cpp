@@ -10,6 +10,9 @@
 #include "VinInn/Test1/test/PolyVector.h"
 #include "DataFormats/Common/interface/Wrapper.h"
 
+#include "Utilities/Timing/interface/PentiumTimer.h"
+
+
 #include<iostream>
 
 typedef  edm::Wrapper<edm::PolyVector<polyPerformance::Base> > TheWrapper;
@@ -76,16 +79,26 @@ int main(int argc, char * argv[]) {
  
   cat.connect();
   cat.start();
-  OneBranchTree tree(&cat);
-  Maker maker;
-  std::cout << std::endl;
- 
-  for (int i=0;i<50;i++) {
-    tree.add(maker.make());
-  }
+
+  PentiumTimer timer; 
+  timer.start();
   
+  {
+    
+    OneBranchTree tree(&cat);
+    Maker maker;
+    std::cout << std::endl;
+    
+    for (int i=0;i<1000;i++) {
+      tree.add(maker.make());
+    }
+  
+  }
+  timer.stop();
+  std::cout << "elapsed time " << timer.lap() << std::endl;
 
   cat.commit();
+
 
   //  std::cout << "the end" << std::endl;
 
