@@ -23,6 +23,9 @@
 #include "DataFormats/Common/interface/EDProduct.h"
 #include "DataFormats/Common/interface/EventAux.h"
 
+#include "Utilities/Timing/interface/PentiumTimer.h"
+
+
 int main(int argc, char * argv[]) {
 
   try {
@@ -79,26 +82,32 @@ int main(int argc, char * argv[]) {
 //"[DB=F038EB17-6636-DB11-B7E4-00E08151E907][CNT=Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)]
 // [CLID=4B9F6001-FA5E-FFD1-F620-4DC0EEF423AE][TECH=00000202][OID=00000023-000003E7]";
 
-    pool::Collection<Obj>::Iterator iter = collection.select();
-    int n=0;
-    pool::Ref<Obj> aObj;
-    while(iter.next()) {
-      aObj = iter.ref();
-      n++;
-      //         aObj = itr;
-      if (aObj.token()==0)
-	std::cout << "found invalid object " 
-	  // << CMSPool::sprint(aObj) 
-	  //                << " of type " << CMSPool::classname(aObj) 
-		  << std::endl;
-    }
-    std::cout << "It contains " << n << " objects of type "
-	      <<  typeid(*aObj).name()<< std::endl;
-    std::cout << "like " 
-	      << aObj.toString() 
-	      << std::endl;
+    PentiumTimer timer; 
+    timer.start();
     
-    
+    {
+      pool::Collection<Obj>::Iterator iter = collection.select();
+      int n=0;
+      pool::Ref<Obj> aObj;
+      while(iter.next()) {
+	aObj = iter.ref();
+	n++;
+	//         aObj = itr;
+	if (aObj.token()==0)
+	  std::cout << "found invalid object " 
+	    // << CMSPool::sprint(aObj) 
+	    //                << " of type " << CMSPool::classname(aObj) 
+		    << std::endl;
+      }
+      std::cout << "It contains " << n << " objects of type "
+		<<  typeid(*aObj).name()<< std::endl;
+      std::cout << "like " 
+		<< aObj.toString() 
+		<< std::endl;
+      
+    }    
+    timer.stop();
+    std::cout << "elapsed time " << timer.lap() << std::endl;
     
     svc->transaction().commit();
     svc->session().disconnectAll();
