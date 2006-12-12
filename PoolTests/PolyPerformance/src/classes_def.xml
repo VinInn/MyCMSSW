@@ -8,6 +8,8 @@
 <class name="polyPerformance::Array<double,3>"/>
 <class name="polyPerformance::Array<double,6>"/>
 
+<class name="std::vector<std::pair<int,int> >"/>
+
 <class name="edm::Wrapper<edm::PolyVector<polyPerformance::Base > >">
 
 <class name="edm::PolyVector<polyPerformance::Base >">

@@ -114,7 +114,7 @@ int main(int argc, char * argv[]) {
 
     std::cout << std::endl;
     
-    for (int i=0;i<1000;i++) {
+    for (int i=0;i<10000;i++) {
       tree.add((*maker).make());
     }
   
