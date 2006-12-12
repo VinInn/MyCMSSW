@@ -26,6 +26,13 @@
 #include "Utilities/Timing/interface/PentiumTimer.h"
 
 
+    // typedef edm::EventAux Obj;
+    typedef  edm::EDProduct Obj;
+
+void act(const Obj&) {
+
+};
+
 int main(int argc, char * argv[]) {
 
   try {
@@ -71,8 +78,6 @@ int main(int argc, char * argv[]) {
     // std::string containerName = "Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)";
     // std::string containerName = "Events(EventAux)";
  
-    // typedef edm::EventAux Obj;
-    typedef  edm::EDProduct Obj;
     pool::Collection<Obj> 
       collection(&(*svc),
 		 "ImplicitCollection", url, containerName, 
@@ -98,6 +103,8 @@ int main(int argc, char * argv[]) {
 	    // << CMSPool::sprint(aObj) 
 	    //                << " of type " << CMSPool::classname(aObj) 
 		    << std::endl;
+	else
+	  act(*aObj);
       }
       std::cout << "It contains " << n << " objects of type "
 		<<  typeid(*aObj).name()<< std::endl;
