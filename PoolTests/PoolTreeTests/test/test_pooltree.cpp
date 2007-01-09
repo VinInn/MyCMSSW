@@ -30,7 +30,13 @@ public:
     placeVx("T1.root", 
 	    pool::DatabaseSpecification::PFN, "Ev(Vx)", ROOT::Reflex::Type(), 
 	    pool::ROOTTREE_StorageType.type()),
-    tag(svc), tr(svc), vx(svc)
+    placeInt("T1.root", 
+	    pool::DatabaseSpecification::PFN, "Ev(Int)", ROOT::Reflex::Type(), 
+	    pool::ROOTTREE_StorageType.type()),
+     placeString("T1.root", 
+	    pool::DatabaseSpecification::PFN, "Ev(String)", ROOT::Reflex::Type(), 
+	    pool::ROOTTREE_StorageType.type()),
+    tag(svc), tr(svc), vx(svc),aInt(svc),aString(svc)
   {
     // Define the policy for the implicit file handling
     pool::DatabaseConnectionPolicy policy;
@@ -61,12 +67,18 @@ public:
     tag = new MyData::Tag;
     tr = new MyData::Tr;
     vx = new MyData::Vx;
+    aInt = new int(i);
+    aString = new std::string;
 
-    if (i%3==0) (*tag).name = "hello";
-    
+    if (i%3==0) {
+      (*tag).name = "hello";
+      *aString = "bha";
+    }
     tag.markWrite(placeTag);
     tr.markWrite(placeTr);
     vx.markWrite(placeVx);
+    aInt.markWrite(placeInt);
+    aString.markWrite(placeString);
     
     std::cout << "cache size " << svc->cacheSvc().cacheSize() << std::endl;
     svc->transaction().commitAndHold();
@@ -86,9 +98,13 @@ private:
   pool::Placement placeTag;  
   pool::Placement placeTr;
   pool::Placement placeVx;
+  pool::Placement placeInt;
+  pool::Placement placeString;
   pool::Ref<MyData::Tag> tag;
   pool::Ref<MyData::Tr> tr;
   pool::Ref<MyData::Vx> vx;
+  pool::Ref<int> aInt;
+  pool::Ref<std::string> aString;
 
 
 };
