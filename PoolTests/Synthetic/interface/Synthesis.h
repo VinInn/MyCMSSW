@@ -3,7 +3,7 @@
 
 #include "Reflex/Builder/ReflexBuilder.h"
 #include <typeinfo>
-
+#include <sstream>
 
 namespace synthetic {
 
@@ -25,7 +25,7 @@ namespace synthetic {
     
     
     static void* newdel( void*, const std::vector<void*>&, void*) {
-      static NewDelFunctions s_funcs;
+      static ROOT::Reflex::NewDelFunctions s_funcs;
       s_funcs.fNew         = NewDelFunctionsT< T >::new_T;
       s_funcs.fNewArray    = NewDelFunctionsT< T >::newArray_T;
       s_funcs.fDelete      = NewDelFunctionsT< T >::delete_T;
@@ -40,7 +40,7 @@ namespace synthetic {
   template <typename Seq, typename IT>
   struct addMembers {
     addMembers(Seq const & iseq, 
-	       ROOT::Reflex::ClassBuilder & c, IT ib, It ie) : 
+	       ROOT::Reflex::ClassBuilder & c, IT ib, IT ie) : 
       seq(iseq), cb(c), count(0), b(ib), e(ie) {}
 
     template<typename T>
@@ -80,10 +80,14 @@ namespace synthetic {
     T t;
     boost::fusion::for_each(t, addMembers<T>(t,c,b,e));
     
-    c.AddFunctionMember(FunctionTypeBuilder(type_void, type_T), cname, Stubs<T>::copy_constructor, 0, "_ctor_arg", PUBLIC | ARTIFICIAL | CONSTRUCTOR)
-      .AddFunctionMember(FunctionTypeBuilder(type_void), cname, Stubs<T>::constructor, 0, 0, PUBLIC | ARTIFICIAL | CONSTRUCTOR)
-      .AddFunctionMember(FunctionTypeBuilder(type_void), dname.c_str(), Stubs<T>::destructor, 0, 0, PUBLIC | ARTIFICIAL | DESTRUCTOR )
-      . template AddFunctionMember<void*(void)>("__getNewDelFunctions", Stubs<T>::newdel, 0, 0, PUBLIC | ARTIFICIAL);
+    c.AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void, type_T), cname, Stubs<T>::copy_constructor, 0, "_ctor_arg", 
+			ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL | ROOT::Reflex::CONSTRUCTOR)
+      .AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void), cname, Stubs<T>::constructor, 0, 0, 
+			 ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL | ROOT::Reflex::CONSTRUCTOR)
+      .AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void), dname.c_str(), Stubs<T>::destructor, 0, 0, 
+			 ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL | ROOT::Reflex::DESTRUCTOR )
+      . template AddFunctionMember<void*(void)>("__getNewDelFunctions", Stubs<T>::newdel, 0, 0, 
+						ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL);
 
     return type_T;
   }
@@ -92,10 +96,10 @@ namespace synthetic {
   class Dict {
   public:
     Dict(char const * cname) :
-      type(buildType<T>(cname,(char*)(0),(char*)(0))) {}
+      type(buildType<T, char*>(cname,(char*)(0),(char*)(0))) {}
     template<typename IT>
-    Dict(char const * cname, It b, It e) : 
-      type(buildType<T>(cname,b,e,)){}
+    Dict(char const * cname, IT b, IT e) : 
+      type(buildType<T,IT>(cname,b,e,)){}
     ~Dict() {
       type.Unload();
     }
