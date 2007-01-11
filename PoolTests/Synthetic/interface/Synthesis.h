@@ -74,7 +74,7 @@ namespace synthetic {
 
     ROOT::Reflex::Type type_T = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
     static const std::string tilde("~");
-    static const std::string ns("::synthetic::");
+    static const std::string ns("synthetic::");
     std::string qname = ns+cname;
     std::string dname = tilde+cname;
     ROOT::Reflex::ClassBuilder c(qname.c_str(), typeid(T), sizeof(T), ROOT::Reflex::PUBLIC);
