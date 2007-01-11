@@ -10,7 +10,7 @@
 #include<vector>
 #include<boost/shared_ptr.hpp>
 #include <boost/assign/std/vector.hpp>
-
+using namespace boost::assign;
 
 int main() {
 
@@ -46,7 +46,7 @@ int main() {
   ROOT::Reflex::Object o1(t1,&t);
 
   {
-    ROOT::Reflex::Object mem_obj = o1.Get("m_0");
+    ROOT::Reflex::Object mem_obj = o1.Get("id");
     int real_value = 0;
     if (mem_obj.TypeOf().Name() == "int")
       real_value = ROOT::Reflex::Object_Cast<int>(mem_obj);
