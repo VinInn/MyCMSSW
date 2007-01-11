@@ -61,7 +61,7 @@ namespace synthetic {
     Seq const & seq;
     mutable ROOT::Reflex::ClassBuilder & cb;
     mutable int count;
-    IT b, e;
+    mutable IT b, e;
   };
 
 
@@ -103,7 +103,7 @@ namespace synthetic {
       type(buildType<T, char*>(cname,(char*)(0),(char*)(0))) {}
     template<typename IT>
     Dict(char const * cname, IT b, IT e) : 
-      type(buildType<T,IT>(cname,b,e,)){}
+      type(buildType<T,IT>(cname,b,e)){}
     ~Dict() {
       type.Unload();
     }
