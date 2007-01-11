@@ -22,7 +22,7 @@ int main() {
 
   typedef boost::fusion::vector<int, char, double, std::string, std::vector<int> > seq_type;
 
-  std::vector<std::string> names += "id", "dir";
+  std::vector<std::string> names; names += "id", "dir";
   
   synthetic::Dict<seq_type>("MyClass",names.begin(),names.end());
   
