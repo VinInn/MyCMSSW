@@ -1,6 +1,9 @@
 #ifndef Synthetic_Synthesis_H
 #define Synthetic_Synthesis_H
 
+#include <boost/fusion/sequence.hpp>
+#include <boost/fusion/algorithm.hpp>
+
 #include "Reflex/Builder/ReflexBuilder.h"
 #include <typeinfo>
 #include <sstream>
@@ -26,11 +29,11 @@ namespace synthetic {
     
     static void* newdel( void*, const std::vector<void*>&, void*) {
       static ROOT::Reflex::NewDelFunctions s_funcs;
-      s_funcs.fNew         = NewDelFunctionsT< T >::new_T;
-      s_funcs.fNewArray    = NewDelFunctionsT< T >::newArray_T;
-      s_funcs.fDelete      = NewDelFunctionsT< T >::delete_T;
-      s_funcs.fDeleteArray = NewDelFunctionsT< T >::deleteArray_T;
-      s_funcs.fDestructor  = NewDelFunctionsT< T >::destruct_T;
+      s_funcs.fNew         =  ROOT::Reflex::NewDelFunctionsT< T >::new_T;
+      s_funcs.fNewArray    =  ROOT::Reflex::NewDelFunctionsT< T >::newArray_T;
+      s_funcs.fDelete      =  ROOT::Reflex::NewDelFunctionsT< T >::delete_T;
+      s_funcs.fDeleteArray =  ROOT::Reflex::NewDelFunctionsT< T >::deleteArray_T;
+      s_funcs.fDestructor  =  ROOT::Reflex::NewDelFunctionsT< T >::destruct_T;
       return &s_funcs;
     }
   };
@@ -65,22 +68,23 @@ namespace synthetic {
 
   // build a dictionary for a fusion sequence T (actually even any POD...)
   template <typename T, typename IT>
-  ROOT::Reflex::Type buildType(char const * cname, IT b, It e) {
+  ROOT::Reflex::Type buildType(char const * cname, IT b, IT e) {
     ROOT::Reflex::NamespaceBuilder nsb("synthetic");
-    ROOT::Reflex::Type type_void = TypeBuilder("void");
+    ROOT::Reflex::Type type_void = ROOT::Reflex::TypeBuilder("void");
 
     ROOT::Reflex::Type type_T = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
     static const std::string tilde("~");
     static const std::string ns("::synthetic::");
     std::string qname = ns+cname;
     std::string dname = tilde+cname;
-    ROOT::Reflex::ClassBuilder c(qname.c_str(), typeid(T), sizeof(T), PUBLIC);
+    ROOT::Reflex::ClassBuilder c(qname.c_str(), typeid(T), sizeof(T), ROOT::Reflex::PUBLIC);
     // c.AddProperty("ClassID", "5F16F0A9-79D1-4881-CE2B-C271DD84A7F2")
     
     T t;
-    boost::fusion::for_each(t, addMembers<T>(t,c,b,e));
+    boost::fusion::for_each(t, addMembers<T,IT>(t,c,b,e));
     
-    c.AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void, type_T), cname, Stubs<T>::copy_constructor, 0, "_ctor_arg", 
+    c.AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void, type_T), cname, 
+			Stubs<T>::copy_constructor, 0, "_ctor_arg", 
 			ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL | ROOT::Reflex::CONSTRUCTOR)
       .AddFunctionMember(ROOT::Reflex::FunctionTypeBuilder(type_void), cname, Stubs<T>::constructor, 0, 0, 
 			 ROOT::Reflex::PUBLIC | ROOT::Reflex::ARTIFICIAL | ROOT::Reflex::CONSTRUCTOR)

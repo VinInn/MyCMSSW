@@ -2,6 +2,10 @@
 #include <boost/fusion/sequence.hpp>
 #include <boost/fusion/algorithm.hpp>
 
+#include "Reflex/Reflex.h"
+
+#include<iostream>
+
 #include <typeinfo>
 #include<vector>
 #include<boost/shared_ptr.hpp>
