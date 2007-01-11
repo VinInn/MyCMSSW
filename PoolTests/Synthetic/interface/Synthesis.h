@@ -7,9 +7,6 @@
 
 namespace synthetic {
 
-  ROOT::Reflex::NamespaceBuilder nsb("synthetic");
-  ROOT::Reflex::Type type_void = TypeBuilder("void");
-
   //------Stub functions for fusion seq  -------------------------------
   template <typename T>
   struct Stubs {
@@ -40,16 +37,19 @@ namespace synthetic {
 
 
   // add a member to a fusion sequence 
-  template <typename Seq>
+  template <typename Seq, typename IT>
   struct addMembers {
-    addMembers(Seq const & iseq, ROOT::Reflex::ClassBuilder & c) : 
-      seq(iseq), cb(c), count(0){}
+    addMembers(Seq const & iseq, 
+	       ROOT::Reflex::ClassBuilder & c, IT ib, It ie) : 
+      seq(iseq), cb(c), count(0), b(ib), e(ie) {}
 
     template<typename T>
     void operator()(T const & t) const {
       ROOT::Reflex::Type type_T = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
       static std::string const m("m_");
-      std::ostringstream s; s << m << count;
+      std::ostringstream s;
+      if (b!=e) s << *(b++);
+      else s << m << count;
       int off = (char*)(&t) - (char*)(&seq);
       cb.AddDataMember(type_T,s.str().c_str(), off, ROOT::Reflex::PUBLIC);
       count++;
@@ -58,13 +58,17 @@ namespace synthetic {
     Seq const & seq;
     mutable ROOT::Reflex::ClassBuilder & cb;
     mutable int count;
+    IT b, e;
   };
 
 
 
   // build a dictionary for a fusion sequence T (actually even any POD...)
-  template <typename T>
-  void buildDict(char const * cname) {
+  template <typename T, typename IT>
+  ROOT::Reflex::Type buildType(char const * cname, IT b, It e) {
+    ROOT::Reflex::NamespaceBuilder nsb("synthetic");
+    ROOT::Reflex::Type type_void = TypeBuilder("void");
+
     ROOT::Reflex::Type type_T = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
     static const std::string tilde("~");
     static const std::string ns("::synthetic::");
@@ -74,14 +78,32 @@ namespace synthetic {
     // c.AddProperty("ClassID", "5F16F0A9-79D1-4881-CE2B-C271DD84A7F2")
     
     T t;
-    boost::fusion::for_each(t, addMembers<T>(t,c));
+    boost::fusion::for_each(t, addMembers<T>(t,c,b,e));
     
     c.AddFunctionMember(FunctionTypeBuilder(type_void, type_T), cname, Stubs<T>::copy_constructor, 0, "_ctor_arg", PUBLIC | ARTIFICIAL | CONSTRUCTOR)
       .AddFunctionMember(FunctionTypeBuilder(type_void), cname, Stubs<T>::constructor, 0, 0, PUBLIC | ARTIFICIAL | CONSTRUCTOR)
       .AddFunctionMember(FunctionTypeBuilder(type_void), dname.c_str(), Stubs<T>::destructor, 0, 0, PUBLIC | ARTIFICIAL | DESTRUCTOR )
       . template AddFunctionMember<void*(void)>("__getNewDelFunctions", Stubs<T>::newdel, 0, 0, PUBLIC | ARTIFICIAL);
+
+    return type_T;
   }
-  
+
+  template <typename T>
+  class Dict {
+  public:
+    Dict(char const * cname) :
+      type(buildType<T>(cname,(char*)(0),(char*)(0))) {}
+    template<typename IT>
+    Dict(char const * cname, It b, It e) : 
+      type(buildType<T>(cname,b,e,)){}
+    ~Dict() {
+      type.Unload();
+    }
+    
+  private:
+    ROOT::Reflex::Type type;
+  };
+
 }
 
 #endif // Synthetic_Synthesis_H
