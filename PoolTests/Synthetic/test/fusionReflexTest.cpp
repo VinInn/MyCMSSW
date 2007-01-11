@@ -9,19 +9,22 @@
 #include <typeinfo>
 #include<vector>
 #include<boost/shared_ptr.hpp>
+#include <boost/assign/std/vector.hpp>
 
 
 int main() {
 
-   std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(int)).Name()  << std::endl;
+  std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(int)).Name()  << std::endl;
   std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(std::string)).Name()  << std::endl;
   std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(std::vector<int>)).Name()  << std::endl;
 
 
 
   typedef boost::fusion::vector<int, char, double, std::string, std::vector<int> > seq_type;
+
+  std::vector<std::string> names += "id", "dir";
   
-  synthetic::Dict<seq_type>("MyClass");
+  synthetic::Dict<seq_type>("MyClass",names.begin(),names.end());
   
   
   seq_type t(1, 'x', 3.3, "hello", std::vector<int>(4,0));
