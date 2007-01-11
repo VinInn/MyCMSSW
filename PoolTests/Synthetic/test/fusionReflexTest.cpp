@@ -1,4 +1,4 @@
-#include "PoolTests/Syntetic/Synthesis.h"
+#include "PoolTests/Synthetic/interface/Synthesis.h"
 #include <boost/fusion/sequence.hpp>
 #include <boost/fusion/algorithm.hpp>
 
@@ -8,6 +8,12 @@
 
 
 int main() {
+
+   std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(int)).Name()  << std::endl;
+  std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(std::string)).Name()  << std::endl;
+  std::cout << ROOT::Reflex::Type::ByTypeInfo(typeid(std::vector<int>)).Name()  << std::endl;
+
+
 
   typedef boost::fusion::vector<int, char, double, std::string, std::vector<int> > seq_type;
   
