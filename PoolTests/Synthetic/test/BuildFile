@@ -9,6 +9,6 @@
   <use name=Collection>
 </bin>
 
-<bin name=testSynthetic file=testRunner.cpp,BaseBranch.cppunit.cc>
+<bin name=testSynthetic file=testRunner.cpp,BaseBranch.cppunit.cc,BaseTree.cppunit.cc>
   <use name=cppunit>
 </bin>

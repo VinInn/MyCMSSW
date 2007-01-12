@@ -32,6 +32,7 @@ public:
   void check_data();
   void check_constr();
   void check_add();
+  void check_find();
   void check_write();
 
   Stub * add3Branches(BaseTree& bt, bool verify=false);
@@ -67,6 +68,19 @@ void testBaseBranch::check_constr() {
 void testBaseBranch::check_add() {
   synthetic::BaseTree bt(0,fname,tname);
   add3Branches(bt,true);
+}
+
+void check_find() {
+  synthetic::BaseTree bt(0,fname,tname);
+  add3Branches(bt,true);
+  CPPUNIT_ASSERT (bt.find("1"));
+  CPPUNIT_ASSERT (bt.find("1"));
+  CPPUNIT_ASSERT (bt.find("2"));
+  CPPUNIT_ASSERT (bt.find("3"));
+  CPPUNIT_ASSERT (!bt.find("4"));
+  CPPUNIT_ASSERT (!bt.find("5"));
+  CPPUNIT_ASSERT (bt.find("99"));
+
 }
 
 void testBaseBranch::check_write() {
