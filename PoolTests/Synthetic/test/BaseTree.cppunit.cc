@@ -1,4 +1,5 @@
 #include "PoolTests/Synthetic/interface/BaseTree.h"
+#include "PoolTests/Synthetic/interface/BaseBranch.h"
 
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -35,7 +36,7 @@ public:
   void check_find();
   void check_write();
 
-  Stub * add3Branches(BaseTree& bt, bool verify=false);
+  static Stub * add3Branches(BaseTree& bt, bool verify=false);
 
   std::string fname;
   std::string tname;
@@ -44,20 +45,20 @@ public:
 
 CPPUNIT_TEST_SUITE_REGISTRATION(testBaseTree);
 
-void testBaseBranch::setUp() {
+void testBaseTree::setUp() {
   fname = "fname";
   tname = "tname";
 
 }
 
-void testBaseBranch::check_data() {
+void testBaseTree::check_data() {
   synthetic::BaseTree::Data d(fname,tname,0);
   CPPUNIT_ASSERT (d.fname==fname);
   CPPUNIT_ASSERT (d.tname==tname);
   CPPUNIT_ASSERT (d.svc==0);
 }
 
-void testBaseBranch::check_constr() {
+void testBaseTree::check_constr() {
   synthetic::BaseTree bt(0,fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   CPPUNIT_ASSERT (d.fname==fname);
@@ -65,12 +66,12 @@ void testBaseBranch::check_constr() {
   CPPUNIT_ASSERT (d.svc==0);
 }
 
-void testBaseBranch::check_add() {
+void testBaseTree::check_add() {
   synthetic::BaseTree bt(0,fname,tname);
   add3Branches(bt,true);
 }
 
-void check_find() {
+void  testBaseTree::check_find() {
   synthetic::BaseTree bt(0,fname,tname);
   add3Branches(bt,true);
   CPPUNIT_ASSERT (bt.find("1"));
@@ -83,7 +84,7 @@ void check_find() {
 
 }
 
-void testBaseBranch::check_write() {
+void testBaseTree::check_write() {
   synthetic::BaseTree bt(0,fname,tname);
   Stub * bs = add3Branches(bt,false);
 
@@ -95,11 +96,12 @@ void testBaseBranch::check_write() {
 
 } 
 
-Stub * add3Branches(BaseTree& bt, bool verify) {
+Stub *  testBaseTree::add3Branches(BaseTree& bt, bool verify) {
   Stub * bs = new Stub();
   CPPUNIT_ASSERT (bt.add("1", bs));
+  CPPUNIT_ASSERT (bs);
   CPPUNIT_ASSERT (bt.add("2", new Stub()));
-  CPPUNIT_ASSERT (bt.add("3",  new Stub()));
+  CPPUNIT_ASSERT (bt.add("3", new Stub()));
 
   if (verify) {
     CPPUNIT_ASSERT (!bt.add("1", bs));
@@ -107,5 +109,6 @@ Stub * add3Branches(BaseTree& bt, bool verify) {
     // this is not protected....
     CPPUNIT_ASSERT (bt.add("99", bs));
   }
+  CPPUNIT_ASSERT (bs);
   return bs;
 }
