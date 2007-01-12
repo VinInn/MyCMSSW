@@ -36,7 +36,7 @@ public:
   void check_find();
   void check_write();
 
-  static Stub * add3Branches(BaseTree& bt, bool verify=false);
+  static Stub * add3Branches(synthetic::BaseTree& bt, bool verify=false);
 
   std::string fname;
   std::string tname;
@@ -96,7 +96,7 @@ void testBaseTree::check_write() {
 
 } 
 
-Stub *  testBaseTree::add3Branches(BaseTree& bt, bool verify) {
+Stub *  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
   Stub * bs = new Stub();
   CPPUNIT_ASSERT (bt.add("1", bs));
   CPPUNIT_ASSERT (bs);

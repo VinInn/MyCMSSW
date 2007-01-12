@@ -16,9 +16,15 @@ namespace synthetic {
   class  BaseTree {
   public:
     struct Data {
-      std::string m_fname;
-      std::string m_tname;
-      pool::IDataSvc * m_svc;
+      Data(std::string const & ifname,
+	   std::string const & itname, 
+	   pool::IDataSvc * isvc) : 
+	fname(ifname),
+	tname(itname),
+	svc(isvc){}
+      std::string fname;
+      std::string tname;
+      pool::IDataSvc * svc;
 
     };
 
@@ -28,13 +34,13 @@ namespace synthetic {
 
     virtual ~BaseTree();
      
-    void add (BaseBranch * branch);
+    bool add (std::string const & name, BaseBranch * branch);
 
     boost::shared_ptr<BaseBranch> find(std::string const & name);
 
     void write();
 
-    Data const & data() const { return data;}
+    Data const & data() const { return m_data;}
 
   private:
 
@@ -42,6 +48,7 @@ namespace synthetic {
 
     typedef std::map<std::string, boost::shared_ptr<BaseBranch> > Branches;
     Branches branches;
+    int m_globalCount;
 
   };
 
