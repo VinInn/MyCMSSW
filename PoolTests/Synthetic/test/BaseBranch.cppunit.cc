@@ -40,7 +40,7 @@ void testBaseBranch::check_constr() {
 
 void testBaseBranch::check_write() {
   synthetic::BaseBranch * bs = new Stub();
-  bs.write(3);
+  bs->write(3);
   Stub * s = dynamic_cast<Stub*>(bs);
   CPPUNIT_ASSERT (s!=0);
   CPPUNIT_ASSERT (s->m_globalCount==3);
