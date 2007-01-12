@@ -1,3 +1,4 @@
 <bin name=fusionReflexTest  file=fusionReflexTest.cpp></bin>
 <use name=boost>
 <use name=rootrflx>
+<use name=PoolTests/PoolTreeTests>
