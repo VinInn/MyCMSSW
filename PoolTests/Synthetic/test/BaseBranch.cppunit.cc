@@ -6,7 +6,7 @@
 
 namespace {
 
-  struct Stub : public BaseBranch {
+  struct Stub : public synthetic::BaseBranch {
     Stub() : m_globalCount(0){}
     virtual  void write(int globalCount) {
       m_globalCount=globalCount;
@@ -33,13 +33,13 @@ public:
 CPPUNIT_TEST_SUITE_REGISTRATION(testBaseBranch);
 
 void testBaseBranch::check_constr() {
-  BaseBranch * bs = new Stub();
+  synthetic::BaseBranch * bs = new Stub();
   CPPUNIT_ASSERT (bs!=0);
   delete bs;
 }
 
 void testBaseBranch::check_write() {
-  BaseBranch * bs = new Stub();
+  synthetic::BaseBranch * bs = new Stub();
   bs.write(3);
   Stub * s = dynamic_cast<Stub*>(bs);
   CPPUNIT_ASSERT (s!=0);
