@@ -2,3 +2,8 @@
 <use name=boost>
 <use name=rootrflx>
 <use name=PoolTests/PoolTreeTests>
+<bin file=write_SyntBranch.cpp>
+<use name=rootcore>
+<use name=DataSvc>
+<use name=Collection>
+</bin>
