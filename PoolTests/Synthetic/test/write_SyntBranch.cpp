@@ -54,7 +54,7 @@ public:
     place("T1.root", pool::DatabaseSpecification::PFN, "Syn(MyClass)", ROOT::Reflex::Type(), 
 	    pool::ROOTTREE_StorageType.type()), 
     obj(svc),
-    dict("MyClass",names().begin(),names().end());
+    dict("MyClass",names().begin(),names().end())
   {
     // Define the policy for the implicit file handling
     pool::DatabaseConnectionPolicy policy;
