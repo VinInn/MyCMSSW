@@ -33,6 +33,7 @@ public:
   std::string tname;
   std::string bname1;
   std::string bname2;
+  std::vector<std::string> names2;
 
   typedef boost::fusion::vector<int, char, double, std::string, std::vector<int> > Vec1;
   typedef boost::fusion::vector<long long, double, std::string > Vec2;
@@ -51,6 +52,7 @@ void testBranch::setUp() {
   tname = "tname";
   bname1 = "Branch1";
   bname2 = "Branch2";
+  names2 += "time","delta","comment";
   svc = 0;
 
 }
@@ -60,7 +62,7 @@ void testBranch::tearDown() {
 }
 
 void testBranch::check_name() {
-  CPPUNIT_ASSERT(synthetic::branchName(tname,bname1)=="tname(Bname1)");
+  CPPUNIT_ASSERT(synthetic::branchName(tname,bname1)=="tname(Branch1)");
 }
 
 void testBranch::check_constr() {
@@ -70,7 +72,7 @@ void testBranch::check_constr() {
     delete bs;
   }
   {
-    Branch2 b2(svc,fname,tname,bname2);
+    Branch2 b2(svc,fname,tname,bname2,names2.begin(),name2.end());
     CPPUNIT_ASSERT (!b2.added);
     CPPUNIT_ASSERT (b2.count==0);
     CPPUNIT_ASSERT (!b2.obj);
@@ -103,7 +105,6 @@ void testBranch::check_clean() {
   b1.clean();
   CPPUNIT_ASSERT (!b1.added);
   CPPUNIT_ASSERT (b1.count==0);
-
 }
  
 void testBranch::check_write() {
