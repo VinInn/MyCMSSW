@@ -57,7 +57,7 @@ void testBranch::setUp() {
 }
 
 void testBranch::tearDown() {
-  delete svc;
+  // delete svc;
 }
 
 void testBranch::check_name() {

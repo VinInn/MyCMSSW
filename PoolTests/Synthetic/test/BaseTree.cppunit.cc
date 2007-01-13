@@ -38,7 +38,7 @@ public:
   void check_find();
   void check_write();
 
-  static Stub * add3Branches(synthetic::BaseTree& bt, bool verify=false);
+  static boost::shared_ptr<Stub> add3Branches(synthetic::BaseTree& bt, bool verify=false);
 
   std::string fname;
   std::string tname;
@@ -104,7 +104,7 @@ void  testBaseTree::check_find() {
 
 void testBaseTree::check_write() {
   synthetic::BaseTree bt(fname,tname);
-  Stub * bs = add3Branches(bt,false);
+  boost::shared_ptr<Stub> bs = add3Branches(bt,false);
 
   bt.write();
   bt.write();
@@ -114,19 +114,19 @@ void testBaseTree::check_write() {
 
 } 
 
-Stub *  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
-  Stub * bs = new Stub();
+boost::shared_ptr<Stub>  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
+  boost::shared_ptr<Stub> bs = new Stub();
   CPPUNIT_ASSERT (bt.add("1", bs));
   CPPUNIT_ASSERT (bs);
   CPPUNIT_ASSERT (bt.add("2", new Stub()));
   CPPUNIT_ASSERT (bt.add("3", new Stub()));
 
   if (verify) {
-    Stub * bs = new Stub(); // the shared point will destroy it...
+    // boost::shared_ptr<Stub> bs = new Stub();
     CPPUNIT_ASSERT (!bt.add("1", bs));
     
-    // this is not protected.... (and will crash the destructor...)
-    // CPPUNIT_ASSERT (bt.add("99", bs));
+    // this is not protected....
+    CPPUNIT_ASSERT (bt.add("99", bs));
   }
   CPPUNIT_ASSERT (bs);
   return bs;

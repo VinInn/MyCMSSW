@@ -60,7 +60,7 @@ namespace synthetic {
     delete m_data.svc;
   }
      
-  bool BaseTree::add(std::string const & name, BaseBranch * branch) {
+  bool BaseTree::add(std::string const & name, boost::shared_ptr<BaseBranch> branch) {
     return branches.insert(make_pair(name,branch)).second;
   }
   
