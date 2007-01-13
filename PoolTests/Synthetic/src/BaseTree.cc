@@ -20,8 +20,8 @@
 
 namespace synthetic {
 
-  BaseTree::Catalog::Catalog(boost::shared_ptr<IFileCatalog> icat) :
-    cat (icat? icat : new IFileCatalog)
+  BaseTree::Catalog::Catalog(boost::shared_ptr<<pool::IFileCatalog> icat) :
+    cat (icat? icat : boost::shared_ptr<<pool::IFileCatalog>(new pool::IFileCatalog));
   {
       seal::PluginManager::get()->initialise();
       
@@ -39,7 +39,7 @@ namespace synthetic {
   }
 
 
-  BaseTree::BaseTree( pool::IFileCatalog * cat,
+  BaseTree::BaseTree( boost::shared_ptr<<pool::IFileCatalog> cat,
 		      std::string const & fname,
 		      std::string const & tname) :
     m_cat(cat);

@@ -59,7 +59,7 @@ void testBaseTree::check_catalog() {
     CPPUNIT_ASSERT (cat.cat);
   }
   {
-    boost::shared_ptr<IFileCatalog> p(new IFileCatalog);
+    boost::shared_ptr<pool::IFileCatalog> p(new pool::IFileCatalog);
     synthetic::BaseTree::Catalog cat(p);
     CPPUNIT_ASSERT (cat.cat==p);
   }
