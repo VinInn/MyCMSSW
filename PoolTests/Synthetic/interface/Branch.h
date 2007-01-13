@@ -24,12 +24,24 @@ namespace synthetic {
     
     typedef Vec vec_type;
     
-    template <typename IT=char*>
     Branch(pool::IDataSvc *svc, 
 	   std::string const & fname,
 	   std::string const & tname, 
 	   std::string const & cname,  
 	   IT ib=0, IT ie=0) : 
+      dict(cname.c_str()), 
+      place(fname, pool::DatabaseSpecification::PFN,
+	    branchName(tname,cname), 
+	    ROOT::Reflex::Type(), 
+	    pool::ROOTTREE_StorageType.type()), 
+      obj(svc), count(0), added(false) {}
+
+    template <typename IT>
+    Branch(pool::IDataSvc *svc, 
+	   std::string const & fname,
+	   std::string const & tname, 
+	   std::string const & cname,  
+	   IT ib, IT ie) : 
       dict(cname.c_str(),ib,ie), 
       place(fname, pool::DatabaseSpecification::PFN,
 	    branchName(tname,cname), 
@@ -67,7 +79,7 @@ namespace synthetic {
       if (globalCount<count) ; // throw
       // fill previous rows with defaults...
       for (;count!=globalCount; count++) {
-	pool::Ref<vec_type> dummy = new vec_type;
+	pool::Ref<vec_type> dummy(obj); dummy=new vec_type();
 	dummy.markWrite(place);
       }
       if (added) {
