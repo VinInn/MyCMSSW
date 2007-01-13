@@ -12,7 +12,7 @@ namespace {
     virtual  void write(int globalCount) {
       m_globalCount=globalCount;
     }
-
+    void clean(){}
     int m_globalCount;
 
   };

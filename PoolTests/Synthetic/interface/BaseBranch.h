@@ -6,6 +6,7 @@ namespace synthetic {
   class  BaseBranch {
   public:
     virtual ~BaseBranch() {}
+    virtual void clean()=0;
     virtual  void write(int globalCount)=0;
   };
 

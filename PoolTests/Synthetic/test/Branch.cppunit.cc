@@ -54,7 +54,6 @@ void testBranch::setUp() {
   bname2 = "Branch2";
   names2 += "time","delta","comment";
   svc = 0;
-
 }
 
 void testBranch::tearDown() {
@@ -72,7 +71,7 @@ void testBranch::check_constr() {
     delete bs;
   }
   {
-    Branch2 b2(svc,fname,tname,bname2,names2.begin(),name2.end());
+    Branch2 b2(svc,fname,tname,bname2,names2.begin(),names2.end());
     CPPUNIT_ASSERT (!b2.added);
     CPPUNIT_ASSERT (b2.count==0);
     CPPUNIT_ASSERT (!b2.obj);
