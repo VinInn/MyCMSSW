@@ -35,9 +35,11 @@ namespace synthetic {
       boost::shared_ptr<pool::IFileCatalog> cat;
     };
 
-    BaseTree( boost::shared_ptr<pool::IFileCatalog> cat,
-	      std::string const & fname,
-	      std::string const & tname);
+    BaseTree( std::string const & fname,
+	      std::string const & tname,
+	      boost::shared_ptr<pool::IFileCatalog> cat=
+	      boost::shared_ptr<pool::IFileCatalog>()
+	      );
 
     virtual ~BaseTree();
      

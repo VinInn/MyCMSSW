@@ -13,6 +13,8 @@
 #include "FileCatalog/FCSystemTools.h"
 #include "FileCatalog/IFileCatalog.h"
 
+#include "PluginManager/PluginManager.h"
+
 
 #include <boost/bind.hpp>
 #include <algorithm>
