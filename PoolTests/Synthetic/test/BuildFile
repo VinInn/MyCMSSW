@@ -10,5 +10,6 @@
 </bin>
 
 <bin name=testSynthetic file=testRunner.cpp,BaseBranch.cppunit.cc,BaseTree.cppunit.cc>
+  <use name=PoolTests/Syntesis>
   <use name=cppunit>
 </bin>

@@ -36,7 +36,7 @@ namespace synthetic {
      
     bool add (std::string const & name, BaseBranch * branch);
 
-    boost::shared_ptr<BaseBranch> find(std::string const & name);
+    boost::shared_ptr<BaseBranch> find(std::string const & name) const;
 
     void write();
 

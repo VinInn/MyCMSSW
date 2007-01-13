@@ -75,8 +75,8 @@ public:
   }
 
   void loop(int i) {
-
-     svc->transaction().start(pool::ITransaction::UPDATE);
+    
+    svc->transaction().start(pool::ITransaction::UPDATE);
     std::cout << "cache size " << svc->cacheSvc().cacheSize() << std::endl;
     
     obj = new seq_type(i, 'x', 3.3*(i%5), "hello", std::vector<int>(4,0));
