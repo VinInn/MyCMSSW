@@ -28,14 +28,14 @@ namespace synthetic {
     m_data.svc->session().setDefaultConnectionPolicy(policy);   
   }
 
-  ~BaseTree::BaseTree() {
+  BaseTree::~BaseTree() {
     m_data.svc->transaction().commit();
     m_data.svc->session().disconnectAll();
     delete m_data.svc;
   }
      
-  bool BaseTree::add (std::string const & name, BaseBranch * branch) {
-    branches.insert(make_pair(name,Branches::data_type(branch)));
+  bool BaseTree::add(std::string const & name, BaseBranch * branch) {
+    branches.insert(make_pair(name,branch));
   }
   
   boost::shared_ptr<BaseBranch> BaseTree::find(std::string const & name) const  {
@@ -45,14 +45,14 @@ namespace synthetic {
   
   void BaseTree::write() {
     m_globalCount++;
-    svc->transaction().start(pool::ITransaction::UPDATE);
+    m_data.svc->transaction().start(pool::ITransaction::UPDATE);
     std::for_each(branches.begin(),branches.end(),
 		  boost::bind(&BaseBranch::write,
 			      boost::bind(&Branches::value_type::second,_1), 
 			      m_globalCount));
-    svc->transaction().commitAndHold();
+    m_data.svc->transaction().commitAndHold();
     
-    if (i%4==0)
+    if (m_globalCount%10==0)
       svc->transaction().commit();
     
   }
