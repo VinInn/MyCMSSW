@@ -125,8 +125,8 @@ Stub *  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
     Stub * bs = new Stub(); // the shared point will destroy it...
     CPPUNIT_ASSERT (!bt.add("1", bs));
     
-    // this is not protected....
-//    CPPUNIT_ASSERT (bt.add("99", bs));
+    // this is not protected.... (and will crash the destructor...)
+    // CPPUNIT_ASSERT (bt.add("99", bs));
   }
   CPPUNIT_ASSERT (bs);
   return bs;
