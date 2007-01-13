@@ -36,14 +36,14 @@ namespace synthetic {
     cat->start();
   }
   
-  Catalog::~Catalog() {
+  BaseTree::Catalog::~Catalog() {
     cat->commit();
   }
   
   
-  BaseTree::BaseTree( boost::shared_ptr<pool::IFileCatalog> cat,
-		      std::string const & fname,
-		      std::string const & tname) :
+  BaseTree::BaseTree( std::string const & fname,
+		      std::string const & tname,
+		      boost::shared_ptr<pool::IFileCatalog> cat) :
     m_cat(cat),
     m_data(fname,tname,pool::DataSvcFactory::instance(&*m_cat.cat)),
     m_globalCount(0) {

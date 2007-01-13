@@ -55,7 +55,7 @@ void testBaseTree::setUp() {
 
 void testBaseTree::check_catalog() {
   {
-    synthetic::BaseTree::Catalog cat(0);
+    synthetic::BaseTree::Catalog cat(boost::shared_ptr<pool::IFileCatalog>());
     CPPUNIT_ASSERT (cat.cat);
   }
   {
@@ -74,7 +74,7 @@ void testBaseTree::check_data() {
 }
 
 void testBaseTree::check_constr() {
-  synthetic::BaseTree bt(0,fname,tname);
+  synthetic::BaseTree bt(fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   CPPUNIT_ASSERT (d.fname==fname);
   CPPUNIT_ASSERT (d.tname==tname);
@@ -82,12 +82,12 @@ void testBaseTree::check_constr() {
 }
 
 void testBaseTree::check_add() {
-  synthetic::BaseTree bt(0,fname,tname);
+  synthetic::BaseTree bt(fname,tname);
   add3Branches(bt,true);
 }
 
 void  testBaseTree::check_find() {
-  synthetic::BaseTree bt(0,fname,tname);
+  synthetic::BaseTree bt(fname,tname);
   add3Branches(bt,true);
   CPPUNIT_ASSERT (bt.find("1"));
   CPPUNIT_ASSERT (bt.find("1"));
@@ -100,7 +100,7 @@ void  testBaseTree::check_find() {
 }
 
 void testBaseTree::check_write() {
-  synthetic::BaseTree bt(0,fname,tname);
+  synthetic::BaseTree bt(fname,tname);
   Stub * bs = add3Branches(bt,false);
 
   bt.write();
