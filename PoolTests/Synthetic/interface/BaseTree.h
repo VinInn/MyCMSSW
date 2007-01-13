@@ -28,6 +28,13 @@ namespace synthetic {
 
     };
 
+    struct Catalog {
+      Catalog(boost::shared_ptr<IFileCatalog> icat);
+      ~Catalog();
+
+      boost::shared_ptr<IFileCatalog> cat;
+    };
+
     BaseTree( pool::IFileCatalog * cat,
 	      std::string const & fname,
 	      std::string const & tname);
@@ -43,7 +50,7 @@ namespace synthetic {
     Data const & data() const { return m_data;}
 
   private:
-
+    Catalog m_cat;
     Data m_data;
 
     typedef std::map<std::string, boost::shared_ptr<BaseBranch> > Branches;
