@@ -81,7 +81,7 @@ void testBaseTree::check_constr() {
   synthetic::BaseTree::Data const & d = bt.data();
   CPPUNIT_ASSERT (d.fname==fname);
   CPPUNIT_ASSERT (d.tname==tname);
-  CPPUNIT_ASSERT (d.svc==0);
+  CPPUNIT_ASSERT (d.svc!=0);
 }
 
 void testBaseTree::check_add() {
@@ -98,7 +98,7 @@ void  testBaseTree::check_find() {
   CPPUNIT_ASSERT (bt.find("3"));
   CPPUNIT_ASSERT (!bt.find("4"));
   CPPUNIT_ASSERT (!bt.find("5"));
-  CPPUNIT_ASSERT (bt.find("99"));
+  CPPUNIT_ASSERT (!bt.find("99"));
 
 }
 
@@ -122,10 +122,11 @@ Stub *  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
   CPPUNIT_ASSERT (bt.add("3", new Stub()));
 
   if (verify) {
+    Stub * bs = new Stub(); // the shared point will destroy it...
     CPPUNIT_ASSERT (!bt.add("1", bs));
     
     // this is not protected....
-    CPPUNIT_ASSERT (bt.add("99", bs));
+//    CPPUNIT_ASSERT (bt.add("99", bs));
   }
   CPPUNIT_ASSERT (bs);
   return bs;
