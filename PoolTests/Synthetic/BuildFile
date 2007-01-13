@@ -3,7 +3,7 @@
 
 
 <export>
-  <lib name=PoolTestsSynthesis>
+  <lib name=PoolTestsSynthetic>
   <use name=boost>
   <use name=DataSvc>
   <use name=rootrflx>

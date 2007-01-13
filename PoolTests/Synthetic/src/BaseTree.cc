@@ -35,7 +35,7 @@ namespace synthetic {
   }
      
   bool BaseTree::add(std::string const & name, BaseBranch * branch) {
-    branches.insert(make_pair(name,branch));
+    return branches.insert(make_pair(name,branch)).second;
   }
   
   boost::shared_ptr<BaseBranch> BaseTree::find(std::string const & name) const  {
