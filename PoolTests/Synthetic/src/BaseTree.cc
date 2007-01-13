@@ -20,29 +20,29 @@
 
 namespace synthetic {
 
-  BaseTree::Catalog::Catalog(boost::shared_ptr<<pool::IFileCatalog> icat) :
-    cat (icat? icat : boost::shared_ptr<<pool::IFileCatalog>(new pool::IFileCatalog));
+  BaseTree::Catalog::Catalog(boost::shared_ptr<pool::IFileCatalog> icat) :
+    cat (icat ? icat : boost::shared_ptr<pool::IFileCatalog>(new pool::IFileCatalog))
   {
-      seal::PluginManager::get()->initialise();
-      
-
-      pool::URIParser p;
-      p.parse();
-      cat->setWriteCatalog(p.contactstring());
-      
-      cat->connect();
-      cat->start();
+    seal::PluginManager::get()->initialise();
+    
+    
+    pool::URIParser p;
+    p.parse();
+    cat->setWriteCatalog(p.contactstring());
+    
+    cat->connect();
+    cat->start();
   }
-
+  
   Catalog::~Catalog() {
-      cat->commit();
+    cat->commit();
   }
-
-
-  BaseTree::BaseTree( boost::shared_ptr<<pool::IFileCatalog> cat,
+  
+  
+  BaseTree::BaseTree( boost::shared_ptr<pool::IFileCatalog> cat,
 		      std::string const & fname,
 		      std::string const & tname) :
-    m_cat(cat);
+    m_cat(cat),
     m_data(fname,tname,pool::DataSvcFactory::instance(&*m_cat.cat)),
     m_globalCount(0) {
     pool::DatabaseConnectionPolicy policy;
