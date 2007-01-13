@@ -29,13 +29,13 @@ namespace synthetic {
     };
 
     struct Catalog {
-      Catalog(boost::shared_ptr<IFileCatalog> icat);
+      Catalog(boost::shared_ptr<pool::IFileCatalog> icat);
       ~Catalog();
 
-      boost::shared_ptr<IFileCatalog> cat;
+      boost::shared_ptr< pool::IFileCatalog> cat;
     };
 
-    BaseTree( pool::IFileCatalog * cat,
+    BaseTree( boost::shared_ptr< pool::IFileCatalog> cat,
 	      std::string const & fname,
 	      std::string const & tname);
 

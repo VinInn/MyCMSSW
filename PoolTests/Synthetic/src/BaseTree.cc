@@ -9,6 +9,10 @@
 #include "PersistencySvc/IDatabase.h"
 #include "DataSvc/DataSvcFactory.h"
 
+#include "FileCatalog/URIParser.h"
+#include "FileCatalog/FCSystemTools.h"
+#include "FileCatalog/IFileCatalog.h"
+
 
 #include <boost/bind.hpp>
 #include <algorithm>
@@ -16,10 +20,30 @@
 
 namespace synthetic {
 
+  BaseTree::Catalog::Catalog(boost::shared_ptr<IFileCatalog> icat) :
+    cat (icat? icat : new IFileCatalog)
+  {
+      seal::PluginManager::get()->initialise();
+      
+
+      pool::URIParser p;
+      p.parse();
+      cat->setWriteCatalog(p.contactstring());
+      
+      cat->connect();
+      cat->start();
+  }
+
+  Catalog::~Catalog() {
+      cat->commit();
+  }
+
+
   BaseTree::BaseTree( pool::IFileCatalog * cat,
 		      std::string const & fname,
 		      std::string const & tname) :
-    m_data(fname,tname,pool::DataSvcFactory::instance(cat)),
+    m_cat(cat);
+    m_data(fname,tname,pool::DataSvcFactory::instance(&*m_cat.cat)),
     m_globalCount(0) {
     pool::DatabaseConnectionPolicy policy;
     policy.setWriteModeForNonExisting(pool::DatabaseConnectionPolicy::CREATE);

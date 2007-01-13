@@ -21,6 +21,7 @@ namespace {
 
 class testBaseTree : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(testBaseTree);
+  CPPUNIT_TEST(check_catalog);
   CPPUNIT_TEST(check_data);
   CPPUNIT_TEST(check_constr);
   CPPUNIT_TEST(check_add);
@@ -30,6 +31,7 @@ class testBaseTree : public CppUnit::TestFixture {
 public:
   void setUp();
   void tearDown() {}
+  void check_catalog();
   void check_data();
   void check_constr();
   void check_add();
@@ -50,6 +52,19 @@ void testBaseTree::setUp() {
   tname = "tname";
 
 }
+
+void testBaseTree::check_catalog() {
+  {
+    synthetic::BaseTree::Catalog cat(0);
+    CPPUNIT_ASSERT (cat.cat);
+  }
+  {
+    boost::shared_ptr<IFileCatalog> p(new IFileCatalog);
+    synthetic::BaseTree::Catalog cat(p);
+    CPPUNIT_ASSERT (cat.cat==p);
+  }
+}
+
 
 void testBaseTree::check_data() {
   synthetic::BaseTree::Data d(fname,tname,0);
