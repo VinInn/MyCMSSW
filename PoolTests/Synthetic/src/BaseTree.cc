@@ -53,7 +53,7 @@ namespace synthetic {
     m_data.svc->transaction().commitAndHold();
     
     if (m_globalCount%10==0)
-      svc->transaction().commit();
+      m_data.svc->transaction().commit();
     
   }
 
