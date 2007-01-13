@@ -8,6 +8,7 @@
 #include "Reflex/Type.h"
 #include "DataSvc/Ref.h"
 #include "PersistencySvc/Placement.h"
+#include "StorageSvc/DbType.h"
 #include <string>
 
 namespace synthetic {
@@ -23,12 +24,12 @@ namespace synthetic {
     
     typedef Vec vec_type;
     
-    template <typename IT>
+    template <typename IT=char*>
     Branch(pool::IDataSvc *svc, 
 	   std::string const & fname,
 	   std::string const & tname, 
 	   std::string const & cname,  
-	   IT ib, IT ie) : 
+	   IT ib=0, IT ie=0) : 
       dict(cname.c_str(),ib,ie), 
       place(fname, pool::DatabaseSpecification::PFN,
 	    branchName(tname,cname), 
@@ -41,12 +42,21 @@ namespace synthetic {
       if (added) return false; // throw?
       obj = v.release();
       added = obj;
+      if (added) count++;
       return added;
+    }
+
+    void clean() {
+      obj=0;
+      if (added) {
+	count--;
+	added=false;
+      }
     }
 
   private:    
     synthetic::Dict<vec_type> dict;
-    pool::Placement place;  
+    pool::Placement place; 
     pool::Ref<vec_type> obj;
     int count;
     bool added;
@@ -60,13 +70,16 @@ namespace synthetic {
 	pool::Ref<vec_type> dummy = new vec_type;
 	dummy.markWrite(place);
       }
-      obj.markWrite(place);
+      if (added) {
+	obj.markWrite(place);
+	added=false;
+      }
     }
   };
   
 }
 
-#endif Synthetic_Branch_H
+#endif  //  Synthetic_Branch_H
 
 
 

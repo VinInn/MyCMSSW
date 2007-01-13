@@ -13,7 +13,7 @@ using namespace boost::assign;
 
 
 class testBranch : public CppUnit::TestFixture {
-  CPPUNIT_TEST_SUITE(testBaseBranch);
+  CPPUNIT_TEST_SUITE(testBranch);
   CPPUNIT_TEST(check_name);
   CPPUNIT_TEST(check_constr);
   CPPUNIT_TEST(check_add);
@@ -46,7 +46,7 @@ public:
 
 CPPUNIT_TEST_SUITE_REGISTRATION(testBranch);
 
-void testBaseTree::setUp() {
+void testBranch::setUp() {
   fname = "fname";
   tname = "tname";
   bname1 = "Branch1";
@@ -55,7 +55,7 @@ void testBaseTree::setUp() {
 
 }
 
-void tearDown() {
+void testBranch::tearDown() {
   delete svc;
 }
 
