@@ -27,8 +27,7 @@ namespace synthetic {
     Branch(pool::IDataSvc *svc, 
 	   std::string const & fname,
 	   std::string const & tname, 
-	   std::string const & cname,  
-	   IT ib=0, IT ie=0) : 
+	   std::string const & cname) : 
       dict(cname.c_str()), 
       place(fname, pool::DatabaseSpecification::PFN,
 	    branchName(tname,cname), 
