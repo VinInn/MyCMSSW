@@ -9,7 +9,7 @@
   <use name=Collection>
 </bin>
 
-<bin name=testSynthetic file=testRunner.cpp,BaseBranch.cppunit.cc,BaseTree.cppunit.cc>
+<bin name=testSynthetic file=testRunner.cpp,BaseBranch.cppunit.cc,BaseTree.cppunit.cc,Branch.cppunit.cc>
   <use name=PoolTests/Synthetic>
   <use name=cppunit>
 </bin>
