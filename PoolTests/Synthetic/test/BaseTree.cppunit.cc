@@ -115,11 +115,11 @@ void testBaseTree::check_write() {
 } 
 
 boost::shared_ptr<Stub>  testBaseTree::add3Branches(synthetic::BaseTree& bt, bool verify) {
-  boost::shared_ptr<Stub> bs = new Stub();
+  boost::shared_ptr<Stub> bs(new Stub());
   CPPUNIT_ASSERT (bt.add("1", bs));
   CPPUNIT_ASSERT (bs);
-  CPPUNIT_ASSERT (bt.add("2", new Stub()));
-  CPPUNIT_ASSERT (bt.add("3", new Stub()));
+  CPPUNIT_ASSERT (bt.add("2",  boost::shared_ptr<Stub>(new Stub())));
+  CPPUNIT_ASSERT (bt.add("3",  boost::shared_ptr<Stub>(new Stub())));
 
   if (verify) {
     // boost::shared_ptr<Stub> bs = new Stub();
