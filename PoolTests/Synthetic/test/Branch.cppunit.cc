@@ -92,7 +92,7 @@ void testBranch::check_add() {
     CPPUNIT_ASSERT (b1.obj);
   }
   {
-    Branch1 b2(svc,fname,tname,bname2);
+    Branch2 b2(svc,fname,tname,bname2);
     CPPUNIT_ASSERT (!b2.add(std::auto_ptr<Branch2::vec_type>(0)));
     CPPUNIT_ASSERT (!b2.added);
     CPPUNIT_ASSERT (b2.count==0);
@@ -116,16 +116,16 @@ void testBranch::check_write1() {
   synthetic::BaseTree bt(fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
-  bt.add(bname1,b);
+  bt.add(bname1,b1);
   // "no mistake here"
   CPPUNIT_ASSERT (b1->add(std::auto_ptr<Branch1::vec_type>(new Branch1::vec_type(1,'x',3.3,"hello", std::vector<int>(4,0)))));
   bt.write();
-  CPPUNIT_ASSERT (!b1.added);
-  CPPUNIT_ASSERT (b1.count==1);
+  CPPUNIT_ASSERT (!b1->added);
+  CPPUNIT_ASSERT (b1->count==1);
 
   CPPUNIT_ASSERT (b1->add(std::auto_ptr<Branch1::vec_type>(new Branch1::vec_type(1,'x',3.3,"hello", std::vector<int>(4,0)))));
   bt.write();
-  CPPUNIT_ASSERT (b1.count==2);
+  CPPUNIT_ASSERT (b1->count==2);
 
 }
 
