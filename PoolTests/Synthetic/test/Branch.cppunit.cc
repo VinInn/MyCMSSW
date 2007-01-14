@@ -52,8 +52,8 @@ public:
 CPPUNIT_TEST_SUITE_REGISTRATION(testBranch);
 
 void testBranch::setUp() {
-  fname = "fname";
-  tname = "tname";
+  fname = "f.root";
+  tname = "theTree";
   bname1 = "Branch1";
   bname2 = "Branch2";
   names2 += "time","delta","comment";
@@ -65,7 +65,7 @@ void testBranch::tearDown() {
 }
 
 void testBranch::check_name() {
-  CPPUNIT_ASSERT(synthetic::branchName(tname,bname1)=="tname(Branch1)");
+  CPPUNIT_ASSERT(synthetic::branchName(tname,bname1)=="theTree(Branch1)");
 }
 
 void testBranch::check_constr() {
