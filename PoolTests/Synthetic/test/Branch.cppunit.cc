@@ -115,7 +115,7 @@ void testBranch::check_clean() {
 #include "PoolTests/Synthetic/interface/BaseTree.h"
 
 void testBranch::check_write1() {
-  synthetic::BaseTree bt("one"+fname,tname);
+  synthetic::BaseTree bt("one_"+fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
@@ -132,7 +132,7 @@ void testBranch::check_write1() {
 }
 
 void testBranch::check_write2() {
-  synthetic::BaseTree bt("two"+fname,tname);
+  synthetic::BaseTree bt("two_"+fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
@@ -157,7 +157,7 @@ void testBranch::check_write2() {
 }
 
 void testBranch::check_writeMiss() {
-  synthetic::BaseTree bt("miss"+fname,tname);
+  synthetic::BaseTree bt("miss_"+fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
@@ -188,7 +188,7 @@ void testBranch::check_writeMiss() {
 }
 
 void testBranch::check_writeDelayed() {
-  synthetic::BaseTree bt("one"+fname,tname);
+  synthetic::BaseTree bt("delayed_"+fname,tname);
   synthetic::BaseTree::Data const & d = bt.data();
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
