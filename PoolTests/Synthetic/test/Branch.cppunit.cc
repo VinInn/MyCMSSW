@@ -137,7 +137,7 @@ void testBranch::check_write2() {
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
   boost::shared_ptr<Branch2> b2(new Branch2(d.svc,d.fname,d.tname,bname2,names2.begin(),names2.end()));
-  bt.add(bname1,b2);
+  bt.add(bname2,b2);
   // "no mistake here"
   CPPUNIT_ASSERT (b1->add(std::auto_ptr<Branch1::vec_type>(new Branch1::vec_type(1,'x',3.3,"hello", std::vector<int>(4,0)))));
   CPPUNIT_ASSERT (b2->add(std::auto_ptr<Branch2::vec_type>(new Branch2::vec_type(1,3.3,"hello"))));
@@ -162,7 +162,7 @@ void testBranch::check_writeMiss() {
   boost::shared_ptr<Branch1> b1(new Branch1(d.svc,d.fname,d.tname,bname1));
   bt.add(bname1,b1);
   boost::shared_ptr<Branch2> b2(new Branch2(d.svc,d.fname,d.tname,bname2,names2.begin(),names2.end()));
-  bt.add(bname1,b2);
+  bt.add(bname2,b2);
   // miss b2 in event 2
   CPPUNIT_ASSERT (b1->add(std::auto_ptr<Branch1::vec_type>(new Branch1::vec_type(1,'x',3.3,"hello", std::vector<int>(4,0)))));
   CPPUNIT_ASSERT (b2->add(std::auto_ptr<Branch2::vec_type>(new Branch2::vec_type(1,3.3,"hello"))));
@@ -199,7 +199,7 @@ void testBranch::check_writeDelayed() {
   }
   // add b2
   boost::shared_ptr<Branch2> b2(new Branch2(d.svc,d.fname,d.tname,bname2,names2.begin(),names2.end()));
-  bt.add(bname1,b2);
+  bt.add(bname2,b2);
   // continue for other 12
   for (int i=15; i<27;i++) {
     CPPUNIT_ASSERT (b1->add(std::auto_ptr<Branch1::vec_type>(new Branch1::vec_type(i,'x',3.3,"new", std::vector<int>(4,0)))));
