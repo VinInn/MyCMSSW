@@ -98,7 +98,7 @@ void  testBaseTree::check_find() {
   CPPUNIT_ASSERT (bt.find("3"));
   CPPUNIT_ASSERT (!bt.find("4"));
   CPPUNIT_ASSERT (!bt.find("5"));
-  CPPUNIT_ASSERT (!bt.find("99"));
+  CPPUNIT_ASSERT (bt.find("99"));
 
 }
 
