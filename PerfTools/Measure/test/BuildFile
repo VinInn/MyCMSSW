@@ -2,6 +2,6 @@
  
 <bin name=PerfTools_evalTimers  file=evalTimers.cpp></bin>
 
-<bin name=testPerfToolsMeasure file=testRunner.cpp>
+<bin name=testPerfToolsMeasure file=testRunner.cpp,Timers.cppunit.cc>
   <use name=cppunit>
 </bin>
