@@ -72,13 +72,13 @@ void checkTime(S source) {
   T e = source() << std::endl;
   CPPUNIT_ASSERT(!( (c-i)<(b-i) ));
   CPPUNIT_ASSERT(!( (e-i)<(c-i) ));
-  CPPUNIT_ASSERT( (e-i)>(b-i) )); // not obvious if low resolution...
+  CPPUNIT_ASSERT( (e-i)>(b-i) ); // not obvious if low resolution...
 
 }
 
 #define CHECKTIME(S) \
   std::cout << "checking source " << #S << std::endl;	\
-  checkTime(&S);
+  checkTime(&S)
 
 
 void TestTimers::check_stdclock() {
