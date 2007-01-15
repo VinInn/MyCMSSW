@@ -78,14 +78,14 @@ void checkTime(S source) {
 
 #define CHECKTIME(S) \
   std::cout << "checking source " << #S << std::endl;	\
-  checkTime(&S)
+  checkTime(&S);
 
 
 void TestTimers::check_stdclock() {
-  CHECKTIME(perftools::realTime);
+  CHECKTIME(std::clock);
 }
 void TestTimers::check_RealTime() {
-  CHECKTIME(std::clock);
+  CHECKTIME(perftools::realTime);
 }
 
 
