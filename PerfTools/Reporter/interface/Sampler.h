@@ -15,7 +15,7 @@ namespace perftools {
     typedef boost::function<void(D)> Report;
 
   public:
-    template<typename S, Typename R>
+    template<typename S, typename R>
     Sampler(S isource, R ireport) : 
       m_source(isource),
       m_report(ireport), 

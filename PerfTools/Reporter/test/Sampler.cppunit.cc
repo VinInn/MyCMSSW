@@ -34,7 +34,7 @@ namespace {
   }
 }
 
-void  TestSampler::checkSampler() {
+void  TestSampler::check_Sampler() {
   
   {
     perftools::Sampler<int>  s(&more,&tell);
