@@ -21,7 +21,7 @@ namespace {
   double gcrap=0;
   void waiste() {
     for (double i=1;i<100000;i++)
-      gcrap+=std::log(i);
+      gcrap+=std::log(std::sqrt(i));
   }
 }
 
