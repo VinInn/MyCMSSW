@@ -1,5 +1,5 @@
-#ifndef Utilities_PerfTools_PENTIUMRealTime_H
-#define Utilities_PerfTools_PENTIUMRealTime_H
+#ifndef PerfTools_PentiumRealTime_H
+#define PerfTools_PentiumRealTime_H
 
 namespace perftools {
 
@@ -11,5 +11,5 @@ namespace perftools {
 
 }
 
-#endif //  Utilities_PerfTools_PENTIUMRealTime_H
+#endif //  PerfTools_PentiumRealTime_H
 

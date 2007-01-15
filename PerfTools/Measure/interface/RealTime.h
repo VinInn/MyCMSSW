@@ -1,5 +1,5 @@
-#ifndef Utilities_PerfTools_RealTime_H
-#define Utilities_PerfTools_RealTime_H
+#ifndef PerfTools_RealTime_H
+#define PerfTools_RealTime_H
 //
 //  defines "rdtsc"
 //
@@ -8,7 +8,7 @@
 #elif defined(__i386__) || defined(__ia64) || defined(__ia64__)
 #include "PentiumRealTime.h"
 #else
-#error The file Utilities/PerfTools/interface/RealTime.h needs to be set up for your CPU type.
+#error The file PerfTools/Measure/interface/RealTime.h needs to be set up for your CPU type.
 #endif
 
 namespace perftools {
@@ -24,4 +24,4 @@ namespace perftools {
 }
 
 
-#endif //   Utilities_PerfTools_RealTime_H
+#endif //  PerfTools_RealTime_H

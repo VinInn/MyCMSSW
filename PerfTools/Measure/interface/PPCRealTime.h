@@ -1,5 +1,5 @@
-#ifndef Utilities_PerfTools_PPCRealTime_H
-#define Utilities_PerfTools_PPCRealTime_H
+#ifndef PerfTools_PPCRealTime_H
+#define PerfTools_PPCRealTime_H
 
 namespace perftools {
 
@@ -50,4 +50,4 @@ namespace perftools {
   
 }
 
-#endif // Utilities_PerfTools_PPCRealTime_H
+#endif // PerfTools_PPCRealTime_H
