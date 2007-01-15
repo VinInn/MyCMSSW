@@ -1,4 +1,4 @@
- <use name=PerfToolsMeasure>
+ <use name=PerfTools/Measure>
  
 <bin name=PerfTools_evalTimers  file=evalTimers.cpp></bin>
 

@@ -33,7 +33,7 @@ class TestTimers : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_RealTime);
   CPPUNIT_TEST_SUITE_END();
 public:
-  void setUp();
+  void setUp(){}
   void tearDown() {}
   void check_stdclock();
   void check_RealTime();
@@ -84,6 +84,7 @@ void checkTime(S source) {
 void TestTimers::check_stdclock() {
   CHECKTIME(std::clock);
 }
+
 void TestTimers::check_RealTime() {
   CHECKTIME(perftools::realTime);
 }
