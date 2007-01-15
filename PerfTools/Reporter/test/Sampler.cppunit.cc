@@ -1,6 +1,23 @@
-#include "Utilities/PerfTools/interface/FakeCPP.h"
+#include "PerfTools/Reporter/interface/Sampler.h"
 
-#include "Utilities/PerfTools/interface/Sampler.h"
+#include <cppunit/extensions/HelperMacros.h>
+
+
+// FIXME
+// check by features....
+class TestSampler : public CppUnit::TestFixture {
+  CPPUNIT_TEST_SUITE(TestSampler);
+  CPPUNIT_TEST(check_Sampler);
+  CPPUNIT_TEST_SUITE_END();
+public:
+  void setUp(){}
+  void tearDown() {}
+  void check_Sampler();
+
+};
+
+CPPUNIT_TEST_SUITE_REGISTRATION(TestSampler);
+
 
 
 namespace {
@@ -17,9 +34,8 @@ namespace {
   }
 }
 
-int main() {
+void  TestSampler::checkSampler() {
   
-  cppUnit::Dump a;
   {
     perftools::Sampler<int>  s(&more,&tell);
     
@@ -40,6 +56,5 @@ int main() {
   }
 
   CPPUNIT_ASSERT(last==1);
- 
-  return 0;
+
 }

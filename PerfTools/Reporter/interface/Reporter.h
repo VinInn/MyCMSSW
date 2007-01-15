@@ -72,7 +72,7 @@ namespace perftools {
     void setDefaultTitleReport(TitleReport dtr) { defaultTitleReport = dtr;}
 
   private:
-    void Reporter::reportOneCat(Reporter::Categories::value_type const & icat) const;
+    void reportOneCat(Reporter::Categories::value_type const & icat) const;
 
   private:
 
