@@ -69,7 +69,7 @@ void checkTime(S source) {
   CPPUNIT_ASSERT(!(d<0));
   
  
-  T e = source() << std::endl;
+  T e = source();
   CPPUNIT_ASSERT(!( (c-i)<(b-i) ));
   CPPUNIT_ASSERT(!( (e-i)<(c-i) ));
   CPPUNIT_ASSERT( (e-i)>(b-i) ); // not obvious if low resolution...
