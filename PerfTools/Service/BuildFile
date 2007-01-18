@@ -1,0 +1,8 @@
+<use name=boost>
+
+
+<export>
+  <lib name=PerfToolsService>
+  <use name=boost>
+</export>
+

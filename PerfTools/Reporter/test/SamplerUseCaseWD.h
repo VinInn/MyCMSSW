@@ -24,9 +24,9 @@ namespace usecaseWD {
     }
   };
 
-   typedef std::map<std::string, std::string> Config;
+  typedef std::map<std::string, std::string> Config;
 
- /* a Dummy SampleFactory
+  /* a Dummy SampleFactory
    * creates a Sample given a configuration
    * it is implemented as a service
    *  implements just the interface no backhand...
@@ -54,7 +54,6 @@ namespace usecaseWD {
     const Sample & m_sample;
   };
 
-  typedef std::map<std::string, std::string> Config;
 
   /* a typical Client of the Sampler
    *  it is assumed to be configurable using a system similar to
@@ -88,4 +87,4 @@ namespace usecaseWD {
 }
 
 
-#endif
+#endif //  SamplerUseCaseWD_H

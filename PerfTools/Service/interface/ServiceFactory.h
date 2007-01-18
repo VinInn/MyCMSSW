@@ -1,0 +1,53 @@
+#ifndef PerfTools_ServiceFactory_H
+#define PerfTools_ServiceFactory_H
+
+
+# include "PluginManager/PluginFactory.h"
+
+
+#include<map>
+#include<string>
+#include<boost/shared_ptr.hpp>
+#include<boost/any.hpp>
+#include<typeinfo>
+
+namespace perftools {
+
+
+  
+  /* actually a very generic factory of singletons...
+   * 
+   */
+  class ServiceFactory : public seal::PluginFactory<boost::any (void)>
+  {
+  public:
+    static StorageFactory & get (void);
+    ~StorageFactory () {}
+    
+    template<typename Service>
+    boost::shared_ptr<Service> getService(std::string & const name) {
+      try {
+	return boost::any_cast<boost::shared_ptr<Service> >(getAny(name));
+      } catch (boost::bad_any_cast const &) {
+	reportWrongType(name,typeid(Service).name());
+      }
+    }
+
+
+    boost::any getAny(std::string & const name);
+    
+  private:
+    void reportErrorNoService(std::string & const name) const;
+    void reportWrongType(std::string & const name, char const * type) const;
+    
+    static ServiceFactory & instance();
+    
+    typedef std::map<std::string, ServiceHandle> Repository;
+    Repository m_services;
+    
+    
+  };
+
+}
+
+#endif  // PerfTools_ServiceFactory_H
