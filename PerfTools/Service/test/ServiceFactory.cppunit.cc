@@ -57,7 +57,7 @@ void TestServiceFactory::check_Maker() {
 
 void TestServiceFactory::check_getAny() {
   typedef perftools::serviceTest::Dummy2 D2;
-  boost::any a ServiceFactory::get()->getAny("PerfDummy2");
+  boost::any a = perftools::ServiceFactory::get()->getAny("PerfDummy2");
   CPPUNIT_ASSERT(!a.empty());
   try {
     boost::shared_ptr<D2> d2 = boost::any_cast<boost::shared_ptr<D2> >(a);
@@ -70,14 +70,14 @@ void TestServiceFactory::check_getAny() {
 }
 void TestServiceFactory::check_getService() {
   typedef perftools::serviceTest::Dummy2 D2;
-  boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfDummy2");
+  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService("PerfDummy2");
   CPPUNIT_ASSERT(d2);
 }
 
 void TestServiceFactory::check_NameError(){
   try {
     typedef perftools::serviceTest::Dummy2 D2;
-    boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfNone");
+    boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService("PerfNone");
     CPPUNIT_ASSERT(!d2);
   }
   catch(...) {
