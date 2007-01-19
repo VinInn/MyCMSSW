@@ -2,7 +2,7 @@
 <use name=Foundation/PluginManager>
 <use name=PerfTools/Service>
  
-<bin name=PerfTools_ServiceUseCases  file=ServiceUseCases.cpp></bin>
+# <bin name=PerfTools_ServiceUseCases file=ServiceUseCase.cpp></bin>
 
 <bin name=testPerfToolsService file=testRunner.cpp,ServiceFactory.cppunit.cc>
   <use name=cppunit>
