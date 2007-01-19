@@ -83,7 +83,7 @@ void TestServiceFactory::check_getService() {
   typedef perftools::serviceTest::Dummy2 D2;
   boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
   CPPUNIT_ASSERT(d2);
-  CPPUNIT_ASSERT(d2.use_counts()==2);
+  CPPUNIT_ASSERT(d2.use_count()==2);
 }
 
 void TestServiceFactory::check_getTwice() {
@@ -98,7 +98,7 @@ void TestServiceFactory::check_getTwice() {
   boost::shared_ptr<D2> d2_2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
   CPPUNIT_ASSERT(d2_2);
   CPPUNIT_ASSERT(d2_2==d2);
-  CPPUNIT_ASSERT(d2.use_counts()==3);
+  CPPUNIT_ASSERT(d2.use_count()==3);
 }
 
 void TestServiceFactory::check_NameError(){
