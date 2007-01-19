@@ -15,6 +15,6 @@ namespace perftools{
 
 DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<perftools::serviceTestDummy1>, "PerfDummy1");
+		    perftools::ServiceMaker<perftools::serviceTest::Dummy1>, "PerfDummy1");
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<perftools::serviceTestDummy2>, "PerfDummy2");
+		    perftools::ServiceMaker<perftools::serviceTest::Dummy2>, "PerfDummy2");

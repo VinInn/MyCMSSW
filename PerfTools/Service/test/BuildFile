@@ -5,4 +5,4 @@
 
 <library file=ServiceTestModule.cc name=PerfToolsServiceTestStubs>
   <flags SEAL_PLUGIN_NAME="PerfToolsServiceTestStubs">
-<library>
+</library>

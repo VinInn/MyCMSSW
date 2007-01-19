@@ -35,7 +35,7 @@ namespace perftools {
   {
   public:
     typedef BaseServiceMaker Maker;
-    static ServiceFactory & get (void);
+    static ServiceFactory * get (void);
     ~ServiceFactory ();
     
     template<typename Service>

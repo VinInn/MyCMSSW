@@ -3,8 +3,8 @@
 
 namespace perftools {
 
-  ServiceFactory & ServiceFactory::get (void) {
-    return instance();
+  ServiceFactory * ServiceFactory::get (void) {
+    return &instance();
   }
   
   ServiceFactory::ServiceFactory() : 
