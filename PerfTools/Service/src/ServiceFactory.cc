@@ -3,12 +3,13 @@
 
 namespace perftools {
 
-  StorageFactory::StorageFactory & get (void) {
+  ServiceFactory::ServiceFactory & get (void) {
     return instance();
   }
-  StorageFactory::~StorageFactory () {}
+
+  ServiceFactory::~ServiceFactory () {}
     
-  boost::any StorageFactory::getAny(std::string const & name) {
+  boost::any ServiceFactory::getAny(std::string const & name) {
     boost::any & h = m_services[name];
     if (h.empty()) {
       auto_ptr<Maker> m(create(name));
@@ -18,21 +19,16 @@ namespace perftools {
     return h;
   }
   
-  void  StorageFactory::reportErrorNoService(std::string const & name) const {
+  void  ServiceFactory::reportErrorNoService(std::string const & name) const {
 
   }
 
-  void  StorageFactory::reportWrongType(std::string const & name, 
+  void  ServiceFactory::reportWrongType(std::string const & name, 
 					char const * type) const {
     
   }
     
-  ServiceFactory &  StorageFactory::instance() {
+  ServiceFactory &  ServiceFactory::instance() {
     static ServiceFactory local;
     return local;
   }
-  ServiceFactory * create() {
-    return *this;
-  }
-
-}
