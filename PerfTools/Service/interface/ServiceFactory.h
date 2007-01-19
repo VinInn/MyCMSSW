@@ -45,7 +45,7 @@ namespace perftools {
       } catch (boost::bad_any_cast const &) {
 	reportWrongType(name,typeid(Service).name());
       }
-      return boost::shared_ptr<Service>(0);
+      return boost::shared_ptr<Service>();
     }
 
     boost::any getAny(std::string const & name);
