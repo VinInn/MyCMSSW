@@ -1,4 +1,6 @@
 #include "PerfTools/Service/interface/ServiceFactory.h"
+#include "PluginManager/PluginManager.h"
+
 #include <memory>
 
 namespace perftools {
