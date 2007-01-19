@@ -8,7 +8,7 @@ namespace perftools {
   }
   StorageFactory::~StorageFactory () {}
     
-  boost::any StorageFactory::getAny(std::string & const name) {
+  boost::any StorageFactory::getAny(std::string const & name) {
     boost::any & h = m_services[name];
     if (h.empty()) {
       auto_ptr<Maker> m(create(name));
@@ -18,11 +18,11 @@ namespace perftools {
     return h;
   }
   
-  void  StorageFactory::reportErrorNoService(std::string & const name) const {
+  void  StorageFactory::reportErrorNoService(std::string const & name) const {
 
   }
 
-  void  StorageFactory::reportWrongType(std::string & const name, 
+  void  StorageFactory::reportWrongType(std::string const & name, 
 					char const * type) const {
     
   }
