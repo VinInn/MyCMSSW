@@ -89,7 +89,7 @@ void TestServiceFactory::check_NameError(){
 void TestServiceFactory::check_TypeError() {
   try {
   typedef perftools::serviceTest::Dummy2 D2;
-  boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfDummy1");
+  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService("PerfDummy1");
   CPPUNIT_ASSERT(!d2);
   }
   catch(...) {
