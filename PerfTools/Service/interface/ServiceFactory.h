@@ -20,7 +20,7 @@ namespace perftools {
     virtual boost::any operator()()=0;
   };
 
-  template<Service>
+  template<typename Service>
   struct ServiceMaker : public BaseServiceMaker {
     boost::any operator()() {
       return boost::shared_ptr<Service>(new Service);
@@ -39,7 +39,7 @@ namespace perftools {
     ~ServiceFactory () {}
     
     template<typename Service>
-    boost::shared_ptr<Service> getService(std::string & const name) {
+    boost::shared_ptr<Service> getService(std::string const & name) {
       try {
 	return boost::any_cast<boost::shared_ptr<Service> >(getAny(name));
       } catch (boost::bad_any_cast const &) {
@@ -47,12 +47,12 @@ namespace perftools {
       }
     }
 
-    boost::any getAny(std::string & const name);
+    boost::any getAny(std::string const & name);
 
     
   private:
-    void reportErrorNoService(std::string & const name) const;
-    void reportWrongType(std::string & const name, char const * type) const;
+    void reportErrorNoService(std::string const & name) const;
+    void reportWrongType(std::string const & name, char const * type) const;
     
     static ServiceFactory & instance();
     typedef std::map<std::string, ServiceHandle> Repository;

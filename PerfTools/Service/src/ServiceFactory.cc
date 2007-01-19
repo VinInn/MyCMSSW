@@ -10,7 +10,10 @@ namespace perftools {
     
   boost::any StorageFactory::getAny(std::string & const name) {
     boost::any & h = m_services[name];
-    if (h.empty()) h = create(name);
+    if (h.empty()) {
+      auto_ptr<Maker> m(create(name));
+      if (m) h = (*m)();
+    }
     if (h.empty()) reportErrorNoService(name);
     return h;
   }
@@ -28,5 +31,8 @@ namespace perftools {
     static ServiceFactory local;
     return local;
   }
-    
+  ServiceFactory * create() {
+    return *this;
+  }
+
 }
