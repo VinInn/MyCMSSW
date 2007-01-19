@@ -13,16 +13,30 @@
 
 namespace perftools {
 
+  /*
+   * most probably there is a more elegant solution....
+   */
+  struct BaseServiceMaker {
+    virtual boost::any operator()()=0;
+  };
 
+  template<Service>
+  struct ServiceMaker : public BaseServiceMaker {
+    boost::any operator()() {
+      return boost::shared_ptr<Service>(new Service);
+    }
+  };
   
+
   /* actually a very generic factory of singletons...
    * 
    */
-  class ServiceFactory : public seal::PluginFactory<boost::any (void)>
+  class ServiceFactory : public seal::PluginFactory<BaseServiceMaker * (void)>
   {
   public:
-    static StorageFactory & get (void);
-    ~StorageFactory () {}
+    typedef BaseServiceMaker Maker;
+    static ServiceFactory & get (void);
+    ~ServiceFactory () {}
     
     template<typename Service>
     boost::shared_ptr<Service> getService(std::string & const name) {
@@ -33,15 +47,14 @@ namespace perftools {
       }
     }
 
-
     boost::any getAny(std::string & const name);
+
     
   private:
     void reportErrorNoService(std::string & const name) const;
     void reportWrongType(std::string & const name, char const * type) const;
     
     static ServiceFactory & instance();
-    
     typedef std::map<std::string, ServiceHandle> Repository;
     Repository m_services;
     
