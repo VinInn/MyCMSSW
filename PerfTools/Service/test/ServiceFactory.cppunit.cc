@@ -55,16 +55,15 @@ void TestServiceFactory::check_Maker() {
     bool badAnyCast = false;
     CPPUNIT_ASSERT(badAnyCast);
   }
-
 }
 
 void TestServiceFactory::check_create() {
   typedef perftools::serviceTest::Dummy2 D2;
   std::auto_ptr<perftools::BaseServiceMaker> m(perftools::ServiceFactory::get()->create("PerfDummy2"));
-  CPPUNIT_ASSERT(!m.get());
-  CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D2> >(m.get()));
-
+  CPPUNIT_ASSERT(m.get());
+  CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D2>*>(m.get()));
 }
+
 
 void TestServiceFactory::check_getAny() {
   typedef perftools::serviceTest::Dummy2 D2;

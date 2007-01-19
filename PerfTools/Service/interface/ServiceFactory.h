@@ -17,6 +17,7 @@ namespace perftools {
    * most probably there is a more elegant solution....
    */
   struct BaseServiceMaker {
+    virtual ~BaseServiceMaker(){}
     virtual boost::any operator()()=0;
   };
 
