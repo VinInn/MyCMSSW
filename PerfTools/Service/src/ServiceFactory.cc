@@ -32,6 +32,7 @@ namespace perftools {
   }
   
   ServiceFactory & ServiceFactory::instance() {
+    seal::PluginManager::get ()->initialise ();
     static ServiceFactory local;
     return local;
   }
