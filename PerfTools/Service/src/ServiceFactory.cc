@@ -1,9 +1,9 @@
 #include "PerfTools/Service/interface/ServiceFactory.h"
-
+#include <memory>
 
 namespace perftools {
 
-  ServiceFactory::ServiceFactory & get (void) {
+  ServiceFactory & ServiceFactory::get (void) {
     return instance();
   }
 
@@ -12,7 +12,7 @@ namespace perftools {
   boost::any ServiceFactory::getAny(std::string const & name) {
     boost::any & h = m_services[name];
     if (h.empty()) {
-      auto_ptr<Maker> m(create(name));
+      std::auto_ptr<Maker> m(create(name));
       if (m) h = (*m)();
     }
     if (h.empty()) reportErrorNoService(name);
@@ -28,7 +28,7 @@ namespace perftools {
     
   }
     
-  ServiceFactory &  ServiceFactory::instance() {
+  ServiceFactory & ServiceFactory::instance() {
     static ServiceFactory local;
     return local;
   }

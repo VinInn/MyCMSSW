@@ -36,7 +36,7 @@ namespace perftools {
   public:
     typedef BaseServiceMaker Maker;
     static ServiceFactory & get (void);
-    ~ServiceFactory () {}
+    ~ServiceFactory ();
     
     template<typename Service>
     boost::shared_ptr<Service> getService(std::string const & name) {
@@ -55,7 +55,7 @@ namespace perftools {
     void reportWrongType(std::string const & name, char const * type) const;
     
     static ServiceFactory & instance();
-    typedef std::map<std::string, ServiceHandle> Repository;
+    typedef std::map<std::string, boost::any> Repository;
     Repository m_services;
     
     
