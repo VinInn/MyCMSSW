@@ -64,7 +64,6 @@ void TestServiceFactory::check_create() {
   CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D2>*>(m.get()));
 }
 
-
 void TestServiceFactory::check_getAny() {
   typedef perftools::serviceTest::Dummy2 D2;
   boost::any a = perftools::ServiceFactory::get()->getAny("PerfDummy2");
