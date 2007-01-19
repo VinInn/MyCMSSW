@@ -13,6 +13,7 @@ class TestServiceFactory : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_create);
   CPPUNIT_TEST(check_getAny);
   CPPUNIT_TEST(check_getService);
+  CPPUNIT_TEST(check_getTwice);
   CPPUNIT_TEST(check_NameError);
   CPPUNIT_TEST(check_TypeError);
   CPPUNIT_TEST_SUITE_END();
@@ -23,6 +24,7 @@ public:
   void check_create();
   void check_getAny();
   void check_getService();
+  void check_getTwice();
   void check_NameError();
   void check_TypeError();
 
@@ -81,6 +83,22 @@ void TestServiceFactory::check_getService() {
   typedef perftools::serviceTest::Dummy2 D2;
   boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
   CPPUNIT_ASSERT(d2);
+  CPPUNIT_ASSERT(d2.use_counts()==2);
+}
+
+void TestServiceFactory::check_getTwice() {
+  typedef perftools::serviceTest::Dummy2 D2;
+  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
+  CPPUNIT_ASSERT(d2);
+
+  typedef perftools::serviceTest::Dummy1 D1;
+  boost::shared_ptr<D1> d1 = perftools::ServiceFactory::get()->getService<D1>("PerfDummy1");
+  CPPUNIT_ASSERT(d1);
+
+  boost::shared_ptr<D2> d2_2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
+  CPPUNIT_ASSERT(d2_2);
+  CPPUNIT_ASSERT(d2_2==d2);
+  CPPUNIT_ASSERT(d2.use_counts()==3);
 }
 
 void TestServiceFactory::check_NameError(){
