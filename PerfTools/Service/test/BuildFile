@@ -2,6 +2,13 @@
 <use name=Foundation/PluginManager>
 <use name=PerfTools/Service>
  
+<bin name=PerfTools_ServiceUseCases  file=ServiceUseCases.cpp></bin>
+
+<bin name=testPerfToolsService file=testRunner.cpp,ServiceFactory.cppunit.cc>
+  <use name=cppunit>
+</bin>
+
+
 
 <library file=ServiceTestModule.cc name=PerfToolsServiceTestStubs>
   <flags SEAL_PLUGIN_NAME="PerfToolsServiceTestStubs">
