@@ -16,7 +16,7 @@ namespace perftools {
     boost::any & h = m_services[name];
     if (h.empty()) {
       std::auto_ptr<Maker> m(create(name));
-      if (m) h = (*m)();
+      if (m.get()) h = (*m)();
     }
     if (h.empty()) reportErrorNoService(name);
     return h;
