@@ -1,8 +1,10 @@
 <use name=boost>
-
+<use name=Foundation/PluginManager>
+ 
 
 <export>
   <lib name=PerfToolsService>
   <use name=boost>
-</export>
+  <use name=Foundation/PluginManager>
+ </export>
 

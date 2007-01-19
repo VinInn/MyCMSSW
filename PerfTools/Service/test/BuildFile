@@ -1,0 +1,8 @@
+<use name=boost>
+<use name=Foundation/PluginManager>
+<use name=PerfTools/Service>
+ 
+
+<library file=ServiceTestModule.cc name=PerfToolsServiceTestStubs>
+  <flags SEAL_PLUGIN_NAME="PerfToolsServiceTestStubs">
+<library>
