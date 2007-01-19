@@ -56,14 +56,44 @@ void TestServiceFactory::check_Maker() {
 }
 
 void TestServiceFactory::check_getAny() {
-
+  typedef perftools::serviceTest::Dummy2 D2;
+  boost::any a ServiceFactory::get()->getAny("PerfDummy2");
+  CPPUNIT_ASSERT(!a.empty());
+  try {
+    boost::shared_ptr<D2> d2 = boost::any_cast<boost::shared_ptr<D2> >(a);
+    CPPUNIT_ASSERT(d2);
+  } catch (boost::bad_any_cast const &) {
+    bool badAnyCast = false;
+    CPPUNIT_ASSERT(badAnyCast);
+  }
+ 
 }
 void TestServiceFactory::check_getService() {
-
+  typedef perftools::serviceTest::Dummy2 D2;
+  boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfDummy2");
+  CPPUNIT_ASSERT(d2);
 }
 
 void TestServiceFactory::check_NameError(){
+  try {
+    typedef perftools::serviceTest::Dummy2 D2;
+    boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfNone");
+    CPPUNIT_ASSERT(!d2);
+  }
+  catch(...) {
+    bool nameError = false;
+    CPPUNIT_ASSERT(nameError);
+  }
 }
 
 void TestServiceFactory::check_TypeError() {
+  try {
+  typedef perftools::serviceTest::Dummy2 D2;
+  boost::shared_ptr<D2> d2 = ServiceFactory::get()->getService("PerfDummy1");
+  CPPUNIT_ASSERT(!d2);
+  }
+  catch(...) {
+    bool typeError = false;
+    CPPUNIT_ASSERT(typeError);
+  }
 }
