@@ -1,5 +1,6 @@
 #include "PerfTools/Service/interface/ServiceFactory.h"
 #include<memory>
+#include<typeinfo>
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -9,6 +10,7 @@
 class TestServiceFactory : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestServiceFactory);
   CPPUNIT_TEST(check_Maker);
+  CPPUNIT_TEST(check_create);
   CPPUNIT_TEST(check_getAny);
   CPPUNIT_TEST(check_getService);
   CPPUNIT_TEST(check_NameError);
@@ -18,6 +20,7 @@ public:
   void setUp(){}
   void tearDown() {}
   void check_Maker();
+  void check_create();
   void check_getAny();
   void check_getService();
   void check_NameError();
@@ -52,6 +55,14 @@ void TestServiceFactory::check_Maker() {
     bool badAnyCast = false;
     CPPUNIT_ASSERT(badAnyCast);
   }
+
+}
+
+void TestServiceFactory::check_create() {
+  typedef perftools::serviceTest::Dummy2 D2;
+  std::auto_ptr<perftools::BaseServiceMaker> m(perftools::ServiceFactory::get()->create("PerfDummy2"));
+  CPPUNIT_ASSERT(!m.get());
+  CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D2> >(m.get()));
 
 }
 
