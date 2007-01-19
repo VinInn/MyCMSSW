@@ -32,3 +32,5 @@ namespace perftools {
     static ServiceFactory local;
     return local;
   }
+
+}

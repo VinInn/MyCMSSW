@@ -51,6 +51,7 @@ namespace perftools {
 
     
   private:
+    ServiceFactory();
     void reportErrorNoService(std::string const & name) const;
     void reportWrongType(std::string const & name, char const * type) const;
     
