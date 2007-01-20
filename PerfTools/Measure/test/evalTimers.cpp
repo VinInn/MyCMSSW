@@ -14,10 +14,19 @@
 namespace {
 
   double gcrap=0;
-  void waiste() {
+  inline void waisteCPU() {
     for (double i=1;i<100000;i++)
       gcrap+=std::log(i);
   }
+
+  inline void nap() {
+    ::timespec req;
+    req.tv_sec = 1;
+    req.tv_nsec = 00000;
+    ::timespec rem;
+    ::nanosleep(&req,&rem);
+  }
+
 }
 
 
@@ -33,11 +42,17 @@ void checkTime(S source) {
   
   std::cout << "min diff " << source()-source() << std::endl;
   
-  waiste();
+  waisteCPU();
 
   T a = source();
   T b = source();
   std::cout << "min diff " << b-a << std::endl;
+  std::cout << "cpu diff " << a-i << std::endl;
+
+  nap();
+  T n = source();
+  std::cout << "nap diff " << n-b << std::endl;
+
   
   T c = source();
   double d = double(source()-c);
