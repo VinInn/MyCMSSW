@@ -34,7 +34,7 @@ namespace {
     edm::ParameterSet const & ps = 
       parameters.getParameter<edm::ParameterSet>("Sampler");
     std::cout << "Sampler Quantities " 
-	      << ps. template getParameter<std::vector<std:string> >("Quantities").size()
+	      << ps.getParameter<std::vector<std::string> >("Quantities").size()
 	      << std::endl;
   }
 
