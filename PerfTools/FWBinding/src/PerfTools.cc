@@ -13,7 +13,7 @@ PerfTools::PerfTools(edm::ParameterSet const& pset, edm::ActivityRegistry  & act
 
 
 PerfTools::Handle PerfTools::get(edm::ParameterSet const& pset) {
-  return Handle;
+  return Handle();
 }
 
 DEFINE_FWK_SERVICE (PerfTools);

@@ -2,7 +2,7 @@
 # <use name=Foundation/PluginManager>
 # <use name=PerfTools/Service>
 
-<use name=FWCore/ParameterSet>
+<use name=PerfTools/FWBinding>
  
 # <bin name=PerfTools_ServiceUseCases file=ServiceUseCase.cpp></bin>
 
