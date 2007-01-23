@@ -32,9 +32,9 @@ namespace {
 
   AnalyzerStub::AnalyzerStub(edm::ParameterSet const & parameters) {
     edm::ParameterSet const & ps = 
-      parameters.getParameter<edm::ParameterSet>("Sampler");
+      parameters.getUntrackedParameter<edm::ParameterSet>("Sampler");
     std::cout << "Sampler Quantities " 
-	      << ps.getParameter<std::vector<std::string> >("Quantities").size()
+	      << ps.getUntrackedParameter<std::vector<std::string> >("Quantities").size()
 	      << std::endl;
   }
 
