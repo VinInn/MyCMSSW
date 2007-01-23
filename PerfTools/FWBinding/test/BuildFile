@@ -1,6 +1,8 @@
 # <use name=boost>
 # <use name=Foundation/PluginManager>
 # <use name=PerfTools/Service>
+
+<use name=FWCore/ParameterSet>
  
 # <bin name=PerfTools_ServiceUseCases file=ServiceUseCase.cpp></bin>
 
