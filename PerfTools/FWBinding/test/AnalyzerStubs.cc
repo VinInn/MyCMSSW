@@ -5,8 +5,9 @@
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include "PerfTools/FWBinding/interface/PerfTools.h"
 
-
+#include "FWCore/ServiceRegistry/interface/Service.h"
 
 #include <iostream>
 
@@ -23,7 +24,7 @@ namespace {
     virtual void endJob() ;
     
     // ----------member data ---------------------------
-    int m_firstEvent;
+    PerfTools::Handle m_sampler;
     int m_lastEvent;
     int m_action;
     int m_evtCount;
@@ -31,11 +32,7 @@ namespace {
 
 
   AnalyzerStub::AnalyzerStub(edm::ParameterSet const & parameters) {
-    edm::ParameterSet const & ps = 
-      parameters.getUntrackedParameter<edm::ParameterSet>("Sampler");
-    std::cout << "Sampler Quantities " 
-	      << ps.getUntrackedParameter<std::vector<std::string> >("Quantities").size()
-	      << std::endl;
+    m_sampler = edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Sampler"));
   }
 
 
