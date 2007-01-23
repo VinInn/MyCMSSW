@@ -15,8 +15,8 @@ namespace {
 
   double gcrap=0;
   inline void waisteCPU() {
-    for (double i=1;i<100000;i++)
-      gcrap+=std::log(i);
+    for (double i=1;i<1000000;i++)
+      gcrap+=std::log(std::sqrt(i));
   }
 
   inline void nap() {

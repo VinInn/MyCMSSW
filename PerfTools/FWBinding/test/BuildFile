@@ -16,3 +16,6 @@
    <use name=FWCore/ParameterSet>
   <flags SEAL_PLUGIN_NAME="PerfToolsAnalyzerStubs">
 </library>
+
+
+# <include_path path="full path to include">

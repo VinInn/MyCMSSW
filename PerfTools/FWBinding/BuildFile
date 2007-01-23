@@ -1,0 +1,12 @@
+<use name=FWCore/ServiceRegistry>
+# <use name=FWCore/MessageLogger>
+<use name=FWCore/ParameterSet>
+
+<Flags SEAL_PLUGIN_NAME=PerfToolsFWBinding>
+
+<export>
+ <lib name=PerfToolsFWBinding>
+ <use name=FWCore/ServiceRegistry>
+#  <use name=FWCore/MessageLogger>
+ <use name=FWCore/ParameterSet>
+</export>
