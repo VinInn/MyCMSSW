@@ -1,5 +1,5 @@
-#ifndef PerfTools_Sampler_H
-#define PerfTools_Sampler_H
+#ifndef PerfTools_SamplerImpl_H
+#define PerfTools_SamplerImpl_H
 
 #include <boost/function.hpp>
 
@@ -23,10 +23,12 @@ namespace perftools {
       m_doReport(doReport) {
     }
 
+    SamplerImpl() : m_doReport(false){]
+
     /* copy constructor
      *  restart sampling and inhibit report from right hand
      */
-    SamplerImpl(SamplerImpl cons& rh) :
+    SamplerImpl(SamplerImpl const & rh) :
       m_source(rh.m_source),
       m_report(rh.m_report), 
       m_firstValue(m_source()), 
@@ -37,12 +39,13 @@ namespace perftools {
     /* same behaviour as copy-constr
      *
      */
-    SamplerImpl & operator=(SamplerImpl cons& rh) {
+    SamplerImpl & operator=(SamplerImpl const & rh) {
       m_source =rh.m_source;
       m_report = rh.m_report; 
       m_firstValue=m_source(); 
       m_doReport = true;
       rh.m_doReport =false;
+      return *this;
     }
 
 
@@ -81,4 +84,4 @@ namespace perftools {
 }
 
 
-#endif // PerfTools_Sampler_H
+#endif // PerfTools_SamplerImpl_H
