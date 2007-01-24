@@ -28,7 +28,7 @@ namespace perftools {
 
   private:
     Sample(Sample const &) {}
-    Sample & operaror =(Sample const &) {
+    Sample & operator=(Sample const &) {
       return *this;
     }
 
