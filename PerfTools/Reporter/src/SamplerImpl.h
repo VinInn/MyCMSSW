@@ -16,41 +16,45 @@ namespace perftools {
 
   public:
     template<typename S, typename R>
-    SamplerImpl(S isource, R ireport, bool doReport=true) : 
+    SamplerImpl(S isource, R ireport, bool doReport=true, bool isTemplate=false) : 
       m_source(isource),
       m_report(ireport), 
       m_firstValue(doReport ? m_source() : Value()), 
-      m_doReport(doReport) {
+      m_doReport(doReport),
+      m_templ(isTemplate){
     }
 
-    SamplerImpl() : m_doReport(false){]
+    SamplerImpl() : m_doReport(false), m_templ(false){}
 
     /* copy constructor
      *  restart sampling and inhibit report from right hand
      */
     SamplerImpl(SamplerImpl const & rh) :
+      m_doReport(rh.m_templ ? rh.m_doReport : true),
+      m_templ(false),
       m_source(rh.m_source),
       m_report(rh.m_report), 
-      m_firstValue(m_source()), 
-      m_doReport(true) {
-      rh.m_doReport=false;
+      m_firstValue(m_doReport ? m_source() : Value())
+    {
+      if (!rh.m_templ) rh.m_doReport=false;
     }
 
     /* same behaviour as copy-constr
      *
      */
     SamplerImpl & operator=(SamplerImpl const & rh) {
+      m_doReport = rh.m_templ ? rh.m_doReport : true;
+      m_templ = false;
+      if (!rh.m_templ) rh.m_doReport =false;
       m_source =rh.m_source;
       m_report = rh.m_report; 
-      m_firstValue=m_source(); 
-      m_doReport = true;
-      rh.m_doReport =false;
+      m_firstValue= m_doReport ? m_source() : Value(); 
       return *this;
     }
 
 
-    ~Sampler() {
-      if(m_doReport) m_report(sample());
+    ~SamplerImpl() {
+      if((!rh.m_temp) && m_doReport) m_report(sample());
     }
 
     Difference sample() const {
@@ -58,10 +62,11 @@ namespace perftools {
     }
 
   private:
+    mutable bool m_doReport;
+    mutable bool templ; // if true object is just a "template"
     Source m_source;
     Report m_report;
     Value m_firstValue;
-    mutable bool m_doReport;
   };
 
   /*
