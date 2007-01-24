@@ -33,8 +33,7 @@ namespace perftools {
     Sampler(const Sampler &rh) :
       m_sample(rh.m_sample) {}
     
-    Sampler & operaror =(const Sampler &rh) {
-      m_sample = rh.m_sample;
+    Sampler & operator=(const Sampler &rh) {
       return *this;
     }
   };
