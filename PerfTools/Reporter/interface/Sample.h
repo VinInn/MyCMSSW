@@ -40,4 +40,4 @@ namespace perftools {
 }
 
 
-#endif PerfTools_Sample_H
+#endif // PerfTools_Sample_H

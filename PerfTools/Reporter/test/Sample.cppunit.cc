@@ -47,7 +47,7 @@ void check_constr() {
   // a "template"
   boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
-    Sample s1(ba);
+    perftools::Sample s1(ba);
     a++;
   }
   CPPUNIT_ASSERT(last==0);
@@ -58,7 +58,7 @@ void  TestSampler::check_Sampler() {
   // a "template"
   boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
-    Sample s1(ba);
+    perftools::Sample s1(ba);
     a++;
     {
       // this start sampling
