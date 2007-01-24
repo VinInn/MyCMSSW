@@ -173,6 +173,7 @@ void  TestSampler::check_Sampler() {
 
   {
     perftools::SamplerImpl<int>  s(&what,&tell);
+    a++;
     CPPUNIT_ASSERT(last==3);
   }
 
