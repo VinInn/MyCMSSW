@@ -10,7 +10,7 @@ class TestSampler : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_Sampler);
   CPPUNIT_TEST_SUITE_END();
 public:
-  void setUp(){}
+  void setUp();
   void tearDown() {}
   void check_defconstr();
   void check_constr();
@@ -107,7 +107,7 @@ void TestSampler::check_assign() {
 
 }
 
-#include<boost/any.cpp>
+#include<boost/any.hpp>
 void TestSampler::check_any() {
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false);

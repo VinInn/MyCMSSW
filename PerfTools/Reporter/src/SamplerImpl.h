@@ -54,7 +54,7 @@ namespace perftools {
 
 
     ~SamplerImpl() {
-      if((!rh.m_temp) && m_doReport) m_report(sample());
+      if((!m_templ) && m_doReport) m_report(sample());
     }
 
     Difference sample() const {
@@ -63,7 +63,7 @@ namespace perftools {
 
   private:
     mutable bool m_doReport;
-    mutable bool templ; // if true object is just a "template"
+    mutable bool m_templ; // if true object is just a "template"
     Source m_source;
     Report m_report;
     Value m_firstValue;
