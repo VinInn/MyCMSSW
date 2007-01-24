@@ -137,7 +137,7 @@ void TestSampler::check_any() {
     a++;
     {
       // still false,false
-      boost::any bb.swap(ba);
+      boost::any bb; bb.swap(ba);
       a++;
       { 
 	// now is a true, false (start counting)

@@ -17,11 +17,11 @@ namespace perftools {
   public:
     template<typename S, typename R>
     SamplerImpl(S isource, R ireport, bool doReport=true, bool isTemplate=false) : 
+      m_doReport(doReport),
+      m_templ(isTemplate),
       m_source(isource),
       m_report(ireport), 
-      m_firstValue(doReport ? m_source() : Value()), 
-      m_doReport(doReport),
-      m_templ(isTemplate){
+      m_firstValue( (!isTemplate) && doReport ? m_source() : Value()) { 
     }
 
     SamplerImpl() : m_doReport(false), m_templ(false){}
