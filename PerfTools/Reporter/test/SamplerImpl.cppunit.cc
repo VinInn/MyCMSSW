@@ -5,8 +5,14 @@
 
 // FIXME
 // check by features....
-class TestSampler : public CppUnit::TestFixture {
-  CPPUNIT_TEST_SUITE(TestSampler);
+class TestSamplerI : public CppUnit::TestFixture {
+  CPPUNIT_TEST_SUITE(TestSamplerI);
+  CPPUNIT_TEST(check_defconstr);
+  CPPUNIT_TEST(check_constr);
+  CPPUNIT_TEST(check_constrF);
+  CPPUNIT_TEST(check_copy);
+  CPPUNIT_TEST(check_assign);
+  CPPUNIT_TEST(check_any);
   CPPUNIT_TEST(check_Sampler);
   CPPUNIT_TEST_SUITE_END();
 public:
@@ -43,12 +49,13 @@ namespace {
 }
 
 
-void TestSampler::setUp(){
+void TestSampler!::setUp(){
   a=0;
+  last=0;
 }
  
 
-void TestSampler::check_defconstr() {
+void TestSamplerI::check_defconstr() {
   {
     perftools::SamplerImpl<int>  s;
     CPPUNIT_ASSERT(last==0);
@@ -57,7 +64,7 @@ void TestSampler::check_defconstr() {
 }
 
 
-void TestSampler::check_constr() {
+void TestSamplerI::check_constr() {
   {
     perftools::SamplerImpl<int>  s(&what,&tell);
     a++;
@@ -65,7 +72,7 @@ void TestSampler::check_constr() {
   CPPUNIT_ASSERT(last==1);
 }
 
-void TestSampler::check_constrF() {
+void TestSamplerI::check_constrF() {
   {
     perftools::SamplerImpl<int>  s(&what,&tell,false);
     a++;
@@ -73,7 +80,7 @@ void TestSampler::check_constrF() {
   CPPUNIT_ASSERT(last==0);
 }
 
-void TestSampler::check_copy() {
+void TestSamplerI::check_copy() {
   {
     perftools::SamplerImpl<int>  s1(&what,&tell);
     a++;
@@ -87,7 +94,7 @@ void TestSampler::check_copy() {
   CPPUNIT_ASSERT(last==0);  
 }
 
-void TestSampler::check_assign() {
+void TestSamplerI::check_assign() {
   {
     perftools::SamplerImpl<int>  s1(&what,&tell);
     a++;
@@ -108,7 +115,7 @@ void TestSampler::check_assign() {
 }
 
 #include<boost/any.hpp>
-void TestSampler::check_any() {
+void TestSamplerI::check_any() {
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false);
     a++;
@@ -154,7 +161,7 @@ void TestSampler::check_any() {
 }
  
 
-void  TestSampler::check_Sampler() {
+void  TestSamplerI::check_Sampler() {
   
   {
     perftools::SamplerImpl<int>  s(&what,&tell);
@@ -164,19 +171,19 @@ void  TestSampler::check_Sampler() {
     
     a++;
     CPPUNIT_ASSERT(s.sample()==2);
-
+    
     CPPUNIT_ASSERT(last==0);
     a++;
   }    
   
   CPPUNIT_ASSERT(last==3);
-
+  
   {
     perftools::SamplerImpl<int>  s(&what,&tell);
     a++;
     CPPUNIT_ASSERT(last==3);
   }
-
+  
   CPPUNIT_ASSERT(last==1);
 
 }

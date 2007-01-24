@@ -4,6 +4,6 @@
 
 <bin name=testPerfToolsReporter file=testRunner.cpp,
      SamplerImpl.cppunit.cc,
-     Sample.cppunit.cc >	
+     Sample.cppunit.cc,Sampler.cppunit.cc  >	
   <use name=cppunit>
 </bin>

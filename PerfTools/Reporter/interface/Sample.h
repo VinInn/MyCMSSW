@@ -12,7 +12,7 @@ namespace perftools {
   public:
     Sample(){}
     // avoid copy of payload...
-    explict Sample( boost_any & isample) {
+    explicit Sample( boost_any & isample) {
       m_sampler.swap(isample);
     }
     ~Sample(){}
