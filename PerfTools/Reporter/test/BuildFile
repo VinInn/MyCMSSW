@@ -1,7 +1,7 @@
- <use name=PerfTools/Reporter>
+  <use name=PerfTools/Reporter>
  
 <bin name=PerfTools_ReporterUseCases  file=ReporterUseCases.cpp></bin>
 
-<bin name=testPerfToolsReporter file=testRunner.cpp,Sampler.cppunit.cc>
+<bin name=testPerfToolsReporter file=testRunner.cpp,SamplerImpl.cppunit.cc>
   <use name=cppunit>
 </bin>
