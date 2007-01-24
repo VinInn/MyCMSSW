@@ -156,7 +156,7 @@ void TestSamplerI::check_any_swap() {
       a++;
       { 
 	// now is a true, false (start counting)
-	boost::any bc = ba;
+	boost::any bc = bb;
 	a++;
       }
       CPPUNIT_ASSERT(last==1);
