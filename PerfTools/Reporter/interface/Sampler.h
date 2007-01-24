@@ -1,58 +1,40 @@
 #ifndef PerfTools_Sampler_H
 #define PerfTools_Sampler_H
 
+#include "PerfTools/Reporter/interface/Sample.h"
+
+
 #include <boost/function.hpp>
+#include <boost/any.hpp>
 
 
 namespace perftools {
 
-  template <typename T, typename D=T>
-  class Sampler {
+  /* a Sentry
+   */
+ class Sampler {
   public:
-    typedef T Value;
-    typedef D Difference;
-    typedef boost::function<T(void)> Source;
-    typedef boost::function<void(D)> Report;
-
-  public:
-    template<typename S, typename R>
-    Sampler(S isource, R ireport) : 
-      m_source(isource),
-      m_report(ireport), 
-      m_firstValue(m_source()) {
-      
+    Sampler(const Sample & sample) : 
+      m_sample(sample),
+      m_sampler(sample.sampler()){}
+    ~Sampler(){}
+    template<typename Vec>
+      bool fill(Vec vec) {
+      return true;
     }
-
-    ~Sampler() {
-      m_report(sample());
-    }
-
-    Difference sample() const {
-      return m_source()-m_firstValue;
-    }
-
-  private:
-    Source m_source;
-    Report m_report;
-    Value m_firstValue;
+   const Sample & m_sample;
+   boost_any m_sampler;
   };
 
-  /*
-  namespace detail {
-    
-    template <typename Source, typename Report> 
-    struct HelpMaker {
-      typedef typename function_object_result<Source>::type type;
-    };
-    
+private:
+  Sampler(const Sampler &rh) :
+    m_sample(rh.m_sample) {}
+
+  Sampler & operaror =(const Sampler &rh) {
+    m_sample = rh.m_sample;
+    return *this;
   }
-  
-  template <typename Source, typename Report> 
-  Sampler<typename detail::HelpMaker<Source,Report>::type, Source, Report>
-  makeSampler(Source isource, Report ireport) {
-    return Sampler<typename detail::HelpMaker<Source,Report>::type,Source,Report>(isource,ireport);
-  }
-  */
+
 
 }
 
