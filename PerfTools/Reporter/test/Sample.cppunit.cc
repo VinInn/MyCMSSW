@@ -43,7 +43,7 @@ void TestSample::setUp(){
  
 #include "PerfTools/Reporter/src/SamplerImpl.h"
 
-void check_constr() {
+void TestSample::check_constr() {
   // a "template"
   boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
@@ -54,7 +54,7 @@ void check_constr() {
 
 }
 
-void  TestSampler::check_Sampler() {
+void  TestSample::check_Sampler() {
   // a "template"
   boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {

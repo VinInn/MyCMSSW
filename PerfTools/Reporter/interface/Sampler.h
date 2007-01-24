@@ -12,30 +12,33 @@ namespace perftools {
 
   /* a Sentry
    */
- class Sampler {
+  class Sampler {
   public:
     Sampler(const Sample & sample) : 
       m_sample(sample),
       m_sampler(sample.sampler()){}
+
     ~Sampler(){}
+    
     template<typename Vec>
-      bool fill(Vec vec) {
+    bool fill(Vec vec) {
       return true;
     }
-   const Sample & m_sample;
-   boost_any m_sampler;
+    
+  private:
+    const Sample & m_sample;
+    boost::any m_sampler;
+    
+  private:
+    Sampler(const Sampler &rh) :
+      m_sample(rh.m_sample) {}
+    
+    Sampler & operaror =(const Sampler &rh) {
+      m_sample = rh.m_sample;
+      return *this;
+    }
   };
-
-private:
-  Sampler(const Sampler &rh) :
-    m_sample(rh.m_sample) {}
-
-  Sampler & operaror =(const Sampler &rh) {
-    m_sample = rh.m_sample;
-    return *this;
-  }
-
-
+  
 }
 
 
