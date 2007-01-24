@@ -1,4 +1,4 @@
-#include "PerfTools/Reporter/interface/SamplerImpl.h"
+#include "PerfTools/Reporter/src/SamplerImpl.h"
 
 #include <cppunit/extensions/HelperMacros.h>
 
