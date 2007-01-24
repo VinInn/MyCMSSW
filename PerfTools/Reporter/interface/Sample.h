@@ -15,19 +15,20 @@ namespace perftools {
     explicit Sample(boost::any & isample) {
       m_sampler.swap(isample);
     }
+
     ~Sample(){}
 
     template<typename Vec, typename IT>
     void advancedRegistration(Vec const &, IT names_b, IT names_e) {
     }
 
-    inline boost_any const & sampler() const {
+    inline boost::any const & sampler() const {
       return m_sampler;
     } 
 
   private:
-    Sample(const Sampler &) {}
-    Sample & operaror =(const Sampler &r) {
+    Sample(Sample const &) {}
+    Sample & operaror =(Sample const &) {
       return *this;
     }
 
