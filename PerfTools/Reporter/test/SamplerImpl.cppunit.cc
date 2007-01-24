@@ -13,6 +13,8 @@ class TestSamplerI : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_copy);
   CPPUNIT_TEST(check_assign);
   CPPUNIT_TEST(check_any);
+  CPPUNIT_TEST(check_any_copy);
+  CPPUNIT_TEST(check_any_swap);
   CPPUNIT_TEST(check_Sampler);
   CPPUNIT_TEST_SUITE_END();
 public:
@@ -24,6 +26,8 @@ public:
   void check_copy();
   void check_assign();
   void check_any();
+  void check_any_copy();
+  void check_any_swap();
   void check_Sampler();
 
 };
@@ -102,7 +106,6 @@ void TestSamplerI::check_assign() {
     {
       perftools::SamplerImpl<int>  s2;
       a++;
-      CPPUNIT_ASSERT(s2.sample()==1);
       s2=s1;
       CPPUNIT_ASSERT(s2.sample()==0);
       CPPUNIT_ASSERT(s1.sample()==2);
@@ -127,7 +130,10 @@ void TestSamplerI::check_any() {
     a++;
   }
   CPPUNIT_ASSERT(last==0);
-  last=0;
+}
+
+void TestSamplerI::check_any_copy() {
+
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
     a++;
@@ -137,7 +143,9 @@ void TestSamplerI::check_any() {
     }
     CPPUNIT_ASSERT(last==1);
   }
-  last=0;
+}
+
+void TestSamplerI::check_any_swap() {
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
     // now is a false, false
