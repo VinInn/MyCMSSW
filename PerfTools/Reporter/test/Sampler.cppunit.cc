@@ -36,25 +36,5 @@ namespace {
 
 void  TestSampler::check_Sampler() {
   
-  {
-    perftools::Sampler<int>  s(&more,&tell);
-    
-    CPPUNIT_ASSERT(s.sample()==1);
-    
-    
-    CPPUNIT_ASSERT(s.sample()==2);
-
-    CPPUNIT_ASSERT(last==0);
-
-  }    
-  
-  CPPUNIT_ASSERT(last==3);
-
-  {
-    perftools::Sampler<int>  s(&more,&tell);
-    CPPUNIT_ASSERT(last==3);
-  }
-
-  CPPUNIT_ASSERT(last==1);
 
 }
