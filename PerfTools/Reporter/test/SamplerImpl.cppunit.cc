@@ -28,7 +28,7 @@ public:
 
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestSampler);
+CPPUNIT_TEST_SUITE_REGISTRATION(TestSamplerI);
 
 
 
@@ -49,7 +49,7 @@ namespace {
 }
 
 
-void TestSampler!::setUp(){
+void TestSamplerI::setUp(){
   a=0;
   last=0;
 }

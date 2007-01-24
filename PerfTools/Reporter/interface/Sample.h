@@ -12,7 +12,7 @@ namespace perftools {
   public:
     Sample(){}
     // avoid copy of payload...
-    explicit Sample( boost_any & isample) {
+    explicit Sample(boost::any & isample) {
       m_sampler.swap(isample);
     }
     ~Sample(){}
@@ -26,13 +26,13 @@ namespace perftools {
     } 
 
   private:
-    Sampler(const Sampler &) {}
-    Sampler & operaror =(const Sampler &r) {
+    Sample(const Sampler &) {}
+    Sample & operaror =(const Sampler &r) {
       return *this;
     }
 
   private:
-    boost_any m_sampler;
+    boost::any m_sampler;
   };
 
 
