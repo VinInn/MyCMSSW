@@ -2,15 +2,16 @@
 #define PerfTools_SamplerImpl_H
 
 #include <boost/function.hpp>
-
+#include <functional>
 
 namespace perftools {
 
-  template <typename T, typename D=T>
+  template <typename T, typename D=T, typename M=std::minus<T> >
   class SamplerImpl {
   public:
     typedef T Value;
     typedef D Difference;
+    typedef M Minus;
     typedef boost::function<T(void)> Source;
     typedef boost::function<void(D)> Report;
 
@@ -58,7 +59,7 @@ namespace perftools {
     }
 
     Difference sample() const {
-      return m_source()-m_firstValue;
+      return minus(m_source(),m_firstValue);
     }
 
   private:
@@ -67,6 +68,7 @@ namespace perftools {
     Source m_source;
     Report m_report;
     Value m_firstValue;
+    Minus minus;
   };
 
   /*
