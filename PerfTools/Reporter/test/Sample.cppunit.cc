@@ -55,9 +55,11 @@ void TestSample::check_constr() {
 }
 
 namespace {
+  struct baf {
+    boost::any l;
   inline
-  boost::any baf()  {
-    return perftools::SamplerImpl<int>(&what,&tell,false,true);
+  boost::any & operator()  {
+    return l=perftools::SamplerImpl<int>(&what,&tell,false,true);
   }
 
 }
@@ -66,7 +68,7 @@ void  TestSample::check_Sampler() {
   // a "template"
   // boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
-    perftools::Sample s1(baf());
+    perftools::Sample s1(baf()());
     a++;
     {
       // this start sampling
