@@ -134,14 +134,14 @@ void TestSamplerIV::check_assign() {
     {
       perftools::SamplerImplVec<int>  s2;
       std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
-      s2=s1;
+      s2=s1; // s1 will not report anymore
       CPPUNIT_ASSERT(s2.sample()==zero);
       CPPUNIT_ASSERT(s1.sample()==a);
       std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());     
     }
     CPPUNIT_ASSERT(last==one);
   }
-  CPPUNIT_ASSERT(last==a);  
+  CPPUNIT_ASSERT(last==one);  
 }
 
 #include<boost/any.hpp>
