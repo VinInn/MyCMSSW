@@ -108,7 +108,7 @@ namespace perftools {
       m_source(rh.m_source),
       m_report(rh.m_report), 
       m_firstValue(m_source.size()) {
-      if (doReport) init();
+      if (m_doReport) init();
       if (!rh.m_templ) rh.m_doReport=false;
     }
 
