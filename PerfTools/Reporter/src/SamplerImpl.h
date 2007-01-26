@@ -6,6 +6,7 @@
 #include<vector>
 #include<algorithm>
 #include<boost/bind.hpp>
+#include<boost/bind/apply.hpp>
  
 namespace perftools {
 
@@ -107,7 +108,7 @@ namespace perftools {
       m_source(rh.m_source),
       m_report(rh.m_report), 
       m_firstValue(m_source.size()) {
-      if ((!isTemplate) && doReport) init();
+      if (doReport) init();
       if (!rh.m_templ) rh.m_doReport=false;
     }
 
