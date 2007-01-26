@@ -98,7 +98,7 @@ void TestSamplerIV::check_defconstr() {
 void TestSamplerIV::check_constr() {
   {
     perftools::SamplerImplVec<int>  s(whatV.begin(),whatV.end(),&tell);
-    CPPUNIT_ASSERT(s1.sample()==zero);
+    CPPUNIT_ASSERT(s.sample()==zero);
     a=oneTwoThree;
   }
   CPPUNIT_ASSERT(last==oneTwoThree);
