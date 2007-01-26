@@ -138,7 +138,7 @@ namespace perftools {
     }
 
     Difference sample() const {
-      Difference d(m_source.begin());
+      Difference d(m_source.size());
       std::transform(m_source.begin(), m_source.end(),
 		     m_firstValue.begin(),
 		     d.begin(),

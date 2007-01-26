@@ -140,8 +140,7 @@ void TestSamplerIV::check_assign() {
     }
     CPPUNIT_ASSERT(last==one);
   }
-  CPPUNIT_ASSERT(last==oneTwoTree);  
-
+  CPPUNIT_ASSERT(last==oneTwoThree);  
 }
 
 #include<boost/any.hpp>
@@ -150,7 +149,7 @@ void TestSamplerIV::check_any() {
     boost::any ba = perftools::SamplerImplVec<int>(whatV.begin(),whatV.end(),&tell,false);
     a=oneTwoThree;
   }
-  CPPUNIT_ASSERT(last==neTwoThree);
+  CPPUNIT_ASSERT(last==oneTwoThree);
   last=zero;
   {
     boost::any ba = perftools::SamplerImplVec<int>(whatV.begin(),whatV.end(),&tell,false,true);
