@@ -71,6 +71,91 @@ namespace perftools {
     Minus minus;
   };
 
+#include<vector>
+#include<algorithm>
+#include<boost/bind.hpp>
+  /* implemented over a vector
+   */
+  template <typename T, typename D=T, typename M=std::minus<T> >
+  class SamplerImplVec {
+  public:
+    typedef std::vector<T> Value;
+    typedef std::vector<D> Difference;
+    typedef M Minus;
+    typedef std::vector<boost::function<T(void)> > Source;
+    typedef boost::function<void(Difference)> Report;
+
+  public:
+    template<typename SIT, typename R>
+    SamplerImplVec(SIT source_b, SIT source_e, R ireport, bool doReport=true, bool isTemplate=false) : 
+      m_doReport(doReport),
+      m_templ(isTemplate),
+      m_source(source_b,source_e),
+      m_report(ireport), 
+      m_firstValue(m_source.size()) {
+      if ((!isTemplate) && doReport) init();
+    }
+
+    SamplerImplVec() : m_doReport(false), m_templ(false){}
+
+    /* copy constructor
+     *  restart sampling and inhibit report from right hand
+     */
+    SamplerImplVec(SamplerImplVec const & rh) :
+      m_doReport(rh.m_templ ? rh.m_doReport : true),
+      m_templ(false),
+      m_source(rh.m_source),
+      m_report(rh.m_report), 
+      m_firstValue(m_source.size()) {
+      if ((!isTemplate) && doReport) init();
+      if (!rh.m_templ) rh.m_doReport=false;
+    }
+
+    /* same behaviour as copy-constr
+     *
+     */
+    SamplerImplVec & operator=(SamplerImplVec const & rh) {
+      m_doReport = rh.m_templ ? rh.m_doReport : true;
+      m_templ = false;
+      if (!rh.m_templ) rh.m_doReport =false;
+      m_source =rh.m_source;
+      m_report = rh.m_report;
+      Value temp(m_source.size());
+      m_firstValue.swap(temp);
+      if(m_doReport) init(); 
+      return *this;
+    }
+
+    void init() {
+      std::transform(m_source.begin(), m_source.end(),
+		     m_firstValue.begin(),
+		     boost::bind(boost::apply<T>(),_1));
+    }
+
+    ~SamplerImplVec() {
+      if((!m_templ) && m_doReport) m_report(sample());
+    }
+
+    Difference sample() const {
+      Difference d(m_source.begin());
+      std::transform(m_source.begin(), m_source.end(),
+		     m_firstValue.begin(),
+		     d.begin(),
+		     boost::bind(minus,
+				 boost::bind(boost::apply<T>(),_1),_2));
+      
+      return d;
+    }
+
+  private:
+    mutable bool m_doReport;
+    mutable bool m_templ; // if true object is just a "template"
+    Source m_source;
+    Report m_report;
+    Value m_firstValue;
+    Minus minus;
+  };
+
   /*
   namespace detail {
     
