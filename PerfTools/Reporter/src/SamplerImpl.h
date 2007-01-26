@@ -3,7 +3,10 @@
 
 #include <boost/function.hpp>
 #include <functional>
-
+#include<vector>
+#include<algorithm>
+#include<boost/bind.hpp>
+ 
 namespace perftools {
 
   template <typename T, typename D=T, typename M=std::minus<T> >
@@ -71,10 +74,7 @@ namespace perftools {
     Minus minus;
   };
 
-#include<vector>
-#include<algorithm>
-#include<boost/bind.hpp>
-  /* implemented over a vector
+ /* implemented over a vector
    */
   template <typename T, typename D=T, typename M=std::minus<T> >
   class SamplerImplVec {
