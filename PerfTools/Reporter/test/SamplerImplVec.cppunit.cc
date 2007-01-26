@@ -141,7 +141,7 @@ void TestSamplerIV::check_assign() {
     }
     CPPUNIT_ASSERT(last==one);
   }
-  CPPUNIT_ASSERT(last==oneTwoThree);  
+  CPPUNIT_ASSERT(last==a);  
 }
 
 #include<boost/any.hpp>
