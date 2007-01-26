@@ -37,7 +37,7 @@ public:
   void check_any_swap();
   void check_Sampler();
 
-  std::vector<int> zero
+  std::vector<int> zero;
   std::vector<int> one;
   std::vector<int> oneTwoThree;
 
@@ -132,11 +132,11 @@ void TestSamplerIV::check_assign() {
     CPPUNIT_ASSERT(s1.sample()==oneTwoThree);
     {
       perftools::SamplerImplVec<int>  s2;
-      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
       s2=s1;
       CPPUNIT_ASSERT(s2.sample()==zero);
       CPPUNIT_ASSERT(s1.sample()==a);
-      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);     
+      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());     
     }
     CPPUNIT_ASSERT(last==one);
   }
@@ -154,7 +154,7 @@ void TestSamplerIV::check_any() {
   last=zero;
   {
     boost::any ba = perftools::SamplerImplVec<int>(whatV.begin(),whatV.end(),&tell,false,true);
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
   }
   CPPUNIT_ASSERT(last==zero);
 }
@@ -163,10 +163,10 @@ void TestSamplerIV::check_any_copy() {
 
   {
     boost::any ba = perftools::SamplerImplVec<int>(whatV.begin(),whatV.end(),&tell,false,true);
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
     {
       boost::any bb = ba;
-      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
     }
     CPPUNIT_ASSERT(last==one);
   }
@@ -176,15 +176,15 @@ void TestSamplerIV::check_any_swap() {
   {
     boost::any ba = perftools::SamplerImplVec<int>(whatV.begin(),whatV.end(),&tell,false,true);
     // now is a false, false
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
     {
       // still false,false
       boost::any bb; bb.swap(ba);
-      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+      std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
       { 
 	// now is a true, false (start counting)
 	boost::any bc = bb;
-	std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+	std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
       }
       CPPUNIT_ASSERT(last==one);
       last=zero;
@@ -204,12 +204,12 @@ void  TestSamplerIV::check_Sampler() {
     a=oneTwoThree;
     CPPUNIT_ASSERT(s.sample()==oneTwoThree);
     
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
 
     CPPUNIT_ASSERT(s.sample()==a);
     
     CPPUNIT_ASSERT(last==zero);
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
 
   }    
   
@@ -217,7 +217,7 @@ void  TestSamplerIV::check_Sampler() {
   
   {
     perftools::SamplerImplVec<int>  s(whatV.begin(),whatV.end(),&tell);
-    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>);
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
   }
   
   CPPUNIT_ASSERT(last==one);
