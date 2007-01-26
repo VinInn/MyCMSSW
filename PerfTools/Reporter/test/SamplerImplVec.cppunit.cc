@@ -58,7 +58,7 @@ namespace {
 
   typedef boost::function<int(void)> Fu;
 
-  std::vector<Fu> whatV = boost::assign::list_of(boost::bind(what,0))(boost::bind(what,1))(boost::bind(what,3));  
+  std::vector<Fu> whatV = boost::assign::list_of(boost::bind(what,0))(boost::bind(what,1))(boost::bind(what,2));  
  
   
 
@@ -98,6 +98,7 @@ void TestSamplerIV::check_defconstr() {
 void TestSamplerIV::check_constr() {
   {
     perftools::SamplerImplVec<int>  s(whatV.begin(),whatV.end(),&tell);
+    CPPUNIT_ASSERT(s1.sample()==zero);
     a=oneTwoThree;
   }
   CPPUNIT_ASSERT(last==oneTwoThree);
