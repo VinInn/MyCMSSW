@@ -26,9 +26,11 @@ public:
   void tearDown() {}
   void check_constr();
   void check_Sampler();
+  void check_SamplerVec();
 
   std::vector<int> zero;
   std::vector<int> one;
+  std::vector<int> two;
   std::vector<int> oneTwoThree;
 
 
@@ -62,6 +64,13 @@ void TestSample::setUp(){
     last.swap(l);
   }
 }
+
+
+TestSample::TestSample(): zero(3,0), one(3,1), two(3,2) {
+  oneTwoThree +=1,2,3;
+}
+
+
  
 #include "PerfTools/Reporter/src/SamplerImpl.h"
 
@@ -84,13 +93,11 @@ namespace {
     perftools::Sample::Payload & operator()  {
       l.resize(3);
       l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
+      l[1]=perftools::SamplerImpl<int>(boost::bind(what,1),boost::bind(tell,1,_2),false,true);
+      l[2]=perftools::SamplerImpl<int>(boost::bind(what,2),boost::bind(tell,2,_2),false,true);
       return l;
     }
   };  
-}
-
-TestSample::TestSample(): zero(3,0), one(3,1) {
-  oneTwoThree +=1,2,3;
 }
 
 
@@ -115,5 +122,28 @@ void  TestSample::check_Sampler() {
     last[0]=0;
   }
   CPPUNIT_ASSERT(last[0]==0);
+  
+}
+void  TestSample::check_SamplerVec() {
+  // a "template"
+  // boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
+  {
+    Baf baf;
+    perftools::Sample s1(baf());
+    add1();
+    {
+      // this start sampling
+      boost::any b1 = s1.sampler();
+      add1(); 
+      {
+	boost::any b2 = s1.sampler();
+	add1();
+      }
+      CPPUNIT_ASSERT(last==one);
+    }
+    CPPUNIT_ASSERT(last[0]==2);
+    last[0]=0;
+  }
+  CPPUNIT_ASSERT(last==zero);
   
 }
