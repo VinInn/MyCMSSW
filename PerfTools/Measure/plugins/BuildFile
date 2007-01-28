@@ -1,0 +1,7 @@
+<use name=PerfTools/Service>
+<use name=PerfTools/Measure>
+<use name=Foundation/PluginManager>
+<library name="PerfToolsWallClock" file=WallClock.cc>
+</library>
+<library name="PerfToolsCPUClock" file=CPUClock.cc>
+</library>
