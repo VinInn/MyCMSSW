@@ -9,8 +9,7 @@
 using namespace boost::assign;
 
 
-// FIXME
-// check by features....
+
 class TestSamplerIV : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestSamplerIV);
   CPPUNIT_TEST(check_defconstr);

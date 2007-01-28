@@ -3,16 +3,17 @@
 
 #include <boost/function.hpp>
 #include <boost/any.hpp>
-
+#include <vector>
 
 namespace perftools {
 
 
   class Sample {
   public:
+    typedef std::vector<boost::any> Payload;
     Sample(){}
     // avoid copy of payload...
-    explicit Sample(boost::any & isample) {
+    explicit Sample(Payload & isample) {
       m_sampler.swap(isample);
     }
 
@@ -22,7 +23,7 @@ namespace perftools {
     void advancedRegistration(Vec const &, IT names_b, IT names_e) {
     }
 
-    inline boost::any const & sampler() const {
+    inline Payload const & sampler() const {
       return m_sampler;
     } 
 
@@ -33,7 +34,7 @@ namespace perftools {
     }
 
   private:
-    boost::any m_sampler;
+    Payload m_sampler;
   };
 
 

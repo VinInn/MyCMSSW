@@ -14,6 +14,8 @@ namespace perftools {
    */
   class Sampler {
   public:
+    typedef Sample::Payload Payload;
+ 
     Sampler(const Sample & sample) : 
       m_sample(sample),
       m_sampler(sample.sampler()){}
@@ -27,7 +29,7 @@ namespace perftools {
     
   private:
     const Sample & m_sample;
-    boost::any m_sampler;
+    Payload m_sampler;
     
   private:
     Sampler(const Sampler &rh) :
