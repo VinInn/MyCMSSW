@@ -88,7 +88,7 @@ namespace {
   struct Baf {
     perftools::Sample::Payload l;
     inline
-    perftools::Sample::Payload & operator()  {
+    perftools::Sample::Payload & operator()()  {
       l.resize(3);
       l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
       l[1]=perftools::SamplerImpl<int>(boost::bind(what,1),boost::bind(tell,1,_1),false,true);
