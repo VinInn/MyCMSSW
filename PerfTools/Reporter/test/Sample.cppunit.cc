@@ -18,6 +18,10 @@ class TestSample : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE_END();
 public:
   TestSample();
+  void add1() {
+    std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
+
+  }
   void setUp();
   void tearDown() {}
   void check_constr();
@@ -63,7 +67,7 @@ void TestSample::setUp(){
 
 void TestSample::check_constr() {
   // a "template"
-  Sample::Payload ba(1);
+  perftools::Sample::Payload ba(1);
   ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
   {
     perftools::Sample s1(ba);
@@ -75,11 +79,12 @@ void TestSample::check_constr() {
 
 namespace {
   struct Baf {
-    Sample::Payload l;
+    perftools::Sample::Payload l;
     inline
-    Sample::Payload & operator()  {
-      l.resize(1);
-      return l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
+    perftools::Sample::Payload & operator()  {
+      l.resize(3);
+      l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
+      return l;
     }
   };  
 }
