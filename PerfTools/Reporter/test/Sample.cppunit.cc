@@ -9,6 +9,21 @@
 using namespace boost::assign;
 
 
+namespace {
+
+  std::vector<int> a(3,0);
+  
+  int what(int i) {
+    return a[i];
+  }
+
+  std::vector<int> last(3,0);
+  
+  void tell(int j, int i){
+    last[j] = i;
+  }
+}
+
 
 
 class TestSample : public CppUnit::TestFixture {
@@ -20,7 +35,6 @@ public:
   TestSample();
   void add1() {
     std::transform(a.begin(),a.end(),one.begin(),a.begin(),std::plus<int>());
-
   }
   void setUp();
   void tearDown() {}
@@ -37,22 +51,6 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestSample);
-
-namespace {
-
-
-  std::vector<int> a(3,0);
-
-  int what(int i) {
-    return a[i];
-  }
-
-  std::vector<int> last(3,0);
-
-  void tell(int j, int i){
-    last[j] = i;
-  }
-}
 
 
 void TestSample::setUp(){
@@ -77,7 +75,7 @@ TestSample::TestSample(): zero(3,0), one(3,1), two(3,2) {
 void TestSample::check_constr() {
   // a "template"
   perftools::Sample::Payload ba(1);
-  ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
+  ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
   {
     perftools::Sample s1(ba);
     a[0]++;
@@ -92,9 +90,9 @@ namespace {
     inline
     perftools::Sample::Payload & operator()  {
       l.resize(3);
-      l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_2),false,true);
-      l[1]=perftools::SamplerImpl<int>(boost::bind(what,1),boost::bind(tell,1,_2),false,true);
-      l[2]=perftools::SamplerImpl<int>(boost::bind(what,2),boost::bind(tell,2,_2),false,true);
+      l[0]=perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
+      l[1]=perftools::SamplerImpl<int>(boost::bind(what,1),boost::bind(tell,1,_1),false,true);
+      l[2]=perftools::SamplerImpl<int>(boost::bind(what,2),boost::bind(tell,2,_1),false,true);
       return l;
     }
   };  
