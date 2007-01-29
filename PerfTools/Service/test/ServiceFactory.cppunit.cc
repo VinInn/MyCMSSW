@@ -51,7 +51,7 @@ void TestServiceFactory::check_Maker() {
   boost::any a = (*m)();
   CPPUNIT_ASSERT(!a.empty());
   try {
-    boost::shared_ptr<D2> d1 = boost::any_cast<boost::shared_ptr<D1> >(a);
+    boost::shared_ptr<D1> d1 = boost::any_cast<boost::shared_ptr<D1> >(a);
     CPPUNIT_ASSERT(d1);
   } catch (boost::bad_any_cast const &) {
     bool badAnyCast = false;
