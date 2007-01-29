@@ -5,8 +5,6 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 
-// FIXME
-// check by features....
 class TestServiceFactory : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestServiceFactory);
   CPPUNIT_TEST(check_Maker);

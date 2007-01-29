@@ -25,13 +25,14 @@ namespace perftools {
   }
   
   void  ServiceFactory::reportErrorNoService(std::string const & name) const {
-    std::cerr << "PerfTools Service named " << name << "not found" << srd::endl;
+    std::cerr << "PerfTools Service named " << name 
+	      << "not found" << std::endl;
   }
   
   void  ServiceFactory::reportWrongType(std::string const & name, 
 					char const * type) const {
     std::cerr << "PerfTools Service named " << name 
-	      << " is not of type " << type << srd::endl;
+	      << " is not of type " << type << std::endl;
     
   }
   
