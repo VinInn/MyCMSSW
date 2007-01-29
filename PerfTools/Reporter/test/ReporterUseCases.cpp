@@ -27,8 +27,8 @@ int main() {
   std::vector<int> v; v +=1,2,3;
 
   std::for_each(v.begin(),v.end(),
-		boost::bind(&SimpleImmediateReporter::operator()<int>,
-			    bost::ref(sir),"x= ",_1));
+		boost::bind(&perftools::SimpleImmediateReporter::operator()<int>,
+			    boost::ref(sir),"x= ",_1));
 
 
   r.inscribe<void(*)(void)>("here","c",c);

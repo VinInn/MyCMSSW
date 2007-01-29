@@ -3,12 +3,13 @@
 
 #include <sstream>
 #include <ostream>
+#include <string>
 
 namespace perftools {
 
   class SimpleImmediateReporter {
-
-    SimpleImmediateReporter(ostream & co, int fields, 
+  public:
+    SimpleImmediateReporter(std::ostream & co, int fields, 
 			    std::string const & sep=" ") :
       m_co(co), m_count(0), m_fields(fields), m_sep(sep) {}
 
@@ -22,7 +23,7 @@ namespace perftools {
     }
 
     void flush() {
-      co <<  m_os.str() << std::endl;
+      m_co <<  m_os.str() << std::endl;
       m_count=0;
       m_os.str()="";
     }
@@ -35,6 +36,6 @@ namespace perftools {
     std::string m_sep;
   };
 
-
+}
 
 #endif // PerfTools_SimpleImmediateReporter_H
