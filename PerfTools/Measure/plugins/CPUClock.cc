@@ -12,7 +12,11 @@ namespace {
 
 }
 
+typedef perftools::ServiceMaker<boost::function<long long(void)>, CPUClock> CPUClockService;
 
 DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<CPUClock>, "PerfTools:CPUClock");
+		    CPUClockService,
+		    "PerfTools:CPUClock");
+
+
