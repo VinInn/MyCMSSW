@@ -5,7 +5,8 @@ namespace perftools{
 
   namespace serviceTest {
     struct Dummy1{};
-    struct Dummy2{};
+    struct Dummy{};
+    struct Dummy2 : public Dummy{};
 
   }
   
@@ -17,4 +18,5 @@ DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
 		    perftools::ServiceMaker<perftools::serviceTest::Dummy1>, "PerfDummy1");
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<perftools::serviceTest::Dummy2>, "PerfDummy2");
+		    perftools::ServiceMaker<perftools::serviceTest::Dummy, 
+		    perftools::serviceTest::Dummy2>, "PerfDummy2");

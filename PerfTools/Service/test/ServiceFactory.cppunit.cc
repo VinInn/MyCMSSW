@@ -12,6 +12,7 @@ class TestServiceFactory : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_getAny);
   CPPUNIT_TEST(check_getService);
   CPPUNIT_TEST(check_getTwice);
+  CPPUNIT_TEST(check_getBase);
   CPPUNIT_TEST(check_NameError);
   CPPUNIT_TEST(check_TypeError);
   CPPUNIT_TEST_SUITE_END();
@@ -23,6 +24,7 @@ public:
   void check_getAny();
   void check_getService();
   void check_getTwice();
+  void check_getBase();
   void check_NameError();
   void check_TypeError();
 
@@ -34,11 +36,11 @@ namespace perftools{
 
   namespace serviceTest {
     struct Dummy1{};
-    struct Dummy2{};
+    struct Dummy{};
+    struct Dummy2 : public Dummy{};
 
   }
-  
-
+ 
 }
 
 
@@ -98,6 +100,14 @@ void TestServiceFactory::check_getTwice() {
   CPPUNIT_ASSERT(d2_2==d2);
   CPPUNIT_ASSERT(d2.use_count()==3);
 }
+
+void TestServiceFactory::check_getBase() {
+  typedef perftools::serviceTest::Dummy D2;
+  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
+  CPPUNIT_ASSERT(d2);
+  CPPUNIT_ASSERT(d2.use_count()==2);
+}
+
 
 void TestServiceFactory::check_NameError(){
   try {
