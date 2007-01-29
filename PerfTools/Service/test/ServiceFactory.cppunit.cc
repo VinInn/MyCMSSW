@@ -45,14 +45,14 @@ namespace perftools{
 
 
 void TestServiceFactory::check_Maker() {
-  typedef perftools::serviceTest::Dummy2 D2;
-  std::auto_ptr<perftools::BaseServiceMaker> m(new perftools::ServiceMaker<D2>);
+  typedef perftools::serviceTest::Dummy1 D1;
+  std::auto_ptr<perftools::BaseServiceMaker> m(new perftools::ServiceMaker<D1>);
   
   boost::any a = (*m)();
   CPPUNIT_ASSERT(!a.empty());
   try {
-    boost::shared_ptr<D2> d2 = boost::any_cast<boost::shared_ptr<D2> >(a);
-    CPPUNIT_ASSERT(d2);
+    boost::shared_ptr<D2> d1 = boost::any_cast<boost::shared_ptr<D1> >(a);
+    CPPUNIT_ASSERT(d1);
   } catch (boost::bad_any_cast const &) {
     bool badAnyCast = false;
     CPPUNIT_ASSERT(badAnyCast);
@@ -60,19 +60,19 @@ void TestServiceFactory::check_Maker() {
 }
 
 void TestServiceFactory::check_create() {
-  typedef perftools::serviceTest::Dummy2 D2;
-  std::auto_ptr<perftools::BaseServiceMaker> m(perftools::ServiceFactory::get()->create("PerfDummy2"));
+  typedef perftools::serviceTest::Dummy1 D1;
+  std::auto_ptr<perftools::BaseServiceMaker> m(perftools::ServiceFactory::get()->create("PerfDummy1"));
   CPPUNIT_ASSERT(m.get());
-  CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D2>*>(m.get()));
+  CPPUNIT_ASSERT(dynamic_cast<perftools::ServiceMaker<D1>*>(m.get()));
 }
 
 void TestServiceFactory::check_getAny() {
-  typedef perftools::serviceTest::Dummy2 D2;
-  boost::any a = perftools::ServiceFactory::get()->getAny("PerfDummy2");
+  typedef perftools::serviceTest::Dummy1 D1;
+  boost::any a = perftools::ServiceFactory::get()->getAny("PerfDummy1");
   CPPUNIT_ASSERT(!a.empty());
   try {
-    boost::shared_ptr<D2> d2 = boost::any_cast<boost::shared_ptr<D2> >(a);
-    CPPUNIT_ASSERT(d2);
+    boost::shared_ptr<D1> d1 = boost::any_cast<boost::shared_ptr<D1> >(a);
+    CPPUNIT_ASSERT(d1);
   } catch (boost::bad_any_cast const &) {
     bool badAnyCast = false;
     CPPUNIT_ASSERT(badAnyCast);
@@ -80,25 +80,25 @@ void TestServiceFactory::check_getAny() {
  
 }
 void TestServiceFactory::check_getService() {
-  typedef perftools::serviceTest::Dummy2 D2;
-  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
-  CPPUNIT_ASSERT(d2);
-  CPPUNIT_ASSERT(d2.use_count()==2);
+  typedef perftools::serviceTest::Dummy1 D1;
+  boost::shared_ptr<D1> d1 = perftools::ServiceFactory::get()->getService<D1>("PerfDummy1");
+  CPPUNIT_ASSERT(d1);
+  CPPUNIT_ASSERT(d1.use_count()==2);
 }
 
 void TestServiceFactory::check_getTwice() {
-  typedef perftools::serviceTest::Dummy2 D2;
-  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
-  CPPUNIT_ASSERT(d2);
-
   typedef perftools::serviceTest::Dummy1 D1;
   boost::shared_ptr<D1> d1 = perftools::ServiceFactory::get()->getService<D1>("PerfDummy1");
   CPPUNIT_ASSERT(d1);
 
-  boost::shared_ptr<D2> d2_2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
-  CPPUNIT_ASSERT(d2_2);
-  CPPUNIT_ASSERT(d2_2==d2);
-  CPPUNIT_ASSERT(d2.use_count()==3);
+  typedef perftools::serviceTest::Dummy2 D2;
+  boost::shared_ptr<D2> d2 = perftools::ServiceFactory::get()->getService<D2>("PerfDummy2");
+  CPPUNIT_ASSERT(d1);
+
+  boost::shared_ptr<D1> d1_2 = perftools::ServiceFactory::get()->getService<D1>("PerfDummy1");
+  CPPUNIT_ASSERT(d1_2);
+  CPPUNIT_ASSERT(d1_2==d1);
+  CPPUNIT_ASSERT(d1.use_count()==3);
 }
 
 void TestServiceFactory::check_getBase() {
