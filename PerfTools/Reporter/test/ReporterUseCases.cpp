@@ -1,7 +1,13 @@
 #include "PerfTools/Reporter/interface/Reporter.h"
+#include "PerfTools/Reporter/interface/SimpleImmediateReporter.h"
 
 #include <iostream>
 #include <boost/bind.hpp>
+#include <vector>
+#include <algorithm>
+#include <boost/assign/std/vector.hpp>
+#include <boost/assign/list_of.hpp>
+using namespace boost::assign;
 
 
 template<typename T>
@@ -16,6 +22,14 @@ void c(){}
 int main() {
 
   perftools::Reporter r;
+  perftools::SimpleImmediateReporter sir(std::cout,3);
+
+  std::vector<int> v; v +=1,2,3;
+
+  std::for_each(v.begin(),v.end(),
+		boost::bind(&SimpleImmediateReporter::operator()<int>,
+			    bost::ref(sir),"x= ",_1));
+
 
   r.inscribe<void(*)(void)>("here","c",c);
 
