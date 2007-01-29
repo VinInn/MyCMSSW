@@ -2,7 +2,7 @@
 #include "PluginManager/PluginManager.h"
 
 #include <memory>
-
+#include <iostream>
 namespace perftools {
 
   ServiceFactory * ServiceFactory::get (void) {
@@ -25,11 +25,13 @@ namespace perftools {
   }
   
   void  ServiceFactory::reportErrorNoService(std::string const & name) const {
-    
+    std::cerr << "PerfTools Service named " << name << "not found" << srd::endl;
   }
   
   void  ServiceFactory::reportWrongType(std::string const & name, 
 					char const * type) const {
+    std::cerr << "PerfTools Service named " << name 
+	      << " is not of type " << type << srd::endl;
     
   }
   

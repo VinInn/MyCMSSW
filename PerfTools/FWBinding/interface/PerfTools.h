@@ -3,7 +3,7 @@
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/ServiceRegistry/interface/ServiceMaker.h"
-#include "FWCore/MessageLogger/interface/MessageLogger.h"
+
 
 #include<boost/any.hpp>
 
