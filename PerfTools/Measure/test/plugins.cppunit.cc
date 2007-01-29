@@ -23,16 +23,16 @@ public:
 CPPUNIT_TEST_SUITE_REGISTRATION(TestPlugins);
 
 
-void TestPlugins::CPUClock() {
+void TestPlugins::check_CPUClock() {
   typedef boost::function<long long(void)> Clock;
   boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:CPUClock");
   CPPUNIT_ASSERT(c);
-  CPPUNIT_ASSERT(*c==Clock(std::clock));
+  CPPUNIT_ASSERT((*c)==Clock(std::clock));
 }
 
-void TestPlugins::WallClock() {
+void TestPlugins::check_WallClock() {
   typedef boost::function<long long(void)> Clock;
   boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:WallClock");
   CPPUNIT_ASSERT(c);
-  CPPUNIT_ASSERT(*c==Clock(perftools::realTime));
+  CPPUNIT_ASSERT((*c)==Clock(perftools::realTime));
 }
