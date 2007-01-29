@@ -21,10 +21,10 @@ namespace perftools {
     virtual boost::any operator()()=0;
   };
 
-  template<typename Service>
+  template<typename Service, typename Instance=Service>
   struct ServiceMaker : public BaseServiceMaker {
     boost::any operator()() {
-      return boost::shared_ptr<Service>(new Service);
+      return boost::shared_ptr<Service>(new Instance);
     }
   };
   

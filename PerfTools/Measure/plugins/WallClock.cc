@@ -15,4 +15,4 @@ namespace {
 
 DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<WallClock>, "PerfTools:WallClock");
+		    perftools::ServiceMaker<boost::function<long long(void)>, WallClock>, "PerfTools:WallClock");
