@@ -29,6 +29,9 @@ int main() {
   std::for_each(v.begin(),v.end(),
 		boost::bind(&perftools::SimpleImmediateReporter::operator()<int>,
 			    boost::ref(sir),"x= ",_1));
+  std::for_each(v.begin(),v.end(),
+		boost::bind(&perftools::SimpleImmediateReporter::operator()<int>,
+			    boost::ref(sir),"y= ",_1));
 
 
   r.inscribe<void(*)(void)>("here","c",c);

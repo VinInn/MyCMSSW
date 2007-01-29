@@ -25,7 +25,7 @@ namespace perftools {
     void flush() {
       m_co <<  m_os.str() << std::endl;
       m_count=0;
-      m_os.str()="";
+      m_os.str("");
     }
 
   private:
