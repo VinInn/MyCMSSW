@@ -28,7 +28,8 @@ namespace perftools {
     if (name.find("Clock")!=std::string::npos) {
       boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
       target = perftools::SamplerImpl<long long>(*c,boost::bind(tell,0,_1),false,true);
-
+    }
+    else{}
   }
 
 }

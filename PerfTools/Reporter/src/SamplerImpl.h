@@ -1,6 +1,8 @@
 #ifndef PerfTools_SamplerImpl_H
 #define PerfTools_SamplerImpl_H
 
+#include "PerfTools/Reporter/interface/SamplerBase.h"
+
 #include <boost/function.hpp>
 #include <functional>
 #include<vector>
@@ -11,7 +13,7 @@
 namespace perftools {
 
   template <typename T, typename D=T, typename M=std::minus<T> >
-  class SamplerImpl {
+  class SamplerImpl : public SamplerBase {
   public:
     typedef T Value;
     typedef D Difference;
@@ -21,45 +23,43 @@ namespace perftools {
 
   public:
     template<typename S, typename R>
-    SamplerImpl(S isource, R ireport, bool doReport=true, bool isTemplate=false) : 
+    SamplerImpl(S isource, R ireport, bool doReport=true, bool aTemplate=false) :
+      SampleBase(aTemplate)
       m_doReport(doReport),
-      m_templ(isTemplate),
       m_source(isource),
       m_report(ireport), 
-      m_firstValue( (!isTemplate) && doReport ? m_source() : Value()) { 
+      m_firstValue( (!aTemplate) && doReport ? m_source() : Value()) { 
     }
 
-    SamplerImpl() : m_doReport(false), m_templ(false){}
+    SamplerImpl() : m_doReport(false){}
 
     /* copy constructor
      *  restart sampling and inhibit report from right hand
      */
     SamplerImpl(SamplerImpl const & rh) :
-      m_doReport(rh.m_templ ? rh.m_doReport : true),
-      m_templ(false),
+      m_doReport(rh.isTemplate() ? rh.m_doReport : true),
       m_source(rh.m_source),
       m_report(rh.m_report), 
-      m_firstValue(m_doReport ? m_source() : Value())
+      m_firstValue((!rh.isTemplate()) && m_doReport ? m_source() : Value())
     {
-      if (!rh.m_templ) rh.m_doReport=false;
+      if (!rh.isTemplate()) rh.m_doReport=false;
     }
 
     /* same behaviour as copy-constr
      *
      */
     SamplerImpl & operator=(SamplerImpl const & rh) {
-      m_doReport = rh.m_templ ? rh.m_doReport : true;
-      m_templ = false;
-      if (!rh.m_templ) rh.m_doReport =false;
+      m_doReport = rh.isTemplate() ? rh.m_doReport : true;
+      if (!rh.isTemplate()) rh.m_doReport =false;
       m_source =rh.m_source;
       m_report = rh.m_report; 
-      m_firstValue= m_doReport ? m_source() : Value(); 
+      m_firstValue= (!rh.isTemplate()) && m_doReport ? m_source() : Value(); 
       return *this;
     }
 
 
     ~SamplerImpl() {
-      if((!m_templ) && m_doReport) m_report(sample());
+      if((!isTemplate()) && m_doReport) m_report(sample());
     }
 
     Difference sample() const {
@@ -68,7 +68,6 @@ namespace perftools {
 
   private:
     mutable bool m_doReport;
-    mutable bool m_templ; // if true object is just a "template"
     Source m_source;
     Report m_report;
     Value m_firstValue;
