@@ -26,7 +26,7 @@ namespace perftools {
     
   };
   
-  void activate(boost::any& ba) {
+  inline void activate(boost::any& ba) {
     boost::any_cast<perftools::SamplerBase>(&ba)->activate();
   }
  

@@ -22,8 +22,9 @@ namespace perftools {
 
     private:
 
-    static void load(std::string& const name, Payload::value_type & target,
+    static void load(std::string const & name, Payload::value_type & target,
 		     std::vector<std::string> const & reporter);
+
     Payload m_payload;
   };
 

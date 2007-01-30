@@ -5,7 +5,7 @@
 
 namespace perftools {
 
-  SamplerBuilder::SamplerBuilder();
+  SamplerBuilder::SamplerBuilder(){}
 
   SamplerBuilder::Payload & 
   SamplerBuilder::operator()(std::vector<std::string> const & sources,
@@ -20,7 +20,7 @@ namespace perftools {
   }
 
 
-  void  SamplerBuilder::load(std::string& const name, Payload::value_type & target,
+  void  SamplerBuilder::load(std::string const & name, Payload::value_type & target,
 			     std::vector<std::string> const & reporter) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
