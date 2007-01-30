@@ -11,7 +11,7 @@ namespace perftools {
   SamplerBuilder::operator()(std::vector<std::string> const & sources,
 			     std::vector<std::string> const & reporter) {
 
-    if (sources.empty()||reporter.empty()) return;
+    if (sources.empty()||reporter.empty()) return m_payload;
     // full combinatorics...
     //FIXME now just one reporter
     m_payload.resize(sources.size());
