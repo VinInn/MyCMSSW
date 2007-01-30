@@ -7,6 +7,7 @@
 // check by features....
 class TestSamplerI : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestSamplerI);
+  CPPUNIT_TEST(check_base);
   CPPUNIT_TEST(check_defconstr);
   CPPUNIT_TEST(check_constr);
   CPPUNIT_TEST(check_constrF);
@@ -21,6 +22,7 @@ public:
   void setUp();
   void tearDown() {}
   void check_defconstr();
+  void check_base();
   void check_constr();
   void check_constrF();
   void check_copy();
@@ -58,6 +60,21 @@ void TestSamplerI::setUp(){
   last=0;
 }
  
+
+void TestSamplerI::check_base() {
+  {
+    perftools::SamplerBase<int>  s;
+    CPPUNIT_ASSERT(!s.isTemplate());
+    s.activate();
+    CPPUNIT_ASSERT(!s.isTemplate());
+  }
+  {
+    perftools::SamplerBase<int>  s(true);
+    CPPUNIT_ASSERT(s.isTemplate());
+    s.activate();
+    CPPUNIT_ASSERT(!s.isTemplate());
+  }
+}
 
 void TestSamplerI::check_defconstr() {
   {
@@ -141,6 +158,12 @@ void TestSamplerI::check_any_copy() {
       boost::any bb = ba;
       a++;
     }
+    CPPUNIT_ASSERT(last==0);
+    {
+      perftools::activate(ba);
+      boost::any bb = ba;
+      a++;
+    }
     CPPUNIT_ASSERT(last==1);
   }
 }
@@ -148,6 +171,7 @@ void TestSamplerI::check_any_copy() {
 void TestSamplerI::check_any_swap() {
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
+    perftools::activate(ba);
     // now is a false, false
     a++;
     {

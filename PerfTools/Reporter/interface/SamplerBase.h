@@ -1,6 +1,8 @@
 #ifndef PerfTools_SamplerBase_H
 #define PerfTools_SamplerBase_H
 
+#include <boost/any.hpp>
+
 namespace perftools {
 
   /*
@@ -23,6 +25,11 @@ namespace perftools {
 
   };
 
+  void activate(boost::any& ba) {
+    boost::any_cast<perftools::SamplerBase*>(&ba)->activate();
+  }
+ 
 
+}
 
 #endif //  PerfTools_SampleBase_H

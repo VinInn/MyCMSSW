@@ -1,7 +1,7 @@
 #ifndef PerfTools_Sample_H
 #define PerfTools_Sample_H
 
-#include "PerfTools/Reporter/interface/SampleBase.h"
+#include "PerfTools/Reporter/interface/SamplerBase.h"
 
 
 #include <boost/function.hpp>
@@ -13,7 +13,7 @@ namespace perftools {
 
   class Sample {
   public:
-    typedef SampleBase::Payload Payload;
+    typedef SamplerBase::Payload Payload;
     Sample(){}
     // avoid copy of payload...
     explicit Sample(Payload & isample) {
