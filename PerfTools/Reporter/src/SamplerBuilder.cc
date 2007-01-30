@@ -1,4 +1,4 @@
-#include "PerfTools/Reporter/interface/SampleBuilder.h"
+#include "PerfTools/Reporter/interface/SamplerBuilder.h"
 #include "PerfTools/Reporter/src/SamplerImpl.h"
 
 #include "PerfTools/Service/interface/ServiceFactory.h"

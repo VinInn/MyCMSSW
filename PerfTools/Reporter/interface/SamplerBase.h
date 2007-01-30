@@ -16,7 +16,7 @@ namespace perftools {
     SamplerBase(bool aTemplate=false) : m_templ(aTemplate){}
     
     // will activate in next copy....
-    inline activate() { m_templ=false;}
+    inline void activate() { m_templ=false;}
     
     inline bool isTemplate() const { return m_templ;}
     
@@ -27,7 +27,7 @@ namespace perftools {
   };
   
   void activate(boost::any& ba) {
-    boost::any_cast<perftools::SamplerBase*>(&ba)->activate();
+    boost::any_cast<perftools::SamplerBase>(&ba)->activate();
   }
  
 
