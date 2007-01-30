@@ -16,7 +16,7 @@ namespace perftools {
     //FIXME now just one reporter
     m_payload.resize(sources.size());
     
-
+    return m_payload;
   }
 
 

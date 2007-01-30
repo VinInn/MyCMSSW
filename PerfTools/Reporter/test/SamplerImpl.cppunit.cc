@@ -63,13 +63,13 @@ void TestSamplerI::setUp(){
 
 void TestSamplerI::check_base() {
   {
-    perftools::SamplerBase<int>  s;
+    perftools::SamplerBase s;
     CPPUNIT_ASSERT(!s.isTemplate());
     s.activate();
     CPPUNIT_ASSERT(!s.isTemplate());
   }
   {
-    perftools::SamplerBase<int>  s(true);
+    perftools::SamplerBase s(true);
     CPPUNIT_ASSERT(s.isTemplate());
     s.activate();
     CPPUNIT_ASSERT(!s.isTemplate());
