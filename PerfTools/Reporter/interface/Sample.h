@@ -7,6 +7,7 @@
 #include <boost/function.hpp>
 #include <boost/any.hpp>
 #include <vector>
+#include <algorithm>
 
 namespace perftools {
 
@@ -19,7 +20,7 @@ namespace perftools {
     explicit Sample(Payload & isample) {
       m_sampler.swap(isample);
       // FIXME or in the Builder???
-      foreach(m_sampler.begin(),m_sampler.end(),&perftools::activate);
+      std::for_each(m_sampler.begin(),m_sampler.end(),&perftools::activate);
     }
 
     ~Sample(){}
