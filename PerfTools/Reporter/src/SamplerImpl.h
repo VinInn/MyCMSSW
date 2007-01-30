@@ -24,7 +24,7 @@ namespace perftools {
   public:
     template<typename S, typename R>
     SamplerImpl(S isource, R ireport, bool doReport=true, bool aTemplate=false) :
-      SamplerBase(aTemplate)
+      SamplerBase(aTemplate),
       m_doReport(doReport),
       m_source(isource),
       m_report(ireport), 
@@ -49,7 +49,7 @@ namespace perftools {
      *
      */
     SamplerImpl & operator=(SamplerImpl const & rh) {
-      SampleBase::operator=(rh);
+      SamplerBase::operator=(rh);
       m_doReport = rh.isTemplate() ? rh.m_doReport : true;
       if (!rh.isTemplate()) rh.m_doReport =false;
       m_source =rh.m_source;
