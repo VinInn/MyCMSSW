@@ -1,6 +1,9 @@
 #ifndef PerfTools_Sample_H
 #define PerfTools_Sample_H
 
+#include "PerfTools/Reporter/interface/SampleBase.h"
+
+
 #include <boost/function.hpp>
 #include <boost/any.hpp>
 #include <vector>
@@ -10,11 +13,13 @@ namespace perftools {
 
   class Sample {
   public:
-    typedef std::vector<boost::any> Payload;
+    typedef SampleBase::Payload Payload;
     Sample(){}
     // avoid copy of payload...
     explicit Sample(Payload & isample) {
       m_sampler.swap(isample);
+      // FIXME or in the Builder???
+      foreach(m_sampler.begin(),m_sampler.end(),&perftools::activate);
     }
 
     ~Sample(){}
