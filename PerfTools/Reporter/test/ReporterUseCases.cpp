@@ -53,7 +53,7 @@ int main() {
 
   r.add<int>("here",boost::bind(print<int>,boost::bind(print<std::string const&>,boost::ref(std::cout),_1,": "),_2,"\n"));
 
-  perftools::SimpleImmediateReporter sirV(std::cout,v.size());
+  perftools::SimpleImmediateReporter sirV(std::cout,v2.size());
   r.add<std::vector<int> >("here",boost::bind(printV<int>,_1,_2,boost::ref(sirV)));
   
 
