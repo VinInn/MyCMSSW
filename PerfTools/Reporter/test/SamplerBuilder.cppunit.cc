@@ -62,11 +62,11 @@ void TestSamplerBuilder::check_Timers() {
   perftools::Sample s1(builder(sources,reporters));
 
   {	   
-    perftools::Sampler(s1);
+    perftools::Sampler(s1.sampler());
     waiste();
   }
   {	   
-    perftools::Sampler(s1);
+    perftools::Sampler(s1.sampler());
     waiste();
     nap();
   }
