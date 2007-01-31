@@ -54,7 +54,7 @@ namespace perftools {
     Reporter();
     
     template<typename OP>
-    OP * inscribe(std::string const & cat,
+    OP * subscribe(std::string const & cat,
 		  std::string const & name, OP op=OP()) {
       boost::any x(op);
       return boost::any_cast<OP>(&m_operations[cat].stats[name].swap(x));
