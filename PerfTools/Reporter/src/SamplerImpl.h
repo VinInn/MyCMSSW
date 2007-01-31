@@ -36,7 +36,7 @@ namespace perftools {
     /* copy constructor
      *  restart sampling and inhibit report from right hand
      */
-    SamplerImpl(SamplerImpl const & rh) :
+    SamplerImpl(SamplerImpl const & rh) : SamplerBase(rh),
       m_doReport(rh.isTemplate() ? rh.m_doReport : true),
       m_source(rh.m_source),
       m_report(rh.m_report), 

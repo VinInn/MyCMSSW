@@ -153,9 +153,11 @@ void TestSamplerI::check_any_copy() {
 
   {
     boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
+    CPPUNIT_ASSERT(boost::unsafe_any_cast<perftools::SamplerBase>(&ba)->isTemplate());
     a++;
     {
       boost::any bb = ba;
+      CPPUNIT_ASSERT(boost::unsafe_any_cast<perftools::SamplerBase>(&bb)->isTemplate());
       a++;
     }
     CPPUNIT_ASSERT(last==0);
