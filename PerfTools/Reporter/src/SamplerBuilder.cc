@@ -15,7 +15,7 @@
 namespace perftools {
 
   template<typename R>
-  SamplerBuilder::Payload::value_type load(std::string const & name, R reporter) {
+  SamplerBuilder::Payload::value_type load(std::string const & name, boost::shared_ptr<R> reporter) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
     
