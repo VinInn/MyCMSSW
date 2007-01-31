@@ -59,6 +59,7 @@ void TestSamplerBuilder::check_Timers() {
   std::vector<std::string> sources;
   sources += "Wall", "CPU";
   std::vector<std::string> reporters;
+  reporter += "Immediate";
   perftools::Sample s1(builder(sources,reporters));
 
   {	   
