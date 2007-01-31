@@ -40,8 +40,8 @@ int main() {
 		boost::bind(&perftools::SimpleImmediateReporter::operator()<int>,
 			    boost::ref(sir),"y= ",_1));
 
-
-  r.subscribe<void(*)(void)>("here","c",c);
+  // later....
+  // r.subscribe<void(*)(void)>("here","c",0,c);
 
   int & a = *r.subscribe<int>("here","int 1");
   int & b = *r.subscribe<int>("here","int 2");

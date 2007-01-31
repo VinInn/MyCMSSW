@@ -8,9 +8,13 @@ namespace perftools {
 
   void Reporter::Category::reportOneOp(Reporter::OperationStats::value_type const & op) const {
     std::string const & name = op.first;
+    if (op.second.second) {
+      (*op.second.second)(name,op.second.first); 
+      return;
+    }
     Reports::const_iterator p = reports.find(&op.second.type());
     if (p!=reports.end()) 
-      (*(*p).second)(name,op.second);
+      (*(*p).second)(name,op.second.first);
   }
 
   Reporter::Reporter()  {}

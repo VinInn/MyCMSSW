@@ -20,7 +20,7 @@ namespace perftools {
      virtual void operator()(std::string const & name, boost::any const & op) =0;
     };
 
-    typedef std::map<std::string, std::pair<boost::any,boost::shared_ptr<BaseReport> OperationStats;
+    typedef std::map<std::string, std::pair<boost::any,boost::shared_ptr<BaseReport> > > OperationStats;
     typedef std::map<std::type_info const *, boost::shared_ptr<BaseReport> > Reports;
     typedef boost::function<void(std::string const &)> TitleReport;
 
