@@ -14,7 +14,7 @@ namespace perftools {
       m_co(co), m_count(0), m_fields(fields), m_sep(sep) {}
 
     template<typename T>
-    void operator()(char const * name, T const & t) {
+    void operator()(std::string const & name, T const & t) {
       if (m_count>0) m_os << m_sep;
       if (name) m_os << name;
       m_os << t;

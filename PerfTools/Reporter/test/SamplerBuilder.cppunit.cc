@@ -57,7 +57,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestSamplerBuilder);
 void TestSamplerBuilder::check_Timers() {
   perftools::SamplerBuilder builder;
   std::vector<std::string> sources;
-  sources += "Wall", "CPU";
+  sources += "WallClock", "CPUClock";
   std::vector<std::string> reporters;
   reporters += "Immediate";
   perftools::Sample s1(builder(sources,reporters));
