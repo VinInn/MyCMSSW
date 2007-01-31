@@ -18,7 +18,7 @@ std::ostream& print(std::ostream& co, T is, char const * sep) {
 void c(){}
 
 template<typename T>
-void printV(std::string const & name , std::vector<T> const & v, perftools::SimpleImmediateReporter & sir) {
+void printV(std::string const & name, std::vector<T> const & v, perftools::SimpleImmediateReporter & sir) {
   sir.stream() << name << ": ";
   std::for_each(v.begin(),v.end(),
 		boost::bind(&perftools::SimpleImmediateReporter::operator()<T>,
@@ -46,15 +46,15 @@ int main() {
   int & a = *r.subscribe<int>("here","int 1");
   int & b = *r.subscribe<int>("here","int 2");
 
-  std::vector<int> & v =  *r.subscribe<std::vector<int> >("here","vec 1");
-  v.resize[2];
+  std::vector<int> & v2 =  *r.subscribe<std::vector<int> >("here","vec 1");
+  v2.resize[2];
   
-  v[1]=3;
+  v2[1]=3;
 
   r.add<int>("here",boost::bind(print<int>,boost::bind(print<std::string const&>,boost::ref(std::cout),_1,": "),_2,"\n"));
 
   perftools::SimpleImmediateReporter sirV(std::cout,v.size());
-  r.add<std::vector<int> >("here",boost::bind(printV<int>,_1,_2,boost::cref(sirV)));
+  r.add<std::vector<int> >("here",boost::bind(printV<int>,_1,_2,boost::ref(sirV)));
   
 
   r.setDefaultTitleReport(boost::bind(print<char>,boost::bind(print<std::string const&>,boost::ref(std::cout),_1,""),'\n',""));
