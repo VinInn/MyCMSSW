@@ -3,6 +3,10 @@
 
 #include "PerfTools/Service/interface/ServiceFactory.h"
 
+#include<boost/function.hpp>
+#include<boost/shared_ptr.hpp>
+#include<boost/bind.hpp>
+
 namespace perftools {
 
   template<typename R>
