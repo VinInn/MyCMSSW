@@ -1,0 +1,5 @@
+<use name=PerfTools/Service>
+<use name=PerfTools/Reporter>
+<use name=Foundation/PluginManager>
+<library name="PerfToolsReporter" file=Reporter.cc>
+
