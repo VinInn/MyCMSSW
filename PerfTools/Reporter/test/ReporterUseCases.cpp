@@ -18,7 +18,7 @@ std::ostream& print(std::ostream& co, T is, char const * sep) {
 void c(){}
 
 template<typename T>
-void printV(std::string cons t& name , std::vector<T> const & v, perftools::SimpleImmediateReporter & sir) {
+void printV(std::string const & name , std::vector<T> const & v, perftools::SimpleImmediateReporter & sir) {
   sir.stream() << name << ": ";
   std::for_each(v.begin(),v.end(),
 		boost::bind(&perftools::SimpleImmediateReporter::operator()<T>,

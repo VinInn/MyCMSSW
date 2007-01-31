@@ -28,7 +28,7 @@ namespace perftools {
       m_os.str("");
     }
 
-    std::ostream & stream() { retrun m_co; }
+    std::ostream & stream() { return m_co; }
 
   private:
     std::ostream & m_co;
