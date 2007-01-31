@@ -26,6 +26,7 @@ namespace perftools {
 							   reporter,name.c_str(),_1),false,true);
     }
     else{}
+    return SamplerBuilder::Payload::value_type();
   }
   
   

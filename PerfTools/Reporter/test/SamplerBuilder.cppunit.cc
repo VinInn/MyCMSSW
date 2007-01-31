@@ -4,6 +4,7 @@
 
 
 
+#include <ctime>
 #include <cmath>
 #include <typeinfo> 
 #include <iostream>
@@ -25,6 +26,16 @@ namespace {
     for (double i=1;i<100000;i++)
       gcrap+=std::log(std::sqrt(i));
   }
+
+  inline void nap() {
+    ::timespec req;
+    req.tv_sec = 1;
+    req.tv_nsec = 00000;
+    ::timespec rem;
+    ::nanosleep(&req,&rem);
+  }
+
+
 }
 
 // FIXME
@@ -57,6 +68,7 @@ void TestSamplerBuilder::check_Timers() {
   {	   
     perftools::Sampler(s1);
     waiste();
+    nap();
   }
 
 }
