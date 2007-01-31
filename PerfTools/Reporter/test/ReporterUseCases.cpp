@@ -47,7 +47,7 @@ int main() {
   int & b = *r.subscribe<int>("here","int 2");
 
   std::vector<int> & v2 =  *r.subscribe<std::vector<int> >("here","vec 1");
-  v2.resize[2];
+  v2.resize(2);
   
   v2[1]=3;
 
