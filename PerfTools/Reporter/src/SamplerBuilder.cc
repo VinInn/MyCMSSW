@@ -3,9 +3,14 @@
 
 #include "PerfTools/Service/interface/ServiceFactory.h"
 
+#include "PerfTools/Reporter/interface/SimpleImmediateReporter.h"
+
+
 #include<boost/function.hpp>
 #include<boost/shared_ptr.hpp>
 #include<boost/bind.hpp>
+
+#include<iostream>
 
 namespace perftools {
 
