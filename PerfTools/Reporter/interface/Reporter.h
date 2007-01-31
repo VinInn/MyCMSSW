@@ -56,7 +56,8 @@ namespace perftools {
     template<typename OP>
     OP * subscribe(std::string const & cat,
 		   std::string const & name) {
-      boost::any x(OP());
+      OP a;
+      boost::any x(a);
       return boost::any_cast<OP>(&m_operations[cat].stats[name].first.swap(x));
     }
 

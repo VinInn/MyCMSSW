@@ -12,7 +12,8 @@ namespace perftools {
       (*op.second.second)(name,op.second.first); 
       return;
     }
-    Reports::const_iterator p = reports.find(&op.second.type());
+
+    Reports::const_iterator p = reports.find(&op.second.first.type());
     if (p!=reports.end()) 
       (*(*p).second)(name,op.second.first);
   }
