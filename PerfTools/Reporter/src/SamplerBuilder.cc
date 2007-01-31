@@ -44,7 +44,7 @@ namespace perftools {
     
     std::transform(sources.begin(),sources.end(),
 		   m_payload.begin(),
-		   boost::bind(load< boost::shared_ptr<perftools::SimpleImmediateReporter> >,_1,sir));
+		   boost::bind(load<perftools::SimpleImmediateReporter>,_1,sir));
     return m_payload;
   }
 
