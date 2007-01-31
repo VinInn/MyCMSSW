@@ -46,6 +46,8 @@ int main() {
   int & a = *r.subscribe<int>("here","int 1");
   int & b = *r.subscribe<int>("here","int 2");
 
+  std::cout << "a,b " << a << " " << b << std::endl;
+
   std::vector<int> & v2 =  *r.subscribe<std::vector<int> >("here","vec 1");
   v2.resize(2);
   
