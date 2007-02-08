@@ -17,6 +17,15 @@ std::ostream& print(std::ostream& co, T is, char const * sep) {
 
 void c(){}
 
+
+template<typename T>
+void printOne(boost::tuple<T const&, std::string const&> const & t,
+	    perftools::SimpleImmediateReporter & sir) {
+  sir(Tuple::get<1>,Tuple::get<0>);
+}
+  sir.stream() << name << ": ";
+  typedef boost::tuple<T const&, std::string const&> Tuple;
+
 template<typename T>
 void printV(std::string const & name, std::vector<T> const & v,
 	    std::vector<std::string> const & tags,
@@ -25,8 +34,12 @@ void printV(std::string const & name, std::vector<T> const & v,
   typedef boost::tuple<T const&, std::string const&> Tuple;
   std::for_each(boost::make_zip_iterator(boost::make_tuple(v.begin(), tags.begin())),
 		boost::make_zip_iterator(boost::make_tuple(v.end(), tags.end())),
-		boost::bind(&perftools::SimpleImmediateReporter::operator()<T>,
-			    boost::ref(sir), boost::bind(boost::tuples::get<1>, _1),  boost::bind(boost::tuples::get<0>, _1))); 
+		boost::bind(printOne<T>, _1, boost::ref(sir))
+		); 
+  //boost::bind(&perftools::SimpleImmediateReporter::operator()<T>,
+  //boost::ref(sir), 
+  // boost::bind(Tuple::get<1>, _1), 
+  //boost::bind(Tuple::get<0>, _1))); 
 }
 
 
