@@ -8,7 +8,7 @@
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign/list_of.hpp>
 using namespace boost::assign;
-
+#include <boost/iterator/zip_iterator.hpp>
 
 template<typename T>
 std::ostream& print(std::ostream& co, T is, char const * sep) {
@@ -18,11 +18,15 @@ std::ostream& print(std::ostream& co, T is, char const * sep) {
 void c(){}
 
 template<typename T>
-void printV(std::string const & name, std::vector<T> const & v, perftools::SimpleImmediateReporter & sir) {
+void printV(std::string const & name, std::vector<T> const & v,
+	    std::vector<std::string> const & tags,
+	    perftools::SimpleImmediateReporter & sir) {
   sir.stream() << name << ": ";
-  std::for_each(v.begin(),v.end(),
+  typedef boost::tuple<T const&, std::string const&> Tuple;
+  std::for_each(boost::make_zip_iterator(boost::make_tuple(v.begin(), tags.begin())),
+		boost::make_zip_iterator(boost::make_tuple(v.end(), tags.end())),
 		boost::bind(&perftools::SimpleImmediateReporter::operator()<T>,
-			    boost::ref(sir),"y= ",_1)); 
+			    boost::ref(sir), boost::bind(&Tuple::get<1> _1),  boost::bind(&Tuple::get<0> _1))); 
 }
 
 
@@ -55,8 +59,9 @@ int main() {
 
   r.add<int>("here",boost::bind(print<int>,boost::bind(print<std::string const&>,boost::ref(std::cout),_1,": "),_2,"\n"));
 
+  std::vector<std::string> tags; tags += "x= ","y= ";
   perftools::SimpleImmediateReporter sirV(std::cout,v2.size());
-  r.add<std::vector<int> >("here",boost::bind(printV<int>,_1,_2,boost::ref(sirV)));
+  r.add<std::vector<int> >("here",boost::bind(printV<int>,_1,_2,tags,boost::ref(sirV)));
   
 
   r.setDefaultTitleReport(boost::bind(print<char>,boost::bind(print<std::string const&>,boost::ref(std::cout),_1,""),'\n',""));
