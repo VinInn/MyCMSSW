@@ -21,7 +21,7 @@ void c(){}
 template<typename T>
 void printOne(boost::tuple<T const&, std::string const&> const & t,
 	    perftools::SimpleImmediateReporter & sir) {
-  sir(t.get<1>(),t.get<0>());
+  sir.operator()<int>(t.get<1>(),t.get<0>());
 }
 
 template<typename T>
