@@ -23,8 +23,6 @@ void printOne(boost::tuple<T const&, std::string const&> const & t,
 	    perftools::SimpleImmediateReporter & sir) {
   sir(t.get<1>(),t.get<0>());
 }
-  sir.stream() << name << ": ";
-  typedef boost::tuple<T const&, std::string const&> Tuple;
 
 template<typename T>
 void printV(std::string const & name, std::vector<T> const & v,
