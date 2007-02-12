@@ -28,7 +28,7 @@ namespace perftools {
   template<typename T>
   void printOne(boost::tuple<T const&, std::string const&> const & t,
 	        boost::shared_ptr<perftools::SimpleImmediateReporter> sir) {
-    sir->operator()<T>(t. template get<1>(),t. template get<0>());
+    sir->operator()<T>(t. template get<1>() + ": ",t. template get<0>());
   }
 
   template<typename T>
