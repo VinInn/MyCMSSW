@@ -6,5 +6,5 @@
 
 DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    perftools::ServiceMaker<perftools::Reporter>
+		    perftools::ServiceMaker<perftools::Reporter>,
 		    "PerfTools:Reporter");
