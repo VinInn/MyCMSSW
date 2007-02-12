@@ -2,6 +2,8 @@
 #include "PerfTools/Reporter/interface/Sample.h"
 #include "PerfTools/Reporter/interface/Sampler.h"
 
+#include "PerfTools/Service/interface/ServiceFactory.h"
+#include "PerfTools/Reporter/interface/Reporter.h"
 
 
 #include <ctime>
@@ -85,6 +87,8 @@ void TestSamplerBuilder::check_Timers() {
       nap(0,i*50000);
     }
   }
+
+  perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter")->report();
 
 }
 
