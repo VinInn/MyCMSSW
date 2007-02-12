@@ -27,10 +27,10 @@ namespace {
       gcrap+=std::log(std::sqrt(i));
   }
 
-  inline void nap() {
+  inline void nap(int s=1, int n=0) {
     ::timespec req;
-    req.tv_sec = 1;
-    req.tv_nsec = 00000;
+    req.tv_sec = s;
+    req.tv_nsec = n;
     ::timespec rem;
     ::nanosleep(&req,&rem);
   }
@@ -61,6 +61,8 @@ void TestSamplerBuilder::check_Timers() {
   std::vector<std::string> reporters;
   reporters += "Immediate";
   perftools::Sample s1(builder("check_Timers",sources,reporters));
+  reporters[0] = "Summary";
+  perftools::Sample s2(builder("check_Timers",sources,reporters));
 
   {	   
     perftools::Sampler a(s1);
@@ -70,6 +72,18 @@ void TestSamplerBuilder::check_Timers() {
     perftools::Sampler a(s1);
     waiste();
     nap();
+  }
+
+  for (int i=0;i<10;++i) {
+    {	   
+      perftools::Sampler a(s2);
+      waiste();
+    }
+    {	   
+      perftools::Sampler a(s2);
+      waiste();
+      nap(0,i*50000);
+    }
   }
 
 }
