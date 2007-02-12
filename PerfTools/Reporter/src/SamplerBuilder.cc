@@ -60,15 +60,16 @@ namespace perftools {
     return SamplerBuilder::Payload::value_type();
   }
 
-  SamplerBuilder::Payload::value_type loadMinMax(boost::tuple<std::string const&, MinMaxCounter &> & t) {
+  SamplerBuilder::Payload::value_type loadMinMax(boost::tuple<std::string const&, MinMaxCounter const &> const & t) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
     std::string const & name = t.get<0>();    
+    MinMaxCounter & counter = const_cast<MinMaxCounter&>(t.get<1>());
     if (name.find("Clock")!=std::string::npos) {
       boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
       return perftools::SamplerImpl<long long>(*c,
 					       boost::bind(&MinMaxCounter::fill,
-							   boost::ref(t.get<1>()),_1),false,true);
+							   boost::ref(counter),_1),false,true);
     }
     else{}
     // FIXME what to do if not found?
