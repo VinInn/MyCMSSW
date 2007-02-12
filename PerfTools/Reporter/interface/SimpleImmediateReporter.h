@@ -18,7 +18,7 @@ namespace perftools {
     template<typename T>
     void operator()(std::string const & name, T const & t) {
       if (m_count>0) m_os << m_sep;
-      else m_os << name;
+      else m_os << m_name;
       m_os << name;
       m_os << t;
       m_count++;
