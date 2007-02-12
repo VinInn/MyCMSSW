@@ -60,7 +60,7 @@ void TestSamplerBuilder::check_Timers() {
   sources += "WallClock", "CPUClock";
   std::vector<std::string> reporters;
   reporters += "Immediate";
-  perftools::Sample s1(builder(sources,reporters));
+  perftools::Sample s1(builder("check_Timers",sources,reporters));
 
   {	   
     perftools::Sampler a(s1);

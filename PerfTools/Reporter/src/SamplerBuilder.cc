@@ -16,7 +16,8 @@
 #include<iostream>
 
 std::ostream & operator<<(std::ostream & co,  perftools::MinMaxCounter const & counter) {
-  co << counter.m_counts
+  return
+    co << counter.m_counts
      << '/' << counter.m_tot/double(counter.m_counts)  
      << '/' << counter.m_min 
      << '/' << counter.m_max;
@@ -100,14 +101,14 @@ namespace perftools {
       boost::shared_ptr<perftools::Reporter> summary = 
 	perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter");
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size()));
-
+      
       std::vector<MinMaxCounter> & counters = 
 	*summary->subscribe<std::vector<MinMaxCounter> >("Counts/Ave/Min/Max",name,boost::bind(printV<MinMaxCounter>,_1,_2,sources,sir));
       std::transform(boost::make_zip_iterator(boost::make_tuple(sources.begin(), counters.begin())),
 		     boost::make_zip_iterator(boost::make_tuple(sources.end(), counters.end())),
 		     m_payload.begin(),
-		     boost::bind(loadMinMax,_1));
-		     
+		     boost::bind(loadMinMax,_1)
+		     );      
     }
     return m_payload;
   }
