@@ -27,18 +27,18 @@ namespace perftools {
   template<typename T>
   void printOne(boost::tuple<T const&, std::string const&> const & t,
 		perftools::SimpleImmediateReporter & sir) {
-    sir.operator()<int>(t. template get<1>(),t. template get<0>());
+    sir.operator()<T>(t. template get<1>(),t. template get<0>());
   }
 
   template<typename T>
   void printV(std::string const & name, std::vector<T> const & v,
 	      std::vector<std::string> const & tags,
-	      perftools::SimpleImmediateReporter & sir) {
-    sir.stream() << name << ": ";
+	      boost::shared_ptr<perftools::SimpleImmediateReporter> sir) {
+    sir->stream() << name << ": ";
     typedef boost::tuple<T const&, std::string const&> Tuple;
     std::for_each(boost::make_zip_iterator(boost::make_tuple(v.begin(), tags.begin())),
 		  boost::make_zip_iterator(boost::make_tuple(v.end(), tags.end())),
-		  boost::bind(printOne<T>, _1, boost::ref(sir))
+		  boost::bind(printOne<T>, _1, sir)
 		  ); 
   }
 
@@ -87,14 +87,15 @@ namespace perftools {
     //FIXME now just one reporter
     m_payload.resize(sources.size());
     // FIXME here goes a factory..
-    if (reporters.find("Immediate")!=reporters.end()) {
+    //    if (reporters.find("Immediate")!=reporters.end()) {
+    if (reporters[0]=="Immediate") {
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size(), name+": "));
       
       std::transform(sources.begin(),sources.end(),
 		     m_payload.begin(),
 		     boost::bind(loadImmediate<perftools::SimpleImmediateReporter>,_1,sir));
     }
-    if (reporters.find("Summary")!=reporters.end()) {
+    if (reporters[0]=="Summary") {
       boost::shared_ptr<perftools::Reporter> summary = 
 	perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter");
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size()));
