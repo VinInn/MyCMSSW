@@ -17,7 +17,8 @@ namespace perftools {
     typedef perftools::SamplerBase::Payload Payload;
     SamplerBuilder();
 
-    Payload & operator()(std::vector<std::string> const & sources,
+    Payload & operator()(std::string const & name, 
+			 std::vector<std::string> const & sources,
 			 std::vector<std::string> const & reporter);
 
     private:
