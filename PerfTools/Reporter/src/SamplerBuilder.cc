@@ -101,7 +101,7 @@ namespace perftools {
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size()));
 
       std::vector<MinMaxCounter> & counters = 
-	summary.subscribe<std::vector<MinMaxCounter>("Counts/Ave/Min/Max",name,boost::bind(printV<MinMaxCounter>,_1,_2,sources,sir));
+	summary->subscribe<std::vector<MinMaxCounter>("Counts/Ave/Min/Max",name,boost::bind(printV<MinMaxCounter>,_1,_2,sources,sir));
       std::transform(boost::make_zip_iterator(boost::make_tuple(sources.begin(), counters.begin())),
 		     boost::make_zip_iterator(boost::make_tuple(sources.end(), counters.end())),
 		     m_payload.begin(),
