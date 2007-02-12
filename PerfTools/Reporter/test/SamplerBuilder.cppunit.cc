@@ -23,6 +23,10 @@ using namespace boost::assign;
 
 namespace {
 
+  void printTitle(std::string const & name) {
+    std::cout << name << std::endl;
+  }
+
   double gcrap=0;
   void waiste() {
     for (double i=1;i<100000;i++)
@@ -87,7 +91,7 @@ void TestSamplerBuilder::check_Timers() {
       nap(0,i*50000);
     }
   }
-
+  perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter")->setDefaultTitleReport(&printTitle);
   perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter")->report();
 
 }
