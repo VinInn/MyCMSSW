@@ -1,6 +1,6 @@
 #include "PerfTools/FWBinding/interface/PerfTools.h"
 
-// #include "PerfTools/Service/interface/ServiceFactory.h"
+#include "PerfTools/Service/interface/ServiceFactory.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/ServiceRegistry/interface/ServiceMaker.h"

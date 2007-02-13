@@ -9,7 +9,10 @@
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
 
+#include "PerfTools/Sampler/interface/Sample.h"
+
 #include <iostream>
+
 
 namespace {
   class AnalyzerStub : public edm::EDAnalyzer {
@@ -24,15 +27,16 @@ namespace {
     virtual void endJob() ;
     
     // ----------member data ---------------------------
-    PerfTools::Handle m_sampler;
+    perftools::Sample m_sampler;
     int m_lastEvent;
     int m_action;
     int m_evtCount;
   };
 
 
-  AnalyzerStub::AnalyzerStub(edm::ParameterSet const & parameters) {
-    m_sampler = edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Sampler"));
+  AnalyzerStub::AnalyzerStub(edm::ParameterSet const & parameters) :
+    m_sampler(edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Sampler")))
+  {
   }
 
 
