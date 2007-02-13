@@ -14,14 +14,16 @@
 class PerfTools {
 public:
 
-  typedef boost::any Handle;
+  typedef std::vector<boost::any> Payload;
 
   PerfTools(edm::ParameterSet const& pset, edm::ActivityRegistry  & activity);
 
 
-  Handle get(edm::ParameterSet const& pset);
+  Payload & get(edm::ParameterSet const& pset);
 
+private :
 
+  Payload * m_payload;
 
 
 };

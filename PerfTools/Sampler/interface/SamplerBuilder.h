@@ -2,7 +2,7 @@
 #define PerfTools_SamplerBuilder_H
 
 // FIXME: only for payload...
-#include "PerfTools/Reporter/Sampler/SamplerBase.h"
+#include "PerfTools/Sampler/interface/SamplerBase.h"
 
 
 #include<string>

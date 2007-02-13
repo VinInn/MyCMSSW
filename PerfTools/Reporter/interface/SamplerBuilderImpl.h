@@ -2,9 +2,7 @@
 #define PerfTools_SamplerBuilderImpl_H
 
 // FIXME: only for payload...
-#include "PerfTools/Sampler/interface/SamplerBase.h"
-
-#include <boost/bind.hpp>
+#include "PerfTools/Sampler/interface/SamplerBuilder.h"
 
 #include<string>
 #include<vector>
