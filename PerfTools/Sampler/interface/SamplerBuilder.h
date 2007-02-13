@@ -21,7 +21,7 @@ namespace perftools {
     
     Payload & operator()(std::string const & name, 
 			 std::vector<std::string> const & sources,
-			 std::vector<std::string> const & reporter) {
+			 std::vector<std::string> const & reporters) {
       build(name,sources,reporters);
       return m_payload;
     }
@@ -32,7 +32,7 @@ namespace perftools {
     
     virtual void build(std::string const & name, 
 		       std::vector<std::string> const & sources,
-		       std::vector<std::string> const & reporter)=0;
+		       std::vector<std::string> const & reporters)=0;
     
   protected:
     
