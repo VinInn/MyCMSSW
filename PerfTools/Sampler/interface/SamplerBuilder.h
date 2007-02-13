@@ -7,6 +7,7 @@
 
 #include<string>
 #include<vector>
+#include<memory>
 
 namespace perftools {
 
@@ -25,6 +26,12 @@ namespace perftools {
       build(name,sources,reporters);
       return m_payload;
     }
+
+    virtual std::auto_ptr<SamplerBuilder> 
+    create(std::string const & name, 
+	   std::vector<std::string> const & sources,
+	   std::vector<std::string> const & reporters) const =0;
+
     
     operator Payload & () { return m_payload;}
     

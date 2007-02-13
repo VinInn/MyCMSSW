@@ -22,6 +22,15 @@ namespace perftools {
 		       std::vector<std::string> const & sources,
 		       std::vector<std::string> const & reporter);
     
+
+    virtual std::auto_ptr<SamplerBuilder> 
+    create(std::string const & name, 
+	   std::vector<std::string> const & sources,
+	   std::vector<std::string> const & reporters) const {
+      return 
+	std::auto_ptr<SamplerBuilder>(new SamplerBuilderImpl(name,sources,reporters));
+    }
+
     
     virtual void build(std::string const & name, 
 		       std::vector<std::string> const & sources,

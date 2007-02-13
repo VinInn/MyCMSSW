@@ -10,7 +10,7 @@ namespace perftools {
   }
   
   ServiceFactory::ServiceFactory() : 
-    seal::PluginFactory<BaseServiceMaker *(void)> ("CMS PerfToos Service Maker") {}
+    seal::PluginFactory<BaseServiceMaker *(void)> ("CMS PerfTools Service Maker") {}
   
   ServiceFactory::~ServiceFactory () {}
   
