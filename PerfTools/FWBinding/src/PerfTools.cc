@@ -19,7 +19,12 @@ PerfTools::Payload & PerfTools::get(edm::ParameterSet const& pset) {
   boost::shared_ptr<perftools::SamplerBuilder> creator = 
     perftools::ServiceFactory::get()->getService<perftools::SamplerBuilder>("PerfTools:SamplerBuilder");
  
+  std::string const & name = pset.getUntrackedParameter<std::string>("Name");
+  std::vector<std::string> const & sources = 
+    pset.getUntrackedParameter<std::vector<std::string> >("Sources");
 
+  std::vector<std::string> const & reporters = 
+    pset.getUntrackedParameter<std::vector<std::string> >("Reporters");
 
   boost::shared_ptr<SamplerBuilder> builder = creator->create(name,sources,reporters);
   m_builder = builder;

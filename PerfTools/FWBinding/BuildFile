@@ -1,6 +1,7 @@
 <use name=FWCore/ServiceRegistry>
 # <use name=FWCore/MessageLogger>
 <use name=FWCore/ParameterSet>
+<use name=PerfTools/Sampler>
 
 <Flags SEAL_PLUGIN_NAME=PerfToolsFWBinding>
 
@@ -9,4 +10,5 @@
  <use name=FWCore/ServiceRegistry>
 #  <use name=FWCore/MessageLogger>
  <use name=FWCore/ParameterSet>
+<use name=PerfTools/Sampler>
 </export>

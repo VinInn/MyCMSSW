@@ -7,7 +7,7 @@
 
 #include<string>
 #include<vector>
-#include<memory>
+#include<boost/shared_ptr.hpp>
 
 namespace perftools {
 
@@ -27,7 +27,7 @@ namespace perftools {
       return m_payload;
     }
 
-    virtual std::auto_ptr<SamplerBuilder> 
+    virtual boost::shared_ptr<SamplerBuilder> 
     create(std::string const & name, 
 	   std::vector<std::string> const & sources,
 	   std::vector<std::string> const & reporters) const =0;
