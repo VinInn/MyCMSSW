@@ -18,7 +18,12 @@ namespace perftools {
       (*(*p).second)(name,op.second.first);
   }
 
-  Reporter::Reporter()  {}
+  Reporter::Reporter() : m_autoReport(false) {}
+
+  Reporter::~Reporter() {
+    if (m_autoReport) report();
+  }
+
 
   void Reporter::reportOneCat(Reporter::Categories::value_type const & icat) const {
     Reporter::Category const & category = icat.second;

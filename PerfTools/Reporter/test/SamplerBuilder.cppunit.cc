@@ -68,7 +68,7 @@ void TestSamplerBuilder::check_Timers() {
   reporters += "Immediate";
   perftools::Sample s1(builder("check_Timers",sources,reporters));
   reporters[0] = "Summary";
-  perftools::Sample s2(builder("check_Timers",sources,reporters));
+  perftools::Sample s2(perftools::SamplerBuilder("check_Timers",sources,reporters));
 
   {	   
     perftools::Sampler a(s1);

@@ -52,7 +52,12 @@ namespace perftools {
   public:
 
     Reporter();
+    ~Reporter();
+
     
+    // report on destruction;
+    void autoReport() { m_autoReport=true;}
+
     template<typename OP>
     OP * subscribe(std::string const & cat,
 		   std::string const & name) {
@@ -88,6 +93,8 @@ namespace perftools {
     Categories m_operations;
 
     TitleReport defaultTitleReport;
+
+    bool m_autoReport;
 
   };
 

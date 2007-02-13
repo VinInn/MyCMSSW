@@ -30,7 +30,7 @@ namespace perftools {
 	        boost::shared_ptr<perftools::SimpleImmediateReporter> sir) {
     sir->operator()<T>(t. template get<1>() + ": ",t. template get<0>());
   }
-
+  
   template<typename T>
   void printV(std::string const & name, std::vector<T> const & v,
 	      std::vector<std::string> const & tags,
@@ -42,9 +42,9 @@ namespace perftools {
 		  boost::bind(printOne<T>, _1, sir)
 		  ); 
   }
-
-
-
+  
+  
+  
   template<typename R>
   SamplerBuilder::Payload::value_type loadImmediate(std::string const & name, boost::shared_ptr<R> reporter) {
     //FIXME a bit ad hoc...
@@ -60,12 +60,13 @@ namespace perftools {
     // FIXME what to do if not found?
     return SamplerBuilder::Payload::value_type();
   }
-
+  
   SamplerBuilder::Payload::value_type loadMinMax(boost::tuple<std::string const&, MinMaxCounter const &> const & t) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
     std::string const & name = t.get<0>();    
     MinMaxCounter & counter = const_cast<MinMaxCounter&>(t.get<1>());
+
     if (name.find("Clock")!=std::string::npos) {
       boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
       return perftools::SamplerImpl<long long>(*c,
@@ -79,12 +80,24 @@ namespace perftools {
   
   
   SamplerBuilder::SamplerBuilder(){}
-  
+
+  SamplerBuilder::SamplerBuilder(std::string const & name, std::vector<std::string> const & sources,
+				 std::vector<std::string> const & reporters) {
+    build(name,sources,reporters);
+  }
+ 
+ 
   SamplerBuilder::Payload & 
   SamplerBuilder::operator()(std::string const & name, std::vector<std::string> const & sources,
 			     std::vector<std::string> const & reporters) {
+    build(name,sources,reporters);
+    return m_payload;
+  }
+
+  void  SamplerBuilder::build(std::string const & name, std::vector<std::string> const & sources,
+			      std::vector<std::string> const & reporters) {
     
-    if (sources.empty()||reporters.empty()) return m_payload;
+    if (sources.empty()||reporters.empty()) return;
     // full combinatorics...
     //FIXME now just one reporter
     m_payload.resize(sources.size());
@@ -111,8 +124,6 @@ namespace perftools {
 		     boost::bind(loadMinMax,_1)
 		     );      
     }
-    return m_payload;
   }
-
  
 }
