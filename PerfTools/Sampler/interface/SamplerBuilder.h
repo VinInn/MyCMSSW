@@ -2,44 +2,43 @@
 #define PerfTools_SamplerBuilder_H
 
 // FIXME: only for payload...
-#include "PerfTools/Reporter/interface/SamplerBase.h"
+#include "PerfTools/Reporter/Sampler/SamplerBase.h"
 
-#include <boost/bind.hpp>
 
 #include<string>
 #include<vector>
 
 namespace perftools {
 
-  /* Build a Sample Payload from config strings...
+  /* interface to Build a Sample Payload from config strings...
    *
    */
   class SamplerBuilder {
   public:
     typedef perftools::SamplerBase::Payload Payload;
-    SamplerBuilder();
-
-    SamplerBuilder(std::string const & name, 
-		   std::vector<std::string> const & sources,
-		   std::vector<std::string> const & reporter);
-
+    SamplerBuilder(){}
+    virtual  ~SamplerBuilder(){}
+    
     Payload & operator()(std::string const & name, 
 			 std::vector<std::string> const & sources,
-			 std::vector<std::string> const & reporter);
-
-    operator Payload & () { return m_payload;}
-
-  private:
+			 std::vector<std::string> const & reporter) {
+      build(name,sources,reporters);
+      return m_payload;
+    }
     
-    void build(std::string const & name, 
-	       std::vector<std::string> const & sources,
-	       std::vector<std::string> const & reporter);
-
-    private:
-
+    operator Payload & () { return m_payload;}
+    
+  public:
+    
+    virtual void build(std::string const & name, 
+		       std::vector<std::string> const & sources,
+		       std::vector<std::string> const & reporter)=0;
+    
+  protected:
+    
     Payload m_payload;
   };
-
+  
 }
 
 

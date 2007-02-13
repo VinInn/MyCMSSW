@@ -1,9 +1,11 @@
 <use name=boost>
+<use name=PerfTools/Sampler>
 <use name=PerfTools/Service>
 
 
 <export>
   <lib name=PerfToolsReporter>
+  <use name=PerfTools/Sampler>
   <use name=PerfTools/Service>
   <use name=boost>
 </export>
