@@ -10,13 +10,13 @@
 class TestPlugins : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestPlugins);
   CPPUNIT_TEST(check_Reporter);
-  CPPUNIT_TEST(check_SampleCreator);
+  CPPUNIT_TEST(check_SamplerCreator);
   CPPUNIT_TEST_SUITE_END();
 public:
   void setUp(){}
   void tearDown() {}
   void check_Reporter();  
-  void check_SampleCreator();
+  void check_SamplerCreator();
 };
 
 
@@ -35,5 +35,5 @@ void TestPlugins::check_SamplerCreator() {
 
   CPPUNIT_ASSERT(creator);
   std::vector<std::string> dummy;
-  CPPUNIT_ASSERT(creator->create("",dummy,dummy);
+  CPPUNIT_ASSERT(creator->create("",dummy,dummy).release());
 }
