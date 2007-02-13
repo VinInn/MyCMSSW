@@ -10,6 +10,7 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 
 #include "PerfTools/Sampler/interface/Sample.h"
+#include "PerfTools/Sampler/interface/Sampler.h"
 
 #include <iostream>
 
@@ -47,6 +48,10 @@ namespace {
   }
  
   void AnalyzerStub::analyze(const edm::Event&, const edm::EventSetup&) {
+    perftools::Sample(m_sampler);
+      static double gcrap=0;
+      for (double i=1;i<100000;i++)
+	gcrap+=std::log(std::sqrt(i));
   }
 
   void AnalyzerStub::endJob() {
