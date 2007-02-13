@@ -1,4 +1,4 @@
-#include "PerfTools/Reporter/interface/SamplerBuilder.h"
+#include "PerfTools/Reporter/interface/SamplerBuilderImpl.h"
 #include "PerfTools/Reporter/src/SamplerImpl.h"
 
 #include "PerfTools/Service/interface/ServiceFactory.h"
@@ -79,22 +79,16 @@ namespace perftools {
   }
   
   
-  SamplerBuilder::SamplerBuilder(){}
+  SamplerBuilderImpl::SamplerBuilderImpl(){}
 
-  SamplerBuilder::SamplerBuilder(std::string const & name, std::vector<std::string> const & sources,
+  SamplerBuilderImpl::SamplerBuilderImpl(std::string const & name, std::vector<std::string> const & sources,
 				 std::vector<std::string> const & reporters) {
     build(name,sources,reporters);
   }
  
  
-  SamplerBuilder::Payload & 
-  SamplerBuilder::operator()(std::string const & name, std::vector<std::string> const & sources,
-			     std::vector<std::string> const & reporters) {
-    build(name,sources,reporters);
-    return m_payload;
-  }
 
-  void  SamplerBuilder::build(std::string const & name, std::vector<std::string> const & sources,
+  void  SamplerBuilderImpl::build(std::string const & name, std::vector<std::string> const & sources,
 			      std::vector<std::string> const & reporters) {
     
     if (sources.empty()||reporters.empty()) return;

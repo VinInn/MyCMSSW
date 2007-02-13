@@ -1,6 +1,6 @@
-#include "PerfTools/Reporter/interface/SamplerBuilder.h"
-#include "PerfTools/Reporter/interface/Sample.h"
-#include "PerfTools/Reporter/interface/Sampler.h"
+#include "PerfTools/Reporter/interface/SamplerBuilderImpl.h"
+#include "PerfTools/Sampler/interface/Sample.h"
+#include "PerfTools/Sampler/interface/Sampler.h"
 
 #include "PerfTools/Service/interface/ServiceFactory.h"
 #include "PerfTools/Reporter/interface/Reporter.h"
@@ -61,14 +61,14 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestSamplerBuilder);
 
 //FIXME this is an integration test!
 void TestSamplerBuilder::check_Timers() {
-  perftools::SamplerBuilder builder;
+  perftools::SamplerBuilderImpl builder;
   std::vector<std::string> sources;
   sources += "WallClock", "CPUClock";
   std::vector<std::string> reporters;
   reporters += "Immediate";
   perftools::Sample s1(builder("check_Timers",sources,reporters));
   reporters[0] = "Summary";
-  perftools::Sample s2(perftools::SamplerBuilder("check_Timers",sources,reporters));
+  perftools::Sample s2(perftools::SamplerBuilderImpl("check_Timers",sources,reporters));
 
   {	   
     perftools::Sampler a(s1);

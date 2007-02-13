@@ -1,5 +1,5 @@
-#ifndef PerfTools_SamplerBuilder_H
-#define PerfTools_SamplerBuilder_H
+#ifndef PerfTools_SamplerBuilderImpl_H
+#define PerfTools_SamplerBuilderImpl_H
 
 // FIXME: only for payload...
 #include "PerfTools/Sampler/interface/SamplerBase.h"
