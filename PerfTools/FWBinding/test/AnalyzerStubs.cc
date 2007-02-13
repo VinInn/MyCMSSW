@@ -13,7 +13,7 @@
 #include "PerfTools/Sampler/interface/Sampler.h"
 
 #include <iostream>
-
+#include <cmath>
 
 namespace {
   class AnalyzerStub : public edm::EDAnalyzer {
@@ -48,7 +48,7 @@ namespace {
   }
  
   void AnalyzerStub::analyze(const edm::Event&, const edm::EventSetup&) {
-    perftools::Sample(m_sampler);
+    perftools::Sampler s(m_sampler);
       static double gcrap=0;
       for (double i=1;i<100000;i++)
 	gcrap+=std::log(std::sqrt(i));
