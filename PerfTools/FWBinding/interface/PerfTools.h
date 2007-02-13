@@ -23,8 +23,7 @@ public:
 
 private :
 
-  Payload * m_payload;
-
+  boost::any m_builder;
 
 };
 
