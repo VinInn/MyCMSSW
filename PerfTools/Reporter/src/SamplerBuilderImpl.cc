@@ -107,6 +107,8 @@ namespace perftools {
     if (reporters[0]=="Summary") {
       boost::shared_ptr<perftools::Reporter> summary = 
 	perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter");
+      // FIXME moveit in FW
+      summary.autoReport();
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size()));
       
       std::vector<MinMaxCounter> & counters = 
