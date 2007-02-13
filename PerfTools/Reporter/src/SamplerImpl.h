@@ -1,7 +1,7 @@
 #ifndef PerfTools_SamplerImpl_H
 #define PerfTools_SamplerImpl_H
 
-#include "PerfTools/interface/interface/SamplerBase.h"
+#include "PerfTools/Sampler/interface/SamplerBase.h"
 
 #include <boost/function.hpp>
 #include <functional>

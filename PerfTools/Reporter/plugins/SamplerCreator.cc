@@ -9,5 +9,5 @@ typedef perftools::ServiceMaker<perftools::SamplerBuilder, perftools::SamplerBui
 
 DEFINE_SEAL_MODULE ();
 DEFINE_SEAL_PLUGIN (perftools::ServiceFactory, 
-		    SamplerCreator>,
+		    SamplerCreator,
 		    "PerfTools:SamplerBuilder");
