@@ -35,5 +35,5 @@ void TestPlugins::check_SamplerCreator() {
 
   CPPUNIT_ASSERT(creator);
   std::vector<std::string> dummy;
-  CPPUNIT_ASSERT(creator->create("",dummy,dummy).release());
+  CPPUNIT_ASSERT(creator->create("",dummy,dummy));
 }

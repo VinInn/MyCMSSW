@@ -26,7 +26,7 @@ PerfTools::Payload & PerfTools::get(edm::ParameterSet const& pset) {
   std::vector<std::string> const & reporters = 
     pset.getUntrackedParameter<std::vector<std::string> >("Reporters");
 
-  boost::shared_ptr<SamplerBuilder> builder = creator->create(name,sources,reporters);
+  boost::shared_ptr<perftools::SamplerBuilder> builder = creator->create(name,sources,reporters);
   m_builder = builder;
   return *builder;
 }
