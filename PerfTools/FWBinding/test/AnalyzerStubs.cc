@@ -29,6 +29,8 @@ namespace {
     
     // ----------member data ---------------------------
     perftools::Sample m_sampler;
+    perftools::Sample m_overhead;
+    perftools::Sample m_bias;
     int m_lastEvent;
     int m_action;
     int m_evtCount;
@@ -36,7 +38,9 @@ namespace {
 
 
   AnalyzerStub::AnalyzerStub(edm::ParameterSet const & parameters) :
-    m_sampler(edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Sampler")))
+    m_sampler(edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Sampler"))),
+    m_overhead(edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Overhead"))),
+    m_bias(edm::Service<PerfTools>()->get(parameters.getUntrackedParameter<edm::ParameterSet>("Bias"))),
   {
   }
 
@@ -48,12 +52,17 @@ namespace {
   }
  
   void AnalyzerStub::analyze(const edm::Event&, const edm::EventSetup&) {
-    perftools::Sampler s(m_sampler);
+    {
+      perftools::Sample s(m_sampler);
       static double gcrap=0;
       for (double i=1;i<100000;i++)
 	gcrap+=std::log(std::sqrt(i));
+    }
+    {
+      perftools::Sample o(m_overhead);
+      perftools::Sample o(m_bias);
+    }
   }
-
   void AnalyzerStub::endJob() {
   }
  
