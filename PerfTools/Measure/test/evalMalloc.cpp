@@ -77,7 +77,7 @@ int * a;
 std::vector<int> gv;
 std::list<int> gl;
 
-int main() {
+int loop() {
   if (::getenv("GLIBCXX_FORCE_NEW")) std::cout << "GLIBCXX_FORCE_NEW defined" << std::endl;       
   if (::getenv("GLIBCPP_FORCE_NEW")) std::cout << "GLIBCPP_FORCE_NEW defined" << std::endl;
   
@@ -171,5 +171,19 @@ int main() {
   if (::getenv("GLIBCXX_FORCE_NEW")) std::cout << "GLIBCXX_FORCE_NEW defined" << std::endl;
   if (::getenv("GLIBCPP_FORCE_NEW")) std::cout << "GLIBCPP_FORCE_NEW defined" << std::endl;
   
+  return 0;
+}
+
+int main() {
+  PrintDiff d ("===>>> total");
+  {
+    PrintDiff d ("==> first loop");
+    loop();
+  }
+  {
+    PrintDiff d ("==> second loop");
+    loop();
+  }
+
   return 0;
 }
