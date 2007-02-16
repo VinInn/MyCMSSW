@@ -25,7 +25,7 @@ namespace perftools {
       return m_counts>0 ? m_tot/double(m_counts) : 0.0;
     }
 
-    double trunc_ave() const {
+    double truncAve() const {
       return m_counts>2 ? (m_tot-m_min-m_max)/double(m_counts-2) : ave();
     }
 

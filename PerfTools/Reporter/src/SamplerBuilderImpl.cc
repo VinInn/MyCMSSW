@@ -18,9 +18,10 @@
 std::ostream & operator<<(std::ostream & co,  perftools::MinMaxCounter const & counter) {
   return
     co << counter.m_counts
-     << '/' << counter.m_tot/double(counter.m_counts)  
-     << '/' << counter.m_min 
-     << '/' << counter.m_max;
+       << '/' << counter.ave() 
+       << '/' << counter.truncAve() 
+       << '/' << counter.m_min 
+       << '/' << counter.m_max;
 }
 
 namespace perftools {
