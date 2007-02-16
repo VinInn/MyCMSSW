@@ -112,7 +112,7 @@ int main() {
     std::vector<int> v;
     {
       PrintDiff d ("vector 20K");
-      std::vector<int> v.resize(20000);
+      v.resize(20000);
       v.swap(gv);
     }
     print("vector 20K");
@@ -123,7 +123,7 @@ int main() {
     std::list<int> v;
     {
       PrintDiff d ("list 20K");
-      std::list<int> v.resize(20000);
+      v.resize(20000);
       v.swap(gl);
     }
     print("list 20 K");
@@ -134,7 +134,7 @@ int main() {
     std::vector<int> v;
     {
       PrintDiff d ("vector 2M");
-      std::vector<int> v.resize(2000000);
+      v.resize(2000000);
       v.swap(gv);
     }
     print("vector 2M");
@@ -144,7 +144,7 @@ int main() {
     std::list<int> v;
    {
       PrintDiff d ("list 2M");
-      std::list<int> v.resize(2000000);
+      v.resize(2000000);
       v.swap(gl);
    }
    print("list 2M");
