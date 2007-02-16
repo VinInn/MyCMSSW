@@ -63,10 +63,10 @@ void printDiff(char const * title,
 }
 
 struct PrintDiff {
-  PrintDiff(char const * title) : title(ititle), mi(::mallinfo()) {
+  PrintDiff(char const * ititle) : title(ititle), mi(::mallinfo()) {
   }
   ~PrintDiff() {
-    printDiff(title.c_str(),mi,::mallinfo);
+    printDiff(title.c_str(),mi,::mallinfo());
   }
 
   std::string title;
@@ -109,9 +109,10 @@ int main() {
   print("deleted");
   
   {
+    std::vector<int> v;
     {
       PrintDiff d ("vector 20K");
-      std::vector<int> v(20000);
+      std::vector<int> v.resize(20000);
       v.swap(gv);
     }
     print("vector 20K");
@@ -119,9 +120,10 @@ int main() {
   }
 
   {
+    std::list<int> v;
     {
       PrintDiff d ("list 20K");
-      std::list<int> v(20000);
+      std::list<int> v.resize(20000);
       v.swap(gl);
     }
     print("list 20 K");
@@ -129,18 +131,20 @@ int main() {
   }       
 
   {
+    std::vector<int> v;
     {
       PrintDiff d ("vector 2M");
-      std::vector<int> v(2000000);
+      std::vector<int> v.resize(2000000);
       v.swap(gv);
     }
     print("vector 2M");
     v.swap(gv); 
   }
   { 
+    std::list<int> v;
    {
       PrintDiff d ("list 2M");
-      std::list<int> v(2000000);
+      std::list<int> v.resize(2000000);
       v.swap(gl);
    }
    print("list 2M");
