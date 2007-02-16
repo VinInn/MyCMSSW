@@ -1,3 +1,6 @@
+#include "PerfTools/Service/interface/ServiceFactory.h"
+#include <boost/function.cpp>
+
 #include <cppunit/extensions/HelperMacros.h>
 
 
