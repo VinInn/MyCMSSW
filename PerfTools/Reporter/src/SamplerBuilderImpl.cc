@@ -24,6 +24,12 @@ std::ostream & operator<<(std::ostream & co,  perftools::MinMaxCounter const & c
        << '/' << counter.m_max;
 }
 
+namespace {
+  void printTitle(std::string const & name) {
+    std::cout << name << std::endl;
+  }
+}
+
 namespace perftools {
 
   template<typename T>
@@ -125,10 +131,11 @@ namespace perftools {
 	perftools::ServiceFactory::get()->getService<perftools::Reporter>("PerfTools:Reporter");
       // FIXME moveit in FW
       summary->autoReport();
+      summary->setDefaultTitleReport(&printTitle);
       boost::shared_ptr<perftools::SimpleImmediateReporter> sir(new perftools::SimpleImmediateReporter(std::cout,sources.size()));
       
       std::vector<MinMaxCounter> & counters = 
-	*summary->subscribe<std::vector<MinMaxCounter> >("Counts/Ave/Min/Max",name,boost::bind(printV<MinMaxCounter>,_1,_2,sources,sir));
+	*summary->subscribe<std::vector<MinMaxCounter> >("Counts/Ave/TruncAve/Min/Max",name,boost::bind(printV<MinMaxCounter>,_1,_2,sources,sir));
       counters.resize(sources.size());
       std::transform(boost::make_zip_iterator(boost::make_tuple(sources.begin(), counters.begin())),
 		     boost::make_zip_iterator(boost::make_tuple(sources.end(), counters.end())),
