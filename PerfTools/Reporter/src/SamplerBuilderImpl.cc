@@ -58,7 +58,7 @@ namespace perftools {
 							   reporter,(name+": "),_1),false,true);
     }
     else if (name.find("Memory")!=std::string::npos) {
-      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
+      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Mem>("PerfTools:"+name);
       return perftools::SamplerImpl<int>(*c,
 					 boost::bind(&R::template operator()<int>,
 						     reporter,(name+": "),_1),false,true);
@@ -83,7 +83,7 @@ namespace perftools {
 							   boost::ref(counter),_1),false,true);
     }
     else if (name.find("Memory")!=std::string::npos) {
-      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
+      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Mem>("PerfTools:"+name);
       return perftools::SamplerImpl<int>(*c,
 					 boost::bind(&MinMaxCounter::fill,
 						     boost::ref(counter),_1),false,true);
