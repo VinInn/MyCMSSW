@@ -1,6 +1,7 @@
  <use name=PerfTools/Measure>
  
 <bin name=PerfTools_evalTimers  file=evalTimers.cpp></bin>
+<bin name=PerfTools_evalMalloc  file=evalMalloc.cpp></bin>
 
 <bin name=testPerfToolsMeasure file=testRunner.cpp,Timers.cppunit.cc,plugins.cppunit.cc>
   <use name=PerfTools/Service>
