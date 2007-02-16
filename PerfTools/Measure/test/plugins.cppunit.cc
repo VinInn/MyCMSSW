@@ -18,7 +18,7 @@ public:
   void tearDown() {}
   void check_CPUClock();  
   void check_WallClock();
-}  void check_UsedMemory();
+  void check_UsedMemory();
 };
 
 
@@ -49,7 +49,7 @@ void TestPlugins::check_WallClock() {
   }
   catch(...) {
     bool ErrorInInvokingWallClock=false;
-    CPPUNIT_ASSERT(ErrorInInvokingCPUClock);
+    CPPUNIT_ASSERT(ErrorInInvokingWallClock);
   }
 }
 void TestPlugins::check_UsedMemory() {
@@ -60,7 +60,7 @@ void TestPlugins::check_UsedMemory() {
     (*c)();
   }
   catch(...) {
-    bool ErrorInInvokingCPUClock=false;
+    bool ErrorInInvokingUsedMemory=false;
     CPPUNIT_ASSERT(ErrorInInvokingUsedMemory);
   }
 
