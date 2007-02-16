@@ -5,3 +5,5 @@
 </library>
 <library name="PerfToolsCPUClock" file=CPUClock.cc>
 </library>
+<library name="PerfToolsUsedMemory" file=UsedMemory.cc>
+</library>
