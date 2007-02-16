@@ -49,12 +49,19 @@ namespace perftools {
   SamplerBuilder::Payload::value_type loadImmediate(std::string const & name, boost::shared_ptr<R> reporter) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
+    typedef boost::function<int(void)> Mem;
     
     if (name.find("Clock")!=std::string::npos) {
       boost::shared_ptr<Clock> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
       return perftools::SamplerImpl<long long>(*c,
 					       boost::bind(&R::template operator()<long long>,
 							   reporter,(name+": "),_1),false,true);
+    }
+    else if (name.find("Memory")!=std::string::npos) {
+      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
+      return perftools::SamplerImpl<int>(*c,
+					 boost::bind(&R::template operator()<int>,
+						     reporter,(name+": "),_1),false,true);
     }
     else{}
     // FIXME what to do if not found?
@@ -64,6 +71,8 @@ namespace perftools {
   SamplerBuilder::Payload::value_type loadMinMax(boost::tuple<std::string const&, MinMaxCounter const &> const & t) {
     //FIXME a bit ad hoc...
     typedef boost::function<long long(void)> Clock;
+    typedef boost::function<int(void)> Mem;
+
     std::string const & name = t.get<0>();    
     MinMaxCounter & counter = const_cast<MinMaxCounter&>(t.get<1>());
 
@@ -72,6 +81,12 @@ namespace perftools {
       return perftools::SamplerImpl<long long>(*c,
 					       boost::bind(&MinMaxCounter::fill,
 							   boost::ref(counter),_1),false,true);
+    }
+    else if (name.find("Memory")!=std::string::npos) {
+      boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Clock>("PerfTools:"+name);
+      return perftools::SamplerImpl<int>(*c,
+					 boost::bind(&MinMaxCounter::fill,
+						     boost::ref(counter),_1),false,true);
     }
     else{}
     // FIXME what to do if not found?

@@ -20,7 +20,15 @@ namespace perftools {
       if (amount < m_min)  m_min=amount;
       if (m_max  < amount) m_max=amount;
     }
-    
+
+    double ave() const {
+      return m_counts>0 ? m_tot/double(m_counts) : 0.0;
+    }
+
+    double trunc_ave() const {
+      return m_counts>2 ? (m_tot-m_min-m_max)/double(m_counts-2) : ave();
+    }
+
   public:
     int    m_counts;
     double m_tot;
