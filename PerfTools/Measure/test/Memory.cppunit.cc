@@ -25,7 +25,7 @@ void TestMemory::check_Used() {
   typedef boost::function<int(void)> Mem;
   boost::shared_ptr<Mem> c = perftools::ServiceFactory::get()->getService<Mem>("PerfTools:UsedMemory");
 
-  Mem & memory= *c;
+  Mem memory= *c;
 
   int i = memory();
   int j = memory();
@@ -34,7 +34,7 @@ void TestMemory::check_Used() {
 
   {
     int ai = memory();
-    int a * = new int(1000);
+    int * a = new int(1000);
     int am = memory();
     CPPUNIT_ASSERT(am>ai);
     delete [] a;
@@ -43,7 +43,7 @@ void TestMemory::check_Used() {
   } 
   {
     int ai = memory();
-    int a * = new int(10000000);
+    int * a = new int(10000000);
     int am = memory();
     CPPUNIT_ASSERT(am>ai);
     delete [] am;
