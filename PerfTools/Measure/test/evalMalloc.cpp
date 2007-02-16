@@ -71,7 +71,7 @@ struct PrintDiff {
 
   std::string title;
   struct mallinfo mi;
-}
+};
 
 int * a;
 std::vector<int> gv;
@@ -85,19 +85,19 @@ int main() {
   print("Start");
   
   {
-    PrintDiff d ("new 1000");
+    PrintDiff d("new 1000");
     a = new int[1000];
   }
   print("new 1000");
 
   {
-    PrintDiff d ("deleted");
+    PrintDiff d("deleted");
     delete [] a;
   }
   print("deleted");
 
   {
-    PrintDiff d ("new 1M");
+    PrintDiff d("new 1M");
     a = new int[1000000];
   }
   print("new 1M");
