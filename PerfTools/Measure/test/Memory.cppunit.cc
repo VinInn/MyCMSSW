@@ -37,7 +37,7 @@ void TestMemory::check_Used() {
     int a * = new int(1000);
     int am = memory();
     CPPUNIT_ASSERT(am>ai);
-    delete [] am;
+    delete [] a;
     int ad = memory();
     CPPUNIT_ASSERT(ad==ai);
   } 
