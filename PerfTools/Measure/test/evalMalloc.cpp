@@ -55,10 +55,10 @@ void printDiff(char const * title,
 	       struct mallinfo const & mo) {
   int const * mmi = (int const*)(&mi);
   int const * mmo = (int const*)(&mo);
-  std::cout << "\n" << title << ": mmap/arena-used/arena-free "
+  std::cout << "\n" << title << ": mmap-used/arena-used/total-arena "
 	    << mmo[4]-mmi[4] << " "
 	    << mmo[7]-mmi[7] << " "
-	    << mmo[8]-mmi[8] << " "
+	    << mmo[0]-mmi[0] << " "
 	    << std::endl;
 }
 
