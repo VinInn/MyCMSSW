@@ -15,42 +15,9 @@
 
 #include<iostream>
 
-std::ostream & operator<<(std::ostream & co,  perftools::MinMaxCounter const & counter) {
-  return
-    co << counter.m_counts
-       << '/' << counter.ave() 
-       << '/' << counter.truncAve() 
-       << '/' << counter.m_min 
-       << '/' << counter.m_max;
-}
-
-namespace {
-  void printTitle(std::string const & name) {
-    std::cout << name << std::endl;
-  }
-}
+#include "ReporterUtil.h"
 
 namespace perftools {
-
-  template<typename T>
-  void printOne(boost::tuple<T const&, std::string const&> const & t,
-	        boost::shared_ptr<perftools::SimpleImmediateReporter> sir) {
-    sir->operator()<T>(t. template get<1>() + ": ",t. template get<0>());
-  }
-  
-  template<typename T>
-  void printV(std::string const & name, std::vector<T> const & v,
-	      std::vector<std::string> const & tags,
-	      boost::shared_ptr<perftools::SimpleImmediateReporter> sir) {
-    sir->stream() << name << ": ";
-    typedef boost::tuple<T const&, std::string const&> Tuple;
-    std::for_each(boost::make_zip_iterator(boost::make_tuple(v.begin(), tags.begin())),
-		  boost::make_zip_iterator(boost::make_tuple(v.end(), tags.end())),
-		  boost::bind(printOne<T>, _1, sir)
-		  ); 
-  }
-  
-  
   
   template<typename R>
   SamplerBuilder::Payload::value_type loadImmediate(std::string const & name, boost::shared_ptr<R> reporter) {
