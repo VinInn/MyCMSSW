@@ -3,6 +3,7 @@
 
 // FIXME: only for payload...
 #include "PerfTools/Sampler/interface/SamplerBase.h"
+#include "PerfTools/Sampler/interface/SamplerUDQ.h"
 
 
 #include<string>
@@ -22,15 +23,17 @@ namespace perftools {
     
     Payload & operator()(std::string const & name, 
 			 std::vector<std::string> const & sources,
-			 std::vector<std::string> const & reporters) {
-      build(name,sources,reporters);
+			 std::vector<std::string> const & reporters,
+		       RegisterUDQI & udqr=DoNotRegistrerUDQ()) {
+      build(name,sources,reporters, udqr);
       return m_payload;
     }
 
     virtual boost::shared_ptr<SamplerBuilder> 
     create(std::string const & name, 
 	   std::vector<std::string> const & sources,
-	   std::vector<std::string> const & reporters) const =0;
+	   std::vector<std::string> const & reporters,
+	   RegisterUDQI & udqr=DoNotRegistrerUDQ()) const =0;
 
     
     operator Payload & () { return m_payload;}
@@ -39,7 +42,8 @@ namespace perftools {
     
     virtual void build(std::string const & name, 
 		       std::vector<std::string> const & sources,
-		       std::vector<std::string> const & reporters)=0;
+		       std::vector<std::string> const & reporters,
+		       RegisterUDQI & udqr=DoNotRegistrerUDQ())=0;
     
   protected:
     

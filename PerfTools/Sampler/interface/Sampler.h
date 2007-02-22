@@ -2,6 +2,7 @@
 #define PerfTools_Sampler_H
 
 #include "PerfTools/Sampler/interface/Sample.h"
+#include "PerfTools/Sampler/interface/SamplerUDQ.h"
 
 
 #include <boost/function.hpp>
@@ -22,9 +23,11 @@ namespace perftools {
 
     ~Sampler(){}
     
-    template<typename Vec>
-    bool fill(Vec vec) {
-      return true;
+    template<typename UDQ>
+    bool fill(UDQ & udq) {
+      SamplerUDQ<UDQ> * s = asUDQ(m.sampler.back());
+      if (s) (*s)->fill(udq);
+      return s;
     }
     
   private:

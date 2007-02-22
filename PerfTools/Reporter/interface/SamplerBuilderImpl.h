@@ -20,21 +20,25 @@ namespace perftools {
     
     SamplerBuilderImpl(std::string const & name, 
 		       std::vector<std::string> const & sources,
-		       std::vector<std::string> const & reporter);
+		       std::vector<std::string> const & reporter,
+		       RegisterUDQI & udqr=DoNotRegistrerUDQ());
+
     
 
     virtual boost::shared_ptr<SamplerBuilder> 
     create(std::string const & name, 
 	   std::vector<std::string> const & sources,
-	   std::vector<std::string> const & reporters) const {
+	   std::vector<std::string> const & reporters, 
+	   RegisterUDQI & udqr=DoNotRegistrerUDQ()) const {
       return 
-	boost::shared_ptr<SamplerBuilder>(new SamplerBuilderImpl(name,sources,reporters));
+	boost::shared_ptr<SamplerBuilder>(new SamplerBuilderImpl(name,sources,reporters, udqr));
     }
 
     
     virtual void build(std::string const & name, 
 		       std::vector<std::string> const & sources,
-		       std::vector<std::string> const & reporter);
+		       std::vector<std::string> const & reporter, 
+		       RegisterUDQI & udqr=DoNotRegistrerUDQ());
     
   };
 
