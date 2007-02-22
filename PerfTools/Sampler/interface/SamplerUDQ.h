@@ -65,7 +65,7 @@ namespace perftools {
   class UDQBase {
     virtual ~UDQBase(){}
     virtual void toDouble(std::vector<double>& v) const=0;
-    virtual void toSouble(std::vector<std::string>& v) const=0;
+    virtual void toString(std::vector<std::string>& v) const=0;
       
   };
 
@@ -81,7 +81,7 @@ namespace perftools {
     virtual void toDouble(std::vector<double>& v) const {
       convert(v);
     }
-    virtual void toSouble(std::vector<std::string>& v) const {
+    virtual void toString(std::vector<std::string>& v) const {
       convert(v);
     }
 
