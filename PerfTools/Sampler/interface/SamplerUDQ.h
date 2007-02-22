@@ -39,11 +39,25 @@ namespace perftools {
     
   }
 
+  struct RegistrerUDQI {
+    RegistrerUDQI(std:string const & inames) : names(inames) {
+    RegistrerUDQ(){}
+    virtual ~RegistrerUDQI(){}
+    bool virtual dont() const=0;
+    std::string names; 
+
+  };
+
+  struct DoNotRegistrerUDQ : public  RegistrerUDQI {
+    bool virtual dont() const { return true;}
+  };
+
   template<typename UDQ>
-  struct RegistrerUDQ {
-    RegistrerUDQ(std:string const & names) : m_names(names) {
+  struct RegistrerUDQ  : public RegistrerUDQI {
+    RegistrerUDQ(std:string const & inames) : RegistrerUDQI(inames) {
     }
-    std::string m_names; 
+    bool virtual dont() const { return false; }
+
   };
 
   /*  abstract class toward the SamplerImplementation
