@@ -77,7 +77,7 @@ namespace perftools {
   }
 
   void buildUDQ(std::string const & name, 
-		std::vector<std::string> const & reporters, RegisterUDQI & udqr,
+		std::vector<std::string> const & reporters, RegisterUDQI const & udqr,
 		SamplerBuilder::Payload::value_type & payload) {
     
     if (reporters[0]=="Immediate") {
