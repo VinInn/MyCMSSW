@@ -67,6 +67,7 @@ namespace perftools {
   /*  abstract class toward the SamplerImplementation
    */
   class UDQBase {
+  public:
     virtual ~UDQBase(){}
     virtual void toDouble(std::vector<double>& v) const=0;
     virtual void toString(std::vector<std::string>& v) const=0;
@@ -89,7 +90,7 @@ namespace perftools {
       convert(v);
     }
 
-    // FIXME faster, templated?
+    // FIXME make it faster, no copy, templated?
     void fill(UDQ & udq) { m_udq = udq;}
 
     template<typename T> 
