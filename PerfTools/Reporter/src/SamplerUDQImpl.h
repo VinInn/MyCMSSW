@@ -51,7 +51,7 @@ namespace perftools {
 
 
     ~SamplerUDQImpl() {
-      if((!isTemplate()) && m_doReport) m_report(sample());
+      if((!empty()) && (!isTemplate()) && m_doReport) m_report(*sample());
     }
 
 

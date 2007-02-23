@@ -10,7 +10,7 @@
 #include <boost/fusion/sequence.hpp>
 #include <boost/fusion/algorithm.hpp>
 #include<boost/any.hpp>
-
+#include<memory>
 
 namespace perftools {
   
@@ -111,16 +111,22 @@ namespace perftools {
   
 
   class SamplerUDQ : public SamplerBase {
-
+  public:
+    typedef std::auto_ptr<UDQBase> Value;
     SamplerUDQ(bool aTemplate=false) : SamplerBase(aTemplate){}
-    SamplerUDQ(boost::any value, bool aTemplate=false) : 
+    SamplerUDQ(Value value, bool aTemplate=false) : 
       SamplerBase(aTemplate),
       m_value(value) {}
 
     template<typename UDQ>
     void fill(UDQ & udq) {
       UDQWrapper<UDQ> * w = this->asUDQ<UDQ>();
-      if (w) (*w).fill(udq);
+      // FIXME striclty speaking we may change the type of the UDQ here...
+      if (!w) {
+	w =  new UDQWrapper<UDQ>;
+	m_value.reset(w);
+      }
+      (*w).fill(udq);
     }
 
     template<typename UDQ>
@@ -128,13 +134,16 @@ namespace perftools {
       return dynamic_cast<UDQWrapper<UDQ> *>(sample());
     }
     
-    
-   UDQBase & sample() {
-     return *boost::unsafe_any_cast<perftools::UDQBase>(&m_value);
+    bool empty() const {
+      return m_value.get()!=0;
+    }
+
+   UDQBase * sample() {
+     return m_value.get();
    }
     
   private:
-    boost::any m_value;
+    Value m_value;
     
   };
 
