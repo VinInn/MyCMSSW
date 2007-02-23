@@ -4,7 +4,7 @@
 #include "PerfTools/Service/interface/ServiceFactory.h"
 
 #include "PerfTools/Reporter/interface/SimpleImmediateReporter.h"
-#include "PerfTools/Reporter/interface/SimpleImmediateReporterWithNames.h"
+#include "PerfTools/Reporter/interface/ImmediateReporterWithNames.h"
 
 #include "PerfTools/Reporter/interface/Reporter.h"
 #include "PerfTools/Reporter/interface/MinMaxCounter.h"

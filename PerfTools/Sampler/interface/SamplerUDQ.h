@@ -9,6 +9,7 @@
 #include <sstream>
 #include <boost/fusion/sequence.hpp>
 #include <boost/fusion/algorithm.hpp>
+#include<boost/any.hpp>
 
 
 namespace perftools {
@@ -76,10 +77,10 @@ namespace perftools {
    * a sampler with UserDefinedQuantities
    */
   template<typename UDQ>
-  class SamplerUDQ : public UDQBase {
+  class UDQWrapper : public UDQBase {
   public:
     
-    SamplerUDQ() {}
+    UDQWrapper() {}
 
     virtual void toDouble(std::vector<double>& v) const {
       convert(v);
@@ -108,9 +109,37 @@ namespace perftools {
 
   };
   
-  template<typename UDQ>
-  inline SamplerUDQ<UDQ> * asUDQ(boost::any& ba) {
-    return dynamic_cast<SamplerUDQ<UDQ> *>(boost::unsafe_any_cast<perftools::UDQBase>(&ba));
+
+  class SamplerUDQ : public SamplerBase {
+
+    SamplerUDQ(bool aTemplate=false) : SamplerBase(aTemplate){}
+    SamplerUDQ(boost::any value, bool aTemplate=false) : 
+      SamplerBase(aTemplate),
+      m_value(value) {}
+
+    template<typename UDQ>
+    void fill(UDQ & udq) {
+      UDQWrapper<UDQ> * w = this->asUDQ<UDQ>();
+      if (w) (*w).fill(udq);
+    }
+
+    template<typename UDQ>
+    UDQWrapper<UDQ> * asUDQ() {
+      return dynamic_cast<UDQWrapper<UDQ> *>(sample());
+    }
+    
+    
+   UDQBase & sample() {
+     return *boost::unsafe_any_cast<perftools::UDQBase>(&m_value);
+   }
+    
+  private:
+    boost::any m_value;
+    
+  };
+
+  inline SamplerUDQ * asSamplerUDQ(boost::any& ba) {
+    return dynamic_cast<SamplerUDQ *>(boost::unsafe_any_cast<perftools::SamplerBase>(&ba));
   }
 
 
