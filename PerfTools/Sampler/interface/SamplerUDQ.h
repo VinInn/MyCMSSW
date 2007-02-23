@@ -40,7 +40,7 @@ namespace perftools {
   }
   
   struct RegistrerUDQI {
-    RegistrerUDQI(std::vector<std:string> const & inames) : 
+    RegistrerUDQI(std::vector<std::string> const & inames) : 
       names(inames) {}
     RegistrerUDQI(){}
     virtual ~RegistrerUDQI(){}
@@ -55,7 +55,7 @@ namespace perftools {
   
   template<typename UDQ>
   struct RegistrerUDQ  : public RegistrerUDQI {
-    RegistrerUDQ( std::vector<std:string> const & inames) : 
+    RegistrerUDQ( std::vector<std::string> const & inames) : 
       RegistrerUDQI(inames) {
     }
     
