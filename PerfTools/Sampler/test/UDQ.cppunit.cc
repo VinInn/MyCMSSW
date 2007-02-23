@@ -31,7 +31,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestUDQ);
 TestUDQ::TestUDQ(){}
 
 
-TestUDQ::check_Convert() {
+void TestUDQ::check_Convert() {
 
   typedef boost::fusion::vector<int, char, double, char const*> Seq1;
   Seq1 s1(1, 'x', 3.3, "hello");
@@ -39,7 +39,7 @@ TestUDQ::check_Convert() {
   Seq2 s2(1, 'x', 3.3, 1234567890);
  
   {
-    std::vector<std::string> vt; vt += "1", 'x', "3.3", "hello";
+    std::vector<std::string> vt; vt += "1", "x", "3.3", "hello";
     std::vector<std::string> vs(boost::fusion::size(s1));
     boost::fusion::fold(s1,vs.begin(), perftools::udqUtils::Convert());
     CPPUNIT_ASSERT(vs==vt);
@@ -54,4 +54,4 @@ TestUDQ::check_Convert() {
 
 }
 
-TestUDQ::check_constr() {}
+void TestUDQ::check_constr() {}
