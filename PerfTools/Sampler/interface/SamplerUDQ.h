@@ -12,7 +12,7 @@
 
 
 namespace perftools {
-
+  
   namespace udqUtils {
     struct Convert {
       template <typename T, typename State>
@@ -38,37 +38,40 @@ namespace perftools {
     };
     
   }
-
+  
   struct RegistrerUDQI {
-    RegistrerUDQI(std:string const & inames) : names(inames) {
-    RegistrerUDQ(){}
+    RegistrerUDQI(std::vector<std:string> const & inames) : 
+      names(inames) {}
+    RegistrerUDQI(){}
     virtual ~RegistrerUDQI(){}
     bool virtual dont() const=0;
-    std::string names; 
-
+    std::vector<std::string> names; 
+    
   };
-
+  
   struct DoNotRegistrerUDQ : public  RegistrerUDQI {
     bool virtual dont() const { return true;}
   };
-
+  
   template<typename UDQ>
   struct RegistrerUDQ  : public RegistrerUDQI {
-    RegistrerUDQ(std:string const & inames) : RegistrerUDQI(inames) {
+    RegistrerUDQ( std::vector<std:string> const & inames) : 
+      RegistrerUDQI(inames) {
     }
+    
     bool virtual dont() const { return false; }
-
+    
   };
-
+  
   /*  abstract class toward the SamplerImplementation
    */
   class UDQBase {
     virtual ~UDQBase(){}
     virtual void toDouble(std::vector<double>& v) const=0;
     virtual void toString(std::vector<std::string>& v) const=0;
-      
+    
   };
-
+  
   /*
    * a sampler with UserDefinedQuantities
    */
@@ -107,7 +110,7 @@ namespace perftools {
   
   template<typename UDQ>
   inline SamplerUDQ<UDQ> * asUDQ(boost::any& ba) {
-    return dynamic_cast<SamplerUDQ<UDQ> *>(boost::unsafe_any_cast<perftools::U>(&ba));
+    return dynamic_cast<SamplerUDQ<UDQ> *>(boost::unsafe_any_cast<perftools::UDQBase>(&ba));
   }
 
 
