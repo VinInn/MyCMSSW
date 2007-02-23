@@ -110,14 +110,14 @@ namespace perftools {
   SamplerBuilderImpl::SamplerBuilderImpl(){}
 
   SamplerBuilderImpl::SamplerBuilderImpl(std::string const & name, std::vector<std::string> const & sources,
-					 std::vector<std::string> const & reporters, RegisterUDQI & udqr) {
+					 std::vector<std::string> const & reporters, RegisterUDQI const & udqr) {
     build(name,sources,reporters,udqr);
   }
  
  
 
   void  SamplerBuilderImpl::build(std::string const & name, std::vector<std::string> const & sources,
-			      std::vector<std::string> const & reporters, RegisterUDQI & udqr) {
+			      std::vector<std::string> const & reporters, RegisterUDQI const & udqr) {
     
     if ( (sources.empty()&&udqr.dont()) || reporters.empty()) return;
     // full combinatorics...

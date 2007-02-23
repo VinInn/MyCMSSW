@@ -39,24 +39,24 @@ namespace perftools {
     
   }
   
-  struct RegistrerUDQI {
-    RegistrerUDQI(std::vector<std::string> const & inames) : 
+  struct RegisterUDQI {
+    RegisterUDQI(std::vector<std::string> const & inames) : 
       names(inames) {}
-    RegistrerUDQI(){}
-    virtual ~RegistrerUDQI(){}
+    RegisterUDQI(){}
+    virtual ~RegisterUDQI(){}
     bool virtual dont() const=0;
     std::vector<std::string> names; 
     
   };
   
-  struct DoNotRegistrerUDQ : public  RegistrerUDQI {
+  struct DoNotRegistrerUDQ : public  RegisterUDQI {
     bool virtual dont() const { return true;}
   };
   
   template<typename UDQ>
-  struct RegistrerUDQ  : public RegistrerUDQI {
-    RegistrerUDQ( std::vector<std::string> const & inames) : 
-      RegistrerUDQI(inames) {
+  struct RegisterUDQ  : public RegisterUDQI {
+    RegisterUDQ( std::vector<std::string> const & inames) : 
+      RegisterUDQI(inames) {
     }
     
     bool virtual dont() const { return false; }

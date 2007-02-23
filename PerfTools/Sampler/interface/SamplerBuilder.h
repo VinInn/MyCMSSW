@@ -24,7 +24,7 @@ namespace perftools {
     Payload & operator()(std::string const & name, 
 			 std::vector<std::string> const & sources,
 			 std::vector<std::string> const & reporters,
-		       RegisterUDQI & udqr=DoNotRegistrerUDQ()) {
+			 RegisterUDQI const & udqr=DoNotRegistrerUDQ()) {
       build(name,sources,reporters, udqr);
       return m_payload;
     }
@@ -33,7 +33,7 @@ namespace perftools {
     create(std::string const & name, 
 	   std::vector<std::string> const & sources,
 	   std::vector<std::string> const & reporters,
-	   RegisterUDQI & udqr=DoNotRegistrerUDQ()) const =0;
+	   RegisterUDQI const & udqr=DoNotRegistrerUDQ()) const =0;
 
     
     operator Payload & () { return m_payload;}
