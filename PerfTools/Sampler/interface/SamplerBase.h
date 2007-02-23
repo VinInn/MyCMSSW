@@ -14,7 +14,7 @@ namespace perftools {
     typedef std::vector<boost::any> Payload;
     
     SamplerBase(bool aTemplate=false) : m_templ(aTemplate){}
-    
+    virtual ~SamplerBase(){}
     // will activate in next copy....
     inline void activate() { m_templ=false;}
     
