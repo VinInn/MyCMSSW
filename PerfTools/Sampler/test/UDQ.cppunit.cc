@@ -26,7 +26,7 @@ public:
   void check_constr();
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestSample);
+CPPUNIT_TEST_SUITE_REGISTRATION(TestUDQ);
 
 TestUDQ::TestUDQ(){}
 
@@ -53,3 +53,5 @@ TestUDQ::check_Convert() {
   }
 
 }
+
+TestUDQ::check_constr() {}
