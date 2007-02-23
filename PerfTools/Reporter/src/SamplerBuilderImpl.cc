@@ -71,9 +71,9 @@ namespace perftools {
   void UDQImmediate(UDQBase & udq, boost::shared_ptr<perftools::ImmediateReporterWithNames> & sir) {
     std::vector<std::string> v;
     udq.toString(v);
-    std::for_each(v.begin,v.end(),
+    std::for_each(v.begin(),v.end(),
 		  boost::bind(&perftools::ImmediateReporterWithNames::operator()<std::string>,
-					       sir,_1));
+			      sir,_1));
   }
 
   void buildUDQ(std::string const & name, 
@@ -130,7 +130,7 @@ namespace perftools {
       buildUDQ(name,reporters,udqr,m_payload.back());
 
     // process sources
-    if (source.empty()) return;
+    if (sources.empty()) return;
     // FIXME here goes a factory..
     //    if (reporters.find("Immediate")!=reporters.end()) {
     if (reporters[0]=="Immediate") {

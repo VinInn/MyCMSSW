@@ -14,10 +14,17 @@ namespace perftools {
 
   class SamplerUDQImpl : public SamplerUDQ {
   public:
-    typedef T Value;
+    typedef SamplerUDQ::Value Value;
     typedef boost::function<void(UDQBase const&)> Report;
 
   public:
+    template<typename R>
+    SamplerUDQImpl(R ireport, bool doReport=true, bool aTemplate=false) :
+      SampleUDQ(aTemplate),
+      m_doReport(doReport),
+      m_report(ireport) { 
+    }
+
     template<typename R>
     SamplerUDQImpl(boost::any value, R ireport, bool doReport=true, bool aTemplate=false) :
       SampleUDQ(value, aTemplate),
