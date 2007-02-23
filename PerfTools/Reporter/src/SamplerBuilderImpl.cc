@@ -70,7 +70,7 @@ namespace perftools {
   
   void UDQImmediate(UDQBase & udq, boost::shared_ptr<perftools::ImmediateReporterWithNames> & sir) {
     std::vector<std::string> v;
-    udqr.toString(v);
+    udq.toString(v);
     std::for_each(v.begin,v.end(),
 		  boost::bind(&perftools::ImmediateReporterWithNames::operator()<std::string>,
 					       sir,_1));
