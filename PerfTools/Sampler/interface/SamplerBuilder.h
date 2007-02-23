@@ -43,7 +43,7 @@ namespace perftools {
     virtual void build(std::string const & name, 
 		       std::vector<std::string> const & sources,
 		       std::vector<std::string> const & reporters,
-		       RegisterUDQI & udqr=DoNotRegistrerUDQ())=0;
+		       RegisterUDQI const & udqr=DoNotRegistrerUDQ())=0;
     
   protected:
     

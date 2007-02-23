@@ -25,7 +25,7 @@ namespace perftools {
     
     template<typename UDQ>
     bool fill(UDQ & udq) {
-      SamplerUDQ<UDQ> * s = asUDQ(m.sampler.back());
+      SamplerUDQ<UDQ> * s = asUDQ(m_sampler.back());
       if (s) (*s)->fill(udq);
       return s;
     }
