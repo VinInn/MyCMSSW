@@ -1,8 +1,17 @@
 #include "PerfTools/Sampler/interface/SamplerUDQ.h"
+
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign/list_of.hpp>
 using namespace boost::assign;
 
+#include <cppunit/extensions/HelperMacros.h>
+
+#include <boost/fusion/sequence.hpp>
+#include <boost/fusion/algorithm.hpp>
+
+
+#include<vector>
+#include<string>
 
 class TestUDQ : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestUDQ);
