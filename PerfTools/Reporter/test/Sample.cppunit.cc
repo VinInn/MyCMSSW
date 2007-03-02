@@ -1,4 +1,5 @@
 #include "PerfTools/Sampler/interface/Sample.h"
+#include "PerfTools/Sampler/interface/Sampler.h"
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -32,9 +33,9 @@ class TestSample : public CppUnit::TestFixture {
   CPPUNIT_TEST(check_Sample);
   CPPUNIT_TEST(check_SampleVec);
 
-  CPPUNIT_TEST(check__SamplerConstr);
-  CPPUNIT_TEST(check__SamplerCopy);
-  CPPUNIT_TEST(check__SamplerStack);
+  CPPUNIT_TEST(check_SamplerConstr);
+  CPPUNIT_TEST(check_SamplerCopy);
+  CPPUNIT_TEST(check_SamplerStack);
 
   CPPUNIT_TEST_SUITE_END();
 public:
