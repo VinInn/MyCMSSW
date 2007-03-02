@@ -153,7 +153,7 @@ void  TestSample::check_SampleVec() {
       CPPUNIT_ASSERT(last==one);
     }
     CPPUNIT_ASSERT(last[0]==2);
-    last[0]=0;
+    last=zero;
   }
   CPPUNIT_ASSERT(last==zero);
   
