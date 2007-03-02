@@ -28,8 +28,14 @@ namespace {
 
 class TestSample : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestSample);
-  CPPUNIT_TEST(check_constr);
-  CPPUNIT_TEST(check_Sampler);
+  CPPUNIT_TEST(check_SampleConstr);
+  CPPUNIT_TEST(check_Sample);
+  CPPUNIT_TEST(check_SampleVec);
+
+  CPPUNIT_TEST(check__SamplerConstr);
+  CPPUNIT_TEST(check__SamplerCopy);
+  CPPUNIT_TEST(check__SamplerStack);
+
   CPPUNIT_TEST_SUITE_END();
 public:
   TestSample();
@@ -38,9 +44,13 @@ public:
   }
   void setUp();
   void tearDown() {}
-  void check_constr();
-  void check_Sampler();
-  void check_SamplerVec();
+  void check_SampleConstr();
+  void check_Sample();
+  void check_SampleVec();
+  void check_SamplerConstr();
+  void check_SamplerCopy();
+  void check_SamplerStack();
+
 
   std::vector<int> zero;
   std::vector<int> one;
@@ -72,7 +82,7 @@ TestSample::TestSample(): zero(3,0), one(3,1), two(3,2) {
  
 #include "PerfTools/Reporter/src/SamplerImpl.h"
 
-void TestSample::check_constr() {
+void TestSample::check_SampleConstr() {
   // a "template"
   perftools::Sample::Payload ba(1);
   ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
@@ -99,7 +109,7 @@ namespace {
 }
 
 
-void  TestSample::check_Sampler() {
+void  TestSample::check_Sample() {
   // a "template"
   // boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
@@ -122,7 +132,9 @@ void  TestSample::check_Sampler() {
   CPPUNIT_ASSERT(last[0]==0);
   
 }
-void  TestSample::check_SamplerVec() {
+
+
+void  TestSample::check_SampleVec() {
   // a "template"
   // boost::any ba = perftools::SamplerImpl<int>(&what,&tell,false,true);
   {
@@ -144,4 +156,73 @@ void  TestSample::check_SamplerVec() {
   }
   CPPUNIT_ASSERT(last==zero);
   
+}
+
+void TestSample::check_SamplerConstr() {
+ {
+    Baf baf;
+    perftools::Sample s1(baf());
+    a[0]++;
+    {
+      // this start sampling
+      perftools::Sampler b1(s1);
+      a[0]++; 
+      {
+	perftools::Sampler b2(s1);
+	a[0]++;
+      }
+      CPPUNIT_ASSERT(last[0]==1);
+    }
+    CPPUNIT_ASSERT(last[0]==2);
+    last[0]=0;
+  }
+  CPPUNIT_ASSERT(last[0]==0);
+  
+
+}
+void TestSample::check_SamplerCopy() {
+    Baf baf;
+    perftools::Sample s1(baf());
+    a[0]++;
+    {
+      // this start sampling
+      perftools::Sampler b1(s1);
+      a[0]++; 
+      {
+	perftools::Sampler b2(b1);
+	a[0]++;
+      }
+      CPPUNIT_ASSERT(last[0]==1);
+    }
+    CPPUNIT_ASSERT(last[0]==1);
+    last[0]=0;
+  }
+  CPPUNIT_ASSERT(last[0]==0);
+  
+}
+
+#include <stack>
+
+void TestSample::check_SamplerStack() {
+    Baf baf;
+    perftools::Sample s1(baf()); 
+    {
+      std::stack<perftools::Sampler> b;
+      a[0]++;
+      // this start sampling
+      b.push(s1);
+      a[0]++; 
+      
+      b.push(s1);
+      a[0]++;
+      
+      CPPUNIT_ASSERT(last[0]==0);
+      b.pop();
+      CPPUNIT_ASSERT(last[0]==1);
+      b.pop();
+      CPPUNIT_ASSERT(last[0]==2);
+      last[0]=0;
+    }
+    CPPUNIT_ASSERT(last[0]==0);
+ 
 }

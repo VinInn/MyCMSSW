@@ -35,11 +35,11 @@ namespace perftools {
     Payload m_sampler;
     
   private:
-    Sampler(const Sampler &rh) :
-      m_sample(rh.m_sample) {}
+    //    Sampler(const Sampler &rh) :
+    //  m_sample(rh.m_sample) {}
     
-    Sampler & operator=(const Sampler &rh) {
-      return *this;
+    //   Sampler & operator=(const Sampler &rh) {
+    //  return *this;
     }
   };
   
