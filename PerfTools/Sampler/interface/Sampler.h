@@ -40,7 +40,7 @@ namespace perftools {
     
     //   Sampler & operator=(const Sampler &rh) {
     //  return *this;
-    }
+    // }
   };
   
 }

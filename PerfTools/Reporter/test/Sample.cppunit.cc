@@ -160,7 +160,7 @@ void  TestSample::check_SampleVec() {
 }
 
 void TestSample::check_SamplerConstr() {
- {
+  {
     Baf baf;
     perftools::Sample s1(baf());
     a[0]++;
@@ -177,11 +177,12 @@ void TestSample::check_SamplerConstr() {
     CPPUNIT_ASSERT(last[0]==2);
     last[0]=0;
   }
-  CPPUNIT_ASSERT(last[0]==0);
-  
-
+  CPPUNIT_ASSERT(last[0]==0);  
 }
+
+
 void TestSample::check_SamplerCopy() {
+  {
     Baf baf;
     perftools::Sample s1(baf());
     a[0]++;
@@ -198,8 +199,7 @@ void TestSample::check_SamplerCopy() {
     CPPUNIT_ASSERT(last[0]==1);
     last[0]=0;
   }
-  CPPUNIT_ASSERT(last[0]==0);
-  
+  CPPUNIT_ASSERT(last[0]==0); 
 }
 
 #include <stack>
@@ -224,6 +224,5 @@ void TestSample::check_SamplerStack() {
       CPPUNIT_ASSERT(last[0]==2);
       last[0]=0;
     }
-    CPPUNIT_ASSERT(last[0]==0);
- 
+    CPPUNIT_ASSERT(last[0]==0); 
 }
