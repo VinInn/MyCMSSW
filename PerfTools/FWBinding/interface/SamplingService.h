@@ -38,7 +38,7 @@ public:
   void dumpStat();
   
   void beginEventI(const edm::EventID&, const edm::Timestamp&) {
-    static const std::string & myName("Full Event");
+    static const std::string myName("Full Event");
     startSampling(myName);
   }
   
