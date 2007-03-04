@@ -38,7 +38,8 @@ namespace perftools {
       return m_sampler;
     } 
 
-  private:
+  public:
+    // FIXME define a better sematics...
     Sample(Sample const &) {}
     Sample & operator=(Sample const &) {
       return *this;
