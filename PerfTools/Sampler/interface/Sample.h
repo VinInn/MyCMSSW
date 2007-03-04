@@ -18,13 +18,18 @@ namespace perftools {
     Sample(){}
     // avoid copy of payload...
     explicit Sample(Payload & isample) {
+     init(isample);
+    }
+
+    ~Sample(){}
+
+    void init(Payload & isample) {
       m_sampler.swap(isample);
       // FIXME or in the Builder???
       std::for_each(m_sampler.begin(),m_sampler.end(),&perftools::activate);
     }
 
-    ~Sample(){}
-
+    bool empty() const { return m_sampler.empty();}
     template<typename Vec, typename IT>
     void advancedRegistration(Vec const &, IT names_b, IT names_e) {
     }

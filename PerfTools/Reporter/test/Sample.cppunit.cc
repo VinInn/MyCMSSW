@@ -30,6 +30,7 @@ namespace {
 class TestSample : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(TestSample);
   CPPUNIT_TEST(check_SampleConstr);
+  CPPUNIT_TEST(check_SampleInit);
   CPPUNIT_TEST(check_Sample);
   CPPUNIT_TEST(check_SampleVec);
 
@@ -46,6 +47,7 @@ public:
   void setUp();
   void tearDown() {}
   void check_SampleConstr();
+  void check_SampleInit();
   void check_Sample();
   void check_SampleVec();
   void check_SamplerConstr();
@@ -89,6 +91,19 @@ void TestSample::check_SampleConstr() {
   ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
   {
     perftools::Sample s1(ba);
+    a[0]++;
+  }
+  CPPUNIT_ASSERT(last[0]==0);
+
+}
+
+void TestSample::check_SampleInit() {
+  // a "template"
+  perftools::Sample::Payload ba(1);
+  ba[0] = perftools::SamplerImpl<int>(boost::bind(what,0),boost::bind(tell,0,_1),false,true);
+  {
+    perftools::Sample s1;
+    s1.init(ba);
     a[0]++;
   }
   CPPUNIT_ASSERT(last[0]==0);
