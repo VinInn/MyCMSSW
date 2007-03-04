@@ -33,7 +33,7 @@ SamplingService::~SamplingService(){}
 
 bool SamplingService::startSampling(std::string const & name) {
   perftools::Sample & s = m_samples[name];
-  if (s.empty) {
+  if (s.empty()) {
     boost::shared_ptr<perftools::SamplerBuilder> builder = 
     m_creator->create(name,m_sources,m_reporters);  
     s.init(*builder);

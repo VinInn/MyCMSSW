@@ -5,13 +5,14 @@
 //FIXME only forward declarations???
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/ServiceRegistry/interface/ActivityRegistry.h"
-#include "DataFormats/Provenance/interface/ModuleDescription.h"
+#include "DataFormats/Common/interface/ModuleDescription.h"
+// #include "DataFormats/Provenance/interface/ModuleDescription.h"
 
 #include "PerfTools/Sampler/interface/Sample.h"
 #include "PerfTools/Sampler/interface/Sampler.h"
 #include "PerfTools/Sampler/interface/SamplerBuilder.h"
 
-#include <boost::shared_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <vector>
 #include <string>
@@ -46,18 +47,18 @@ public:
   }
   
   void beginPathI(std::string const & path) {
-    startSampling(name);
+    startSampling(path);
   }
   
   void endPathI(std::string const &,  const edm::HLTPathStatus&) {
     stopSampling();
   }
   
-  void beginModuleI(const ModuleDescription& md) {
+  void beginModuleI(const edm::ModuleDescription& md) {
     startSampling(md.moduleLabel());
   }
   
-  void endModuleI(const ModuleDescription&) {
+  void endModuleI(const edm::ModuleDescription&) {
     stopSampling();
   }
   
