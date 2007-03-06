@@ -38,12 +38,14 @@ public:
   void dumpStat();
   
   void beginEventI(const edm::EventID&, const edm::Timestamp&) {
+    m_active=true;
     static const std::string myName("Full Event");
     startSampling(myName);
   }
   
   void endEventI(const edm::Event&, const edm::EventSetup&) {
     stopSampling();
+    m_active=false;
   }
   
   void beginPathI(std::string const & path) {
@@ -75,6 +77,7 @@ private:
   std::map<std::string, perftools::Sample> m_samples;
   std::stack<perftools::Sampler> m_samplers;
   boost::shared_ptr<perftools::SamplerBuilder> m_creator;
+  bool m_active;
   
 }; 
 

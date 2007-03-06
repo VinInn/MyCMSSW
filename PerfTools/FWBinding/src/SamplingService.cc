@@ -16,7 +16,8 @@ SamplingService::SamplingService(edm::ParameterSet const& pset,
 				 edm::ActivityRegistry  & activity) :
   m_sources(pset.getUntrackedParameter<std::vector<std::string> >("Sources")),
   m_reporters( pset.getUntrackedParameter<std::vector<std::string> >("Reporters")),
-  m_creator(perftools::ServiceFactory::get()->getService<perftools::SamplerBuilder>("PerfTools:SamplerBuilder")) {
+  m_creator(perftools::ServiceFactory::get()->getService<perftools::SamplerBuilder>("PerfTools:SamplerBuilder")),
+  m_active(false) {
   
  
     activity.watchPreProcessEvent(this,&SamplingService::beginEventI);
@@ -32,6 +33,7 @@ SamplingService::SamplingService(edm::ParameterSet const& pset,
 SamplingService::~SamplingService(){}
 
 bool SamplingService::startSampling(std::string const & name) {
+  if (!m_active) return false;
   perftools::Sample & s = m_samples[name];
   if (s.empty()) {
     boost::shared_ptr<perftools::SamplerBuilder> builder = 
@@ -43,6 +45,7 @@ bool SamplingService::startSampling(std::string const & name) {
 }
  
 bool SamplingService::stopSampling() {
+  if (!m_active) return false;
   m_samplers.pop();
   return true;
 }
