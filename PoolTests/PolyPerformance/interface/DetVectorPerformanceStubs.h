@@ -84,6 +84,11 @@ namespace  detVectorPerformance {
     BaseCont cont;
   };
 
+  // some concrete classes
+  typedef  detVectorPerformance::Array<int,10> AI10;
+  typedef  detVectorPerformance::DoubleVector<AI10> DVAI10;
+  typedef  detVectorPerformance::IndexedVector<AI10> IVAI10;
+
 
 
 };
