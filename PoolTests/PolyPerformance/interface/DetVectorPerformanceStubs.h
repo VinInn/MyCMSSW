@@ -26,10 +26,10 @@ namespace  detVectorPerformance {
     typedef std::pair<typename BaseCont::const_iterator, typename BaseCont::const_iterator> Range;
     
 
-    void insert(int i, BaseCont& buffer) {
+    void insert(int i, BaseCont const& buffer) {
       cont.resize(cont.size()+1);
       cont.back().first=1;
-      cont.back().second.swap(buffer);
+      cont.back().second=buffer;
     }
 
     Range operator[](int i) const {
@@ -65,7 +65,7 @@ namespace  detVectorPerformance {
     typedef std::pair<typename BaseCont::const_iterator, typename BaseCont::const_iterator> Range;
  
 
-    void insert(int i, BaseCont& buffer) {
+    void insert(int i, BaseCont const& buffer) {
       Elem e = {i,cont.size(),buffer.size()};
       Index::iterator p = std::upper_bound(index.begin(),index.end(),e);
       index.insert(p,e);
