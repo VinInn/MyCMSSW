@@ -13,6 +13,8 @@ namespace {
     std::vector<std::pair<int,std::vector<detVectorPerformance::Array<int,10> > > > vp10;
     detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > dvai10;
     detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > ivai10;
+    edm::Wrapper<ddetVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > > wdvai10;
+    edm::Wrapper<ddetVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > > wivai10;
   }
 
   namespace {
