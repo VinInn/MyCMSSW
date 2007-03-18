@@ -28,13 +28,13 @@
 
 <class name="std::vector<std::pair<int,int> >"/>
 
-<class name="edm::Wrapper<edm::PolyVector<polyPerformance::Base > >">
+<class name="edm::Wrapper<edm::PolyVector<polyPerformance::Base > >"/>
 
 <class name="edm::PolyVector<polyPerformance::Base >">
   <field name="m_types" transient="true"/>
 </class>
-<class name="edm::details::PolyVectorInnerBase<polyPerformance::Base >">
-<class name="std::vector<edm::details::PolyVectorInnerBase<polyPerformance::Base >*>">
+<class name="edm::details::PolyVectorInnerBase<polyPerformance::Base >"/>
+<class name="std::vector<edm::details::PolyVectorInnerBase<polyPerformance::Base >*>"/>
 
 <class name="std::vector<polyPerformance::Array<int,3> >"/>
 <class name="edm::details::PolyVectorBase<polyPerformance::Array<int,3>, polyPerformance::Base >"/>

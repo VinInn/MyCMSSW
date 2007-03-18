@@ -7,6 +7,7 @@
 
 namespace {
   namespace {
+    std::vector<detVectorPerformance::indexedVector::Elem> vel;
     detVectorPerformance::Array<int,10> ai10;
     std::vector<detVectorPerformance::Array<int,10> > v10;
     std::pair<int,std::vector<detVectorPerformance::Array<int,10> > > p10;
