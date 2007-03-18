@@ -9,7 +9,7 @@
 namespace  detVectorPerformance {
 
   template<typename T, int N> 
-  struct Array : public Base{
+  struct Array {
     typedef Array<T,N> self;
     enum { SIZE=N};
     typedef T value_type;
@@ -18,8 +18,8 @@ namespace  detVectorPerformance {
     T data[N];
   };
 
-
-  template<typename T> DoubleVector {
+  template<typename T> 
+  struct DoubleVector {
     typedef std::vector<T> BaseCont;
     typedef std::pair<int, BaseCont> Elem;
     typeded std::pair<Elem> Cont;
@@ -48,14 +48,19 @@ namespace  detVectorPerformance {
 
   };
 
- template<typename T> IndexedVector {
-    typedef std::vector<T> BaseCont;
+  namespace indexedVector {
     struct Elem {
       int id;
       int loc;
       int size;
       bool operator<(Elem const & rh) const { return id<rh.id;}
     };
+  }
+
+ template<typename T> 
+ struct IndexedVector {
+    typedef std::vector<T> BaseCont;
+    typedef indexedVector::Elem Elem;
     typedef std::vector<Elem > Index;
     typedef std::pair<BaseCont::const_iterator, BaseCont::const_iterator> Range;
  

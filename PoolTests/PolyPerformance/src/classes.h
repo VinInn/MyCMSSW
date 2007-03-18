@@ -1,9 +1,18 @@
+#include "PoolTests/PolyPerformance/interface/DetVectorPerformanceStubs.h"
+
 #include "PoolTests/PolyPerformance/interface/PolyPerformanceStubs.h"
 #include "DataFormats/Common/interface/OwnVector.h"
 #include "VinInn/Test1/test/PolyVector.h"
 #include "DataFormats/Common/interface/Wrapper.h"
 
 namespace {
+  namespace {
+    detVectorPerformance::Array<int,10> ai10;
+    detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > dvai10;
+    detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > ivai10;
+
+  }
+
   namespace {
     polyPerformance::Array<int,3> dummy1;
     polyPerformance::Array<int,6> dummy2;
