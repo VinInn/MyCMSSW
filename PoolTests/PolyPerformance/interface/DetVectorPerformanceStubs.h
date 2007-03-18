@@ -22,7 +22,7 @@ namespace  detVectorPerformance {
   struct DoubleVector {
     typedef std::vector<T> BaseCont;
     typedef std::pair<int, BaseCont> Elem;
-    typedef std::pair<Elem> Cont;
+    typedef std::vector<Elem> Cont;
     typedef std::pair<BaseCont::const_iterator, BaseCont::const_iterator> Range;
     
 
