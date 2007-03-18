@@ -56,8 +56,8 @@ namespace {
     }
     
     void populate(Container& cont) {
-      // fill with 240 of those
-      for (int i=0; i<20;i++) {
+      // fill with 2400 of those
+      for (int i=0; i<200;i++) {
 	fill(cont,dummy1);
 	fill(cont,dummy1);
 	fill(cont,dummy2);
@@ -114,7 +114,7 @@ int main(int argc, char * argv[]) {
 
     std::cout << std::endl;
     
-    for (int i=0;i<10000;i++) {
+    for (int i=0;i<2000;i++) {
       tree.add((*maker).make());
     }
   
