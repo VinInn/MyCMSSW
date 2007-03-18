@@ -13,9 +13,9 @@
 
 <class name="detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> >"/>
 
-<class name="edm::Wrapper<detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > > >"/>
+<class name="edm::Wrapper<detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > >"/>
 
-<class name="edm::Wrapper<detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > > >"/>
+<class name="edm::Wrapper<detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > >"/>
 
 
 <class name="polyPerformance::Base"/>

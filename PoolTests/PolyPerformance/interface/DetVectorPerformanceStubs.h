@@ -23,7 +23,7 @@ namespace  detVectorPerformance {
     typedef std::vector<T> BaseCont;
     typedef std::pair<int, BaseCont> Elem;
     typedef std::vector<Elem> Cont;
-    typedef std::pair<BaseCont::const_iterator, BaseCont::const_iterator> Range;
+    typedef std::pair<typename BaseCont::const_iterator, typename BaseCont::const_iterator> Range;
     
 
     void insert(int i, BaseCont& buffer) {
@@ -39,7 +39,7 @@ namespace  detVectorPerformance {
     void postSort() {}
 
     Range invalid() const {
-      static BaseCont l;
+      static const BaseCont l;
       return Range(l.end(),l.end());
     }
 
@@ -62,7 +62,7 @@ namespace  detVectorPerformance {
     typedef std::vector<T> BaseCont;
     typedef indexedVector::Elem Elem;
     typedef std::vector<Elem > Index;
-    typedef std::pair<BaseCont::const_iterator, BaseCont::const_iterator> Range;
+    typedef std::pair<typename BaseCont::const_iterator, typename BaseCont::const_iterator> Range;
  
 
     void insert(int i, BaseCont& buffer) {
@@ -80,7 +80,7 @@ namespace  detVectorPerformance {
     void postSort() {}
 
     Range invalid() const {
-      static BaseCont l;
+      static const BaseCont l;
       return Range(l.end(),l.end());
     }
 
