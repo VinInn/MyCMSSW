@@ -43,7 +43,7 @@ namespace  detVectorPerformance {
       return Range(l.end(),l.end());
     }
 
-    BaseCont cont;
+    Cont cont;
 
 
   };
@@ -67,7 +67,7 @@ namespace  detVectorPerformance {
 
     void insert(int i, BaseCont& buffer) {
       Elem e = {i,cont.size(),buffer.size()};
-      Index::iterator p = std::upper_range(index.begin(),index.end(),e);
+      Index::iterator p = std::upper_bound(index.begin(),index.end(),e);
       index.insert(p,e);
       cont.reserve(cont.size()+buffer.size());
       std::copy(buffer.begin(),buffer.end(),std::back_inserter(cont));
