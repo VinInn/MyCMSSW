@@ -10,6 +10,7 @@ namespace {
     detVectorPerformance::Array<int,10> ai10;
     std::vector<detVectorPerformance::Array<int,10> > v10;
     std::pair<int,std::vector<detVectorPerformance::Array<int,10> > > p10;
+    std::vector<std::pair<int,std::vector<detVectorPerformance::Array<int,10> > > > vp10;
     detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > dvai10;
     detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> > ivai10;
   }

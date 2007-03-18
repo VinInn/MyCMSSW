@@ -10,7 +10,7 @@
 
 <class name="detVectorPerformance::indexedVector::Elem"/>
 <class name="std::vector<detVectorPerformance::indexedVector::Elem>"/>
-<class name="std::vector<detVectorPerformance::Array<int,10> >"/>
+
 <class name="detVectorPerformance::IndexedVector<detVectorPerformance::Array<int,10> >"/>
 
 <class name="edm::Wrapper<detVectorPerformance::DoubleVector<detVectorPerformance::Array<int,10> > > >">
