@@ -5,4 +5,11 @@
   <use name=Utilities/Timing>
 </bin>
 
+<bin name=test_PoolTests_DetVectorPerformance file=tesDetVectorPerformance.cpp>
+  <use name=PoolTests/PolyPerformance>
+  <use name=PoolTests/DataFormatTests>
+  <use name=DataFormats/Common>
+  <use name=Utilities/Timing>
+</bin>
+
 
