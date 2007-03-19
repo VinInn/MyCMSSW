@@ -43,10 +43,14 @@ namespace {
     
     WMaker() : dvec(30) {} 
 
-    edm::EDProduct * make() {
+    std::auto_ptr<Container> makeCont() {
       std::auto_ptr<Container> o(new Container);
       populate(*o);
-      return new Wrapper(o); 
+      return o;
+    }
+
+    edm::EDProduct * make() {
+      return new Wrapper(makeCont()); 
     }
     
     void populate(Container& cont) {
@@ -61,13 +65,25 @@ namespace {
 
   };
 
-
-
-
 }
 
-int main(int argc, char * argv[]) {
 
+struct addEDM {
+  void operator()(OneBranchTreeNaive<edm::EDProduct>& tree, Maker & maker) {
+    tree.add(maker.make());
+  }
+};
+
+template<typename Product, typename Wrapper>
+struct addNaive {
+  void operator()(OneBranchTreeNaive<Product>& tree, WMaker<Wrapper> & maker) {
+    tree.add(maker.makeCont().release());
+  }
+};
+
+template<typename Product, typename Wrapper, typename Adder>
+void go() {
+  Adder adder;
 
   seal::PluginManager::get()->initialise();
 
@@ -84,16 +100,14 @@ int main(int argc, char * argv[]) {
   timer.start();
   
   {
-    
-    OneBranchTree tree(&cat);
-    std::auto_ptr<Maker> 
-      maker(argc >1 ? (Maker*)(new WMaker<DVWrapper>()) : 
-	    (Maker*)(new WMaker<IVWrapper>()));
+    OneBranchTreeNaive<Product> tree(&cat);
+    std::auto_ptr<WMaker<Wrapper> > 
+      maker(new WMaker<Wrapper>());
 
     std::cout << std::endl;
     
     for (int i=0;i<2000;i++) {
-      tree.add((*maker).make());
+      adder(tree, *maker);
     }
   
   }
@@ -106,7 +120,22 @@ int main(int argc, char * argv[]) {
   //  std::cout << "the end" << std::endl;
 
 
-
+int main(int argc, char * argv[]) {
+  bool naive = argc>1 && argv[1][1]=='n';
+  bool dv = argc>2;
+  
+  if (naive) {
+    if (dv) 
+      go<detVectorPerformance::DVAI10, DVWrapper, addNaive<detVectorPerformance::DVAI10,DVWrapper> >();
+    else
+      go<detVectorPerformance::IVAI10, IVWrapper, addNaive<detVectorPerformance::IVAI10,IVWrapper> >();
+  } else{
+   if (dv) 
+      go<detVectorPerformance::DVAI10, DVWrapper, addEDM>();
+    else
+      go<detVectorPerformance::IVAI10, IVWrapper, addEDM>();
+  }
+      
   return 0;
 
 }

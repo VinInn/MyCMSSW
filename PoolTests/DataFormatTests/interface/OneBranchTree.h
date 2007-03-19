@@ -35,19 +35,6 @@ protected:
 
 };
 
-class  OneBranchTree : private  OneBranchTreeBase {
-
-public:
-  explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
-			 std::string const & bname = "Events(Prod)" );
-  ~OneBranchTree(){}
-
-  void add(edm::EDProduct * prod); 
-
-private:
-  pool::Ref<edm::EDProduct> m_product;
-
-};
 
 template<typename Product>
 class  OneBranchTreeNaive : private  OneBranchTreeBase {
@@ -72,5 +59,6 @@ private:
 
 };
 
+typedef OneBranchTreeNaive<edm::EDProduct>  OneBranchTree;
 
 #endif
