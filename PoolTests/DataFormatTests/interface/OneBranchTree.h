@@ -14,16 +14,17 @@ namespace pool {
 /** a simple tree to test each edm prodcut independently
  *
  */
-class  OneBranchTree {
+class  OneBranchTreeBase {
 
 public:
-  explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
+  explicit OneBranchTreeBase(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
 			 std::string const & bname = "Events(Prod)" );
-  ~OneBranchTree();
+  ~OneBranchTreeBase();
 
-  void add(edm::EDProduct * prod); 
+  void start();
+  void commit();
 
-private:
+protected:
 
   int m_nentry;
   
@@ -31,8 +32,45 @@ private:
   
   pool::Placement m_place;  
 
+
+};
+
+class  OneBranchTree : private  OneBranchTreeBase {
+
+public:
+  explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
+			 std::string const & bname = "Events(Prod)" );
+  ~OneBranchTree(){}
+
+  void add(edm::EDProduct * prod); 
+
+private:
   pool::Ref<edm::EDProduct> m_product;
 
 };
+
+template<typename Product>
+class  OneBranchTreeNaive : private  OneBranchTreeBase {
+
+public:
+  explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
+			 std::string const & bname = "Events(Prod)" ) : 
+    OneBranchTreeBase(cat,fname,bname),
+    m_product(*m_svc) {}
+
+  ~OneBranchTree(){}
+
+  void add(Product * prod) {
+    start();
+    m_product = prod;
+    m_product.markWrite(m_place);
+    commit();
+  }
+
+private:
+  pool::Ref<Product> m_product;
+
+};
+
 
 #endif

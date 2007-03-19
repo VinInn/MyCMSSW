@@ -14,14 +14,13 @@
 #include "PoolTests/DataFormatTests/interface/OneBranchTree.h"
 
 
-OneBranchTree::OneBranchTree(pool::IFileCatalog * cat, 
-			     std::string const & fname /* = "Events.root" */,
-			     std::string const & bname /* = "Events(Prod)" */ ) :
+OneBranchTreeBase::OneBranchTreeBase(pool::IFileCatalog * cat, 
+				     std::string const & fname /* = "Events.root" */,
+				     std::string const & bname /* = "Events(Prod)" */ ) :
   m_nentry(0),    
   m_svc(pool::DataSvcFactory::instance(cat)),
   m_place(fname, pool::DatabaseSpecification::PFN, bname, ROOT::Reflex::Type(), 
-	   pool::ROOTTREE_StorageType.type()),
-  m_product(*m_svc)
+	   pool::ROOTTREE_StorageType.type())
 {
    // Define the policy for the implicit file handling
     pool::DatabaseConnectionPolicy policy;
@@ -32,25 +31,26 @@ OneBranchTree::OneBranchTree(pool::IFileCatalog * cat,
 }
 
 
+void OneBranchTreeBase::start() {
+  m_svc->transaction().start(pool::ITransaction::UPDATE);
+}
 
-OneBranchTree::~OneBranchTree()
+
+void OneBranchTreeBase::commit() {
+  m_nentry++;
+  m_svc->transaction().commitAndHold();
+  
+  if (m_nentry%10==0) {
+    // std::cout << "cache size before commit " << svc->cacheSvc().cacheSize() << std::endl;
+    m_svc->transaction().commit();
+    // std::cout << "cache size after commit " << svc->cacheSvc().cacheSize() << std::endl;
+  }
+}
+
+OneBranchTreeBase::~OneBranchTreeBase()
 {
   m_svc->transaction().commit();
   m_svc->session().disconnectAll();
   //  std::cout << "cache size at end " << svc->cacheSvc().cacheSize() << std::endl;
 }
 
-
-void OneBranchTree::add(edm::EDProduct * prod) {
-  m_svc->transaction().start(pool::ITransaction::UPDATE);
-  m_product = prod;
-  m_product.markWrite(m_place);
-  m_nentry++;
-  m_svc->transaction().commitAndHold();
-    
-    if (m_nentry%10==0) {
-      // std::cout << "cache size before commit " << svc->cacheSvc().cacheSize() << std::endl;
-      m_svc->transaction().commit();
-      // std::cout << "cache size after commit " << svc->cacheSvc().cacheSize() << std::endl;
-    }
-}
