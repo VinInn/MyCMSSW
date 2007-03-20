@@ -34,7 +34,7 @@ void act(const Obj&) {
 }
 
 template<typename Obj> 
-void go(fname) {
+void go(std::string const & fname) {
 
   try {
 
