@@ -131,14 +131,14 @@ int main(int argc, char * argv[]) {
 
   if (naive) {
     if (dv) 
-      go<detVectorPerformance::DVAI10, DVWrapper, addNaive<detVectorPerformance::DVAI10,DVWrapper> >();
+      go<detVectorPerformance::DVAI10, DVWrapper, addNaive<detVectorPerformance::DVAI10,DVWrapper> >(fname);
     else
-      go<detVectorPerformance::IVAI10, IVWrapper, addNaive<detVectorPerformance::IVAI10,IVWrapper> >();
+      go<detVectorPerformance::IVAI10, IVWrapper, addNaive<detVectorPerformance::IVAI10,IVWrapper> >(fname);
   } else{
    if (dv) 
-      go<edm::EDProduct, DVWrapper, addEDM>();
+      go<edm::EDProduct, DVWrapper, addEDM>(fname);
     else
-      go<edm::EDProduct, IVWrapper, addEDM>();
+      go<edm::EDProduct, IVWrapper, addEDM>(fname);
   }
       
   return 0;
