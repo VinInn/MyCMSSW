@@ -59,7 +59,7 @@ void go(std::string const & fname) {
 
 
     std::string containerName = "Events(Prod)";
-    if (argc>1) url = std::string("PFN:") + fname;
+    std::string url = std::string("PFN:") + fname;
 
 
     pool::Collection<Obj> 
@@ -72,7 +72,7 @@ void go(std::string const & fname) {
     timer.start();
     
     {
-      pool::Collection<Obj>::Iterator iter = collection.select();
+      typename pool::Collection<Obj>::Iterator iter = collection.select();
       int n=0;
       pool::Ref<Obj> aObj;
       while(iter.next()) {
