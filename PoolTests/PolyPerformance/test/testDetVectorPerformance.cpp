@@ -125,8 +125,8 @@ int main(int argc, char * argv[]) {
   bool naive = argc>1 && argv[1][1]=='n';
   bool dv = argc>2;
   
-  std::cout << naive ? "naive" :"edm" << std::endl;
-  std::cout << dv ? "doublevector" :"indexed" << std::endl;
+  std::cout << (naive ? "naive" :"edm") << std::endl;
+  std::cout << (dv ? "doublevector" : "indexed") << std::endl;
 
   if (naive) {
     if (dv) 
