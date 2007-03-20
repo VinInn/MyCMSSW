@@ -86,16 +86,16 @@ void go() {
   Adder adder;
 
   seal::PluginManager::get()->initialise();
-
+  
   pool::URIParser p;
   p.parse();
   
   pool::IFileCatalog cat;
   cat.setWriteCatalog(p.contactstring());
- 
+  
   cat.connect();
   cat.start();
-
+  
   PentiumTimer timer; 
   timer.start();
   
@@ -103,27 +103,31 @@ void go() {
     OneBranchTreeNaive<Product> tree(&cat);
     std::auto_ptr<WMaker<Wrapper> > 
       maker(new WMaker<Wrapper>());
-
+    
     std::cout << std::endl;
     
     for (int i=0;i<2000;i++) {
       adder(tree, *maker);
     }
-  
+    
   }
   timer.stop();
   std::cout << "elapsed time " << timer.lap() << std::endl;
-
+  
   cat.commit();
-
-
+  
+  
   //  std::cout << "the end" << std::endl;
 }
 
 int main(int argc, char * argv[]) {
+
   bool naive = argc>1 && argv[1][1]=='n';
   bool dv = argc>2;
   
+  std::cout << naive ? "naive" :"edm" << std::endl;
+  std::cout << dv ? "doublevector" :"indexed" << std::endl;
+
   if (naive) {
     if (dv) 
       go<detVectorPerformance::DVAI10, DVWrapper, addNaive<detVectorPerformance::DVAI10,DVWrapper> >();
