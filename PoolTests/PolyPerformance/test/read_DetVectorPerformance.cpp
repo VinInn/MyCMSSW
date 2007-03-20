@@ -23,16 +23,18 @@
 #include "DataFormats/Common/interface/EDProduct.h"
 #include "DataFormats/Common/interface/EventAux.h"
 
+#include "PoolTests/PolyPerformance/interface/DetVectorPerformanceStubs.h"
+
+
 #include "Utilities/Timing/interface/PentiumTimer.h"
 
 
-    // typedef edm::EventAux Obj;
-    typedef  edm::EDProduct Obj;
-
+template<typename Obj> 
 void act(const Obj&) {
 }
 
-int main(int argc, char * argv[]) {
+template<typename Obj> 
+void go(fname) {
 
   try {
 
@@ -54,37 +56,17 @@ int main(int argc, char * argv[]) {
     
     boost::shared_ptr<pool::IDataSvc> svc(pool::DataSvcFactory::instance(cat));
     svc->transaction().start();
-/*
-    std::string oid = 
-"[DB=F038EB17-6636-DB11-B7E4-00E08151E907][CNT=Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)][CLID=4B9F6001-FA5E-FFD1-F620-4DC0EEF423AE][TECH=00000202][OID=00000023-000003E7]";
-
-    
-    pool::Ref<edm::EDProduct> ref(&(*svc),oid);
-    std::cout << "object "
-              << ref.toString()
-              << "\nof type "<<  typeid(*ref).name() << std::endl;
-
-*/
 
 
-    std::string url = "PFN:Events.root";
     std::string containerName = "Events(Prod)";
-    if (argc>1) url = std::string("PFN:") + argv[1];
+    if (argc>1) url = std::string("PFN:") + fname;
 
 
-    //    std::string url = "FID:F038EB17-6636-DB11-B7E4-00E08151E907";
-    //    std::string url = "PFN:/afs/cern.ch/user/i/innocent/scratch0/h2.00029004.combined.OutServ_0.0-cmsswreco.root";
-    // std::string containerName = "Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)";
-    // std::string containerName = "Events(EventAux)";
- 
     pool::Collection<Obj> 
       collection(&(*svc),
 		 "ImplicitCollection", url, containerName, 
 		 pool::ICollection::READ);
     
-  //  std::string oid =  
-//"[DB=F038EB17-6636-DB11-B7E4-00E08151E907][CNT=Events(EcalRecHitsSorted_ecalRecHitMaker__RECO.)]
-// [CLID=4B9F6001-FA5E-FFD1-F620-4DC0EEF423AE][TECH=00000202][OID=00000023-000003E7]";
 
     PentiumTimer timer; 
     timer.start();
@@ -124,8 +106,29 @@ int main(int argc, char * argv[]) {
     std::cout << ce.what() << std::endl;
   }
 
-    return 0;
-  }
+
+}
   
 
+int main(int argc, char * argv[]) {
+
+  bool naive = argc>1 && argv[1][0]=='n';
+  bool dv = argc>2;
+  
+  std::string fname =  std::string(naive ? "naive_" :"edm_") +  std::string(dv ? "doublevector" : "indexed") +".root";
+
+  std::cout << fname << std::endl;
+
+  if (naive) {
+    if (dv) 
+      go<detVectorPerformance::DVAI10>(fname);
+    else
+      go<detVectorPerformance::IVAI10>(fname);
+  } else{
+    go<edm::EDProduct>(fname);
+  }
+      
+  return 0;
+
+}
 

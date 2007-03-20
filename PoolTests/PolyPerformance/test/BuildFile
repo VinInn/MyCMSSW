@@ -12,4 +12,12 @@
   <use name=Utilities/Timing>
 </bin>
 
+<bin name=read_PoolTests_DetVectorPerformance file=read_DetVectorPerformance.cpp>
+  <use name=Collection>
+  <use name=PoolTests/PolyPerformance>
+  <use name=PoolTests/DataFormatTests>
+  <use name=DataFormats/Common>
+  <use name=Utilities/Timing>
+</bin>
+
 
