@@ -40,12 +40,12 @@ template<typename Product>
 class  OneBranchTreeNaive : private  OneBranchTreeBase {
 
 public:
-  explicit OneBranchTree(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
+  explicit OneBranchTreeNaive(pool::IFileCatalog * cat, std::string const & fname = "Events.root",
 			 std::string const & bname = "Events(Prod)" ) : 
     OneBranchTreeBase(cat,fname,bname),
     m_product(*m_svc) {}
 
-  ~OneBranchTree(){}
+  ~OneBranchTreeNaive(){}
 
   void add(Product * prod) {
     start();

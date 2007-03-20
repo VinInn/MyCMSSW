@@ -118,7 +118,7 @@ void go() {
 
 
   //  std::cout << "the end" << std::endl;
-
+}
 
 int main(int argc, char * argv[]) {
   bool naive = argc>1 && argv[1][1]=='n';
@@ -131,9 +131,9 @@ int main(int argc, char * argv[]) {
       go<detVectorPerformance::IVAI10, IVWrapper, addNaive<detVectorPerformance::IVAI10,IVWrapper> >();
   } else{
    if (dv) 
-      go<detVectorPerformance::DVAI10, DVWrapper, addEDM>();
+      go<edm::EDProduct, DVWrapper, addEDM>();
     else
-      go<detVectorPerformance::IVAI10, IVWrapper, addEDM>();
+      go<edm::EDProduct, IVWrapper, addEDM>();
   }
       
   return 0;
