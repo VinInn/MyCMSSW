@@ -82,7 +82,7 @@ struct addNaive {
 };
 
 template<typename Product, typename Wrapper, typename Adder>
-void go() {
+void go(std::string const & fname) {
   Adder adder;
 
   seal::PluginManager::get()->initialise();
@@ -100,7 +100,7 @@ void go() {
   timer.start();
   
   {
-    OneBranchTreeNaive<Product> tree(&cat);
+    OneBranchTreeNaive<Product> tree(&cat,fname);
     std::auto_ptr<WMaker<Wrapper> > 
       maker(new WMaker<Wrapper>());
     
@@ -125,8 +125,9 @@ int main(int argc, char * argv[]) {
   bool naive = argc>1 && argv[1][1]=='n';
   bool dv = argc>2;
   
-  std::cout << (naive ? "naive" :"edm") << std::endl;
-  std::cout << (dv ? "doublevector" : "indexed") << std::endl;
+  std::string fname = (naive ? "naive_" :"edm_") + (dv ? "doublevector" : "indexed") +".root";
+
+  std::cout << fname << std::endl;
 
   if (naive) {
     if (dv) 
