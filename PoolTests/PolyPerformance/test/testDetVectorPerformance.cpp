@@ -125,7 +125,7 @@ int main(int argc, char * argv[]) {
   bool naive = argc>1 && argv[1][1]=='n';
   bool dv = argc>2;
   
-  std::string fname = (naive ? "naive_" :"edm_") + (dv ? "doublevector" : "indexed") +".root";
+  std::string fname =  std::string(naive ? "naive_" :"edm_") +  std::string(dv ? "doublevector" : "indexed") +".root";
 
   std::cout << fname << std::endl;
 
