@@ -70,6 +70,7 @@ int main(int argc, char * argv[]) {
     std::string url = "PFN:Events.root";
     std::string containerName = "Events(Prod)";
     if (argc>1) url = std::string("PFN:") + argv[1];
+    if (argc>2) containerName std::string("Events(") + argv[2] + ".)";
 
 
     //    std::string url = "FID:F038EB17-6636-DB11-B7E4-00E08151E907";
