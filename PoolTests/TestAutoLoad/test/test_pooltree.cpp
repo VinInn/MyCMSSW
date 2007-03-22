@@ -89,7 +89,7 @@ int main(int argc, char * argv[]) {
 
     PentiumTimer timer; 
     timer.start();
-    
+    double first;
     {
       pool::Collection<Obj>::Iterator iter = collection.select();
       int n=0;
@@ -105,6 +105,7 @@ int main(int argc, char * argv[]) {
 		    << std::endl;
 	else
 	  act(*aObj);
+	if (n==1) first = timer.lap();
       }
       std::cout << "It contains " << n << " objects of type "
 		<<  typeid(*aObj).name()<< std::endl;
@@ -114,6 +115,7 @@ int main(int argc, char * argv[]) {
       
     }    
     timer.stop();
+    std::cout << "elapsed time after first read" << first << std::endl;
     std::cout << "elapsed time " << timer.lap() << std::endl;
     
     svc->transaction().commit();
