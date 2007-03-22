@@ -115,7 +115,7 @@ int main(int argc, char * argv[]) {
       
     }    
     timer.stop();
-    std::cout << "elapsed time after first read" << first << std::endl;
+    std::cout << "elapsed time after first read " << first << std::endl;
     std::cout << "elapsed time " << timer.lap() << std::endl;
     
     svc->transaction().commit();
