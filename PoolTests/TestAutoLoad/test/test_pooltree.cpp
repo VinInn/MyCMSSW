@@ -105,7 +105,7 @@ int main(int argc, char * argv[]) {
 		    << std::endl;
 	else
 	  act(*aObj);
-	if (n==1) first = timer.lap();
+	if (n==1) first = timer.lap().seconds();
       }
       std::cout << "It contains " << n << " objects of type "
 		<<  typeid(*aObj).name()<< std::endl;
