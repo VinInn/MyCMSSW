@@ -12,13 +12,13 @@
 //
 namespace {
   template<typename Product>
-  class Analyzer : public edm::EDAnalyzer {
+  class ReaderStub : public edm::EDAnalyzer {
   public:
-    explicit Analyzer(const edm::ParameterSet& pset) :
+    explicit ReaderStub(const edm::ParameterSet& pset) :
       label(pset.getParameter<std::string>("label")),
       m_size(0)
     {}
-    ~ProfilerAnalyzer() {}
+    ~ReaderStub(){}
     
     
   private:
@@ -40,6 +40,6 @@ namespace {
 
 }
 
-typedef Analyzer<std::vector<SimTrack> > SimTrackReaderVI;
+typedef ReaderStub<std::vector<SimTrack> > SimTrackReaderVI;
 
 DEFINE_FWK_MODULE(SimTrackReaderVI);
