@@ -3,4 +3,11 @@
   <use name=SimDataFormats/Track>
 </bin>
 
+<library file=ReaderModuleStub.cc name=PoolTestsReaderModuleStub>
+   <use name=FWCore/Framework>
+   <use name=Foundation/PluginManager>
+   <use name=FWCore/ParameterSet>
+  <use name=SimDataFormats/Track>
+ <flags SEAL_PLUGIN_NAME="PoolTestsReaderModuleStub">
+</library>
 
