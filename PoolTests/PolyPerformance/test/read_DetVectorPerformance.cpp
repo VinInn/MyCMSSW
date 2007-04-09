@@ -21,8 +21,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DataFormats/Common/interface/EDProduct.h"
-#include "DataFormats/Common/interface/EventAux.h"
-
+// #include  "DataFormats/Provenance/interface/EventAuxiliary.h" 
 #include "PoolTests/PolyPerformance/interface/DetVectorPerformanceStubs.h"
 
 
