@@ -1,0 +1,11 @@
+<use name=boost>
+<use name=DataSvc>
+
+
+<export>
+  <lib name=PoolTestsSchemaEvolution>
+  <use name=boost>
+  <use name=DataSvc>
+  <use name=rootrflx>
+</export>
+
