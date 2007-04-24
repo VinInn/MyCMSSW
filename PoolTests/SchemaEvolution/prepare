@@ -1,0 +1,6 @@
+#!/bin/csh
+foreach x (*/*_$1)
+  set d=`dirname $x`
+  set f=`basename $x _$1`
+  cp $x "$d/$f"
+end
