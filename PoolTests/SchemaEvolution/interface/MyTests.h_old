@@ -1,0 +1,44 @@
+#ifndef SchemaEvolution_MyTests_h
+#define SchemaEvolution_MyTests_h
+
+#include <vector>
+
+namespace shevts {
+
+
+  class FooBase {
+  public:
+    virtual ~FooBase(){}
+    
+    int i;
+
+  };
+
+  class Foo1 : public FooBase {
+  public:
+    
+    int j;
+  };
+
+  class Foo2 : public FooBase {
+  public:
+    
+    int j;
+  };
+
+  class Bar {
+  public:
+    virtual ~Bar(){}
+
+    std::vector<FooBase*> data;
+  };
+
+
+
+}
+
+#endif
+
+
+
+#endif

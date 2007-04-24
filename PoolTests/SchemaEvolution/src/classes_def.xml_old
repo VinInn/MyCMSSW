@@ -1,0 +1,7 @@
+<lcgdict>
+  <class name="shevts::FooBase" />
+  <class name="shevts::Foo1" />
+  <class name="shevts::Foo2" />
+  <class name="shevts::Bar" />
+  <class name="std::vector<shevts::FooBase*>"/>
+</lcgdict>
