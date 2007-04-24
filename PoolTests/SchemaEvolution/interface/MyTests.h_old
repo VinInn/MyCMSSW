@@ -1,5 +1,5 @@
-#ifndef SchemaEvolution_MyTests_h
-#define SchemaEvolution_MyTests_h
+#ifndef SchemaEvolution_MyTests_H
+#define SchemaEvolution_MyTests_H
 
 #include <vector>
 
@@ -37,8 +37,4 @@ namespace shevts {
 
 }
 
-#endif
-
-
-
-#endif
+#endif // SchemaEvolution_MyTests_H
