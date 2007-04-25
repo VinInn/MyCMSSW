@@ -1,0 +1,8 @@
+
+<export>
+# <lib name=PoolTestsBoostStreamer>
+ <lib name=boost_serialization-gcc-mt>
+ <use name=boost>
+ <use name=rootrflx>
+</export>
+
