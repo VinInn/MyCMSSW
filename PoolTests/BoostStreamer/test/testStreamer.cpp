@@ -16,7 +16,7 @@
 #include <memory>
 
 template<typename T>
-void write(char const * fname,  std::auto_ptr<T> p) {
+void writeIt(char const * fname,  std::auto_ptr<T> p) {
   std::ofstream file(fname);
   if (!file) { 
     std::cout << " error in opening file "
@@ -32,7 +32,7 @@ void write(char const * fname,  std::auto_ptr<T> p) {
 }
 
 template<typename T>
-void read(char const * fname, std::auto_ptr<T> & p) {
+void readIt(char const * fname, std::auto_ptr<T> & p) {
   std::ifstream file(fname);
   
   if (file) {
@@ -77,10 +77,10 @@ int main(int npar, char * parv) {
   if (parv[1]='w') {
     p.reset(new shevts::Pub);
     fill(*p);
-    write(parv[2],p);
+    writeIt(parv[2],p);
   }
   else {
-    read(parv[2],p);
+    readIt(parv[2],p);
     dump(*p);
   }
 
