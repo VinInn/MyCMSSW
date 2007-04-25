@@ -38,7 +38,7 @@ void read(char const * fname, std::auto_ptr<T> & p) {
   if (file) {
     // we need to know what we are reading...
     ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
-    ROOT::Reflex::Object ob = type.construct();
+    ROOT::Reflex::Object ob = type.Construct();
     // boost::archive::binary_iarchive ia(file);
     boost::archive::text_iarchive ia(file);
     ia >> ob;
@@ -73,7 +73,7 @@ int main(int npar, char * parv) {
     std::cout << "provide read/write option and file name"
 	      << std::endl;
 
-  std::auto_ptr<shevts::Pub> p=0;;
+  std::auto_ptr<shevts::Pub> p;
   if (parv[1]='w') {
     p.reset(new shevts::Pub);
     fill(*p);
