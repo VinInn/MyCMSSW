@@ -149,12 +149,12 @@ namespace Persil {
   bool isContainer(Archive & ar, ROOT::Reflex::Object & ob) {
     
     const std::type_info * ti=0;
-    ROOT::Reflex::Type tc = ob.Type();
+    ROOT::Reflex::Type tc = ob.TypeOf();
     
     
-    for (size_t i=0; i<tc.SubTypeCount(); i++) {
-      if (tc.SubType(i).name()=="value_type") {
-	ti= &tc.SubType(i).typeInfo();
+    for (size_t i=0; i<tc.SubTypeSize(); i++) {
+      if (tc.SubTypeAt(i).name()=="value_type") {
+	ti= &tc.SubTypeAt(i).TypeInfo();
 	break;
       }
     }
@@ -185,7 +185,7 @@ namespace Persil {
       ar & s;
       // std::cout << "size " << s << " value_type " << ti->name() << std::endl;     
       if (s>0) {
-	if (tc.TemplateFamily().name(ROOT::Reflex::SCOPED)=="std::vector"){
+	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
 	  //	  std::cout << "reserve for vector " << s << std::endl;
 	  std::vector<void *> v(1); v[0] = (void*)(&s);
 	  ob.Invoke("reserve",v);
@@ -204,7 +204,7 @@ namespace Persil {
       }
       if (s!= *(size_t*)ob.Invoke("size").address()) 
 	std::cout << "error!!! read " << s << " instead of " 
-		  << *(size_t*)ob.invoke("size").address() << std::endl;
+		  << *(size_t*)ob.Invoke("size").Address() << std::endl;
     }
     return true;
   }
@@ -226,7 +226,7 @@ namespace boost {
     void serialize(Archive & ar, ROOT::Reflex::Object & ob, unsigned int) {
       using ROOT::Reflex::Type;
       using ROOT::Reflex::Member;
-      Type tc = ob.Type();
+      Type tc = ob.TypeOf();
     
       bool locdeb=false;
       
@@ -238,26 +238,26 @@ namespace boost {
       }
       */
 
-      if ( Persil::rttio<Archive>().serializePrimitive(ar, ob.type().typeInfo(), ob.address()) );
-      else if (ob.type().IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
-      else if (ob.type().IsArray() )  std::cout << "arrays not supported yet" << std::endl;
+      if ( Persil::rttio<Archive>().serializePrimitive(ar, ob.Type().TypeInfo(), ob.Address()) );
+      else if (ob.Type().IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
+      else if (ob.Type().IsArray() )  std::cout << "arrays not supported yet" << std::endl;
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
 
 	if (Persil::debug()) {
-	  for (size_t i=0; i<tc.DataMemberCount(); i++) {
-	    Member m = tc.DataMember(i);
+	  for (size_t i=0; i<tc.DataMemberSize(); i++) {
+	    Member m = tc.DataMemberAt(i);
 	    std::cout << m.Name() << " " << m.Type().Name() << ", ";
 	  }     
 	  std::cout <<  std::endl;
 	}
 	
-	for (size_t i=0; i<tc.BaseCount(); i++) {
-	  ROOT::Reflex::Object rc(tc.Base(i).ToType(),ob.Address()+tc.Base(i).Offset(ob.Address()));
+	for (size_t i=0; i<tc.BaseSize(); i++) {
+	  ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),ob.Address()+tc.BaseAt(i).Offset(ob.Address()));
 	  ar & rc;
 	}
-	for (size_t i=0; i<tc.DataMemberCount(); i++) {
-	  Member m = tc.DataMember(i);
+	for (size_t i=0; i<tc.DataMemberSize(); i++) {
+	  Member m = tc.DataMemberAt(i);
 	  if (!m.IsTransient()) ar & m.Get(ob);
 	}
       }
