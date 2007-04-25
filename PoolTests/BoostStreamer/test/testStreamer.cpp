@@ -74,7 +74,7 @@ int main(int npar, char * parv[]) {
 	      << std::endl;
 
   std::auto_ptr<shevts::Pub> p;
-  if (parv[1]=='w') {
+  if (parv[1][0]=='w') {
     p.reset(new shevts::Pub);
     fill(*p);
     writeIt(parv[2],p);

@@ -258,7 +258,10 @@ namespace boost {
 	}
 	for (size_t i=0; i<tc.DataMemberSize(); i++) {
 	  Member m = tc.DataMemberAt(i);
-	  if (!m.IsTransient()) ar & m.Get(ob);
+	  if (!m.IsTransient()) { 
+	    ROOT::Reflex::Object lo = m.Get(ob); 
+	    ar & lo;
+	  }
 	}
       }
 
