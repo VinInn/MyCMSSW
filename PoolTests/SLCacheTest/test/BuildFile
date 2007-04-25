@@ -1,0 +1,19 @@
+<use name=PoolTest/SLCacheTest>
+<use name=Foundation/SealUtil>
+<use name=Collection>
+
+<bin file=example_SpecializedProtocol.cpp></bin>
+
+<bin file=test_Protocol.cpp></bin>
+
+<bin file=test_CacheServer.cpp></bin>
+
+<bin file=test_CacheClient.cpp>
+<use name=PoolTest/CalibDBTests>
+</bin>
+
+<bin file=test_trasher.cpp>
+<use name=PoolTest/CalibDBTests>
+</bin>
+
+

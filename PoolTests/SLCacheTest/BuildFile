@@ -1,0 +1,21 @@
+
+<use name=boost>
+<lib name=boost_serialization-gcc-mt>
+<use name=zlib>
+<use name=DataSvc>
+<use name=Foundation/SealZip>
+<use name=Dictionary/Reflex>
+<use name=Utilities/Notification>
+<Flags SEAL_PLUGIN_NAME="SLCacheTest">
+
+<export>
+ <lib name=SLCacheTest>
+ <use name=boost>
+ <use name=zlib>
+ <use name=DataSvc>
+<use name=Foundation/SealZip>
+<use name=Dictionary/Reflex>
+<use name=Utilities/GenUtil>
+<use name=Utilities/Notification>
+</export>
+

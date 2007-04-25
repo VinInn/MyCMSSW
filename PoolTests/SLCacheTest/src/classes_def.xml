@@ -1,0 +1,12 @@
+<lcgdict>
+  <class name="std::basic_string<char>"/>
+  <class name="std::vector<int>"/>
+  <class name="Persil::Protocol"/>
+  <class name="Persil::Payload"/>
+  <class name="Persil::Eof"/>
+  <class name="NamedPayload"/>
+  <class name="ProtocalEx::Meta"/>
+  <class name="ProtocalEx::Product"/>
+  <class name="ProtocalEx::ProductT<std::basic_string<char> >"/>
+  <class name="ProtocalEx::ProductT<std::vector<int> >"/>
+</lcgdict>
