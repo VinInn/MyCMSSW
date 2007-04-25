@@ -51,18 +51,18 @@ void read(char const * fname, std::auto_ptr<T> & p) {
   }
 }
 
-void set(Foo1& f) {
+void set(shevts::Foo1& f) {
   static int i=0;
   f.i=i++;
   f.j=2*i;
 }
 
-void fill(Pub & p) {
+void fill(shevts::Pub & p) {
   p.data.resize(10);
   std::foreach(p.data.begin(),p.data.end(),&set);
 }
 
-void dump(Pub const & p) {
+void dump(shevts::Pub const & p) {
   std::cout << p.data.size() << std::endl;
   
 }

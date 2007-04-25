@@ -153,7 +153,7 @@ namespace Persil {
     
     
     for (size_t i=0; i<tc.SubTypeSize(); i++) {
-      if (tc.SubTypeAt(i).name()=="value_type") {
+      if (tc.SubTypeAt(i).Name()=="value_type") {
 	ti= &tc.SubTypeAt(i).TypeInfo();
 	break;
       }
@@ -202,7 +202,7 @@ namespace Persil {
 	
 
       }
-      if (s!= *(size_t*)ob.Invoke("size").address()) 
+      if (s!= *(size_t*)ob.Invoke("size").Address()) 
 	std::cout << "error!!! read " << s << " instead of " 
 		  << *(size_t*)ob.Invoke("size").Address() << std::endl;
     }
@@ -238,9 +238,9 @@ namespace boost {
       }
       */
 
-      if ( Persil::rttio<Archive>().serializePrimitive(ar, ob.Type().TypeInfo(), ob.Address()) );
-      else if (ob.Type().IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
-      else if (ob.Type().IsArray() )  std::cout << "arrays not supported yet" << std::endl;
+      if ( Persil::rttio<Archive>().serializePrimitive(ar, ob.TypeOf().TypeInfo(), ob.Address()) );
+      else if (ob.TypeOf().IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
+      else if (ob.TypeOf().IsArray() )  std::cout << "arrays not supported yet" << std::endl;
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
 
