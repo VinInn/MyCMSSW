@@ -178,7 +178,7 @@ namespace Persil {
       ar & s;
       if(s>0)
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
-	  ar & ROOT::Reflex::Object(t,o); env.idx=1;
+	   ROOT::Reflex::Object lo(t,o) ar & lo; env.idx=1;
 	}
     } else {    
       size_t s;
