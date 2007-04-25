@@ -247,13 +247,13 @@ namespace boost {
 	if (Persil::debug()) {
 	  for (size_t i=0; i<tc.DataMemberSize(); i++) {
 	    Member m = tc.DataMemberAt(i);
-	    std::cout << m.Name() << " " << m.Type().Name() << ", ";
+	    std::cout << m.Name() << " " << m.TypeOf().Name() << ", ";
 	  }     
 	  std::cout <<  std::endl;
 	}
 	
 	for (size_t i=0; i<tc.BaseSize(); i++) {
-	  ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),ob.Address()+tc.BaseAt(i).Offset(ob.Address()));
+	  ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),(void*)((size_t)(ob.Address())+tc.BaseAt(i).Offset(ob.Address())));
 	  ar & rc;
 	}
 	for (size_t i=0; i<tc.DataMemberSize(); i++) {

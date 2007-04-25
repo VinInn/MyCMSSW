@@ -4,6 +4,9 @@
 #include<boost/archive/text_iarchive.hpp>
 #include<boost/archive/binary_iarchive.hpp>
 
+#include<boost/archive/text_oarchive.hpp>
+#include<boost/archive/binary_oarchive.hpp>
+
 
 
 
@@ -14,7 +17,7 @@
 
 template<typename T>
 void write(char const * fname,  std::auto_ptr<T> p) {
-  ofstream file(fname);
+  std::ofstream file(fname);
   if (!file) { 
     std::cout << " error in opening file "
 	      << fname << std::endl;
@@ -30,7 +33,7 @@ void write(char const * fname,  std::auto_ptr<T> p) {
 
 template<typename T>
 void read(char const * fname, std::auto_ptr<T> & p) {
-  ifstream file(fname);
+  std::ifstream file(fname);
   
   if (file) {
     // we need to know what we are reading...
@@ -45,9 +48,7 @@ void read(char const * fname, std::auto_ptr<T> & p) {
     std::cout << "object " << type.Name() <<" at " << ob.Address() << std::endl;
   }
   else {
-    t=0;
     std::cout << "ERROR: good and eof " << file.good() << " " << file.eof() <<std:: endl;
-    
   }
 }
 
@@ -59,7 +60,7 @@ void set(shevts::Foo1& f) {
 
 void fill(shevts::Pub & p) {
   p.data.resize(10);
-  std::foreach(p.data.begin(),p.data.end(),&set);
+  std::for_each(p.data.begin(),p.data.end(),&set);
 }
 
 void dump(shevts::Pub const & p) {
