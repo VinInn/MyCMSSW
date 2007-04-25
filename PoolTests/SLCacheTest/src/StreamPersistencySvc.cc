@@ -20,7 +20,7 @@ StreamPersistencySvc::StreamPersistencySvc(super & it, Persil::GetterFactory & i
 
 StreamPersistencySvc::~StreamPersistencySvc(){}
 
-std::pair< void*, seal::reflex::Type > 
+std::pair< void*, ROOT::Reflex::Type > 
 StreamPersistencySvc::readObject( const pool::Token& token,
 				  pool::DataHandler* handler )    {
   LockMutex gl(mutex);
@@ -32,14 +32,14 @@ StreamPersistencySvc::readObject( const pool::Token& token,
   // TimeMe a(readIt,true);
   
  
-  seal::reflex::Type type = pool::DbReflex::forGuid(token.classID());
+  ROOT::Reflex::Type type = pool::DbReflex::forGuid(token.classID());
   //  const seal::reflect::Class* cl = seal::reflect::Class::forGuid(token.classID().toString());
-  // seal::reflex::Type type = seal::reflex::Type::byTypeInfo(cl->typeinfo());
-  seal::reflex::Object ob = type.construct();
+  // ROOT::Reflex::Type type = ROOT::Reflex::Type::byTypeInfo(cl->typeinfo());
+  ROOT::Reflex::Object ob = type.construct();
   // std::istringstream file; // (std::ios::binary); // file.setf( std::ios::skipws );
   std::istream file(0);
   std::auto_ptr<Persil::Getter> getter(getterFact.create());
-  (*getter)(file,token,type.name(seal::reflex::SCOPED));
+  (*getter)(file,token,type.name(ROOT::Reflex::SCOPED));
   if (file) {
     boost::archive::binary_iarchive ia(file);
     // boost::archive::text_iarchive ia(file);
@@ -50,6 +50,6 @@ StreamPersistencySvc::readObject( const pool::Token& token,
   }
   else {
     std::cout << "ERROR: good and eof " << file.good() << " " << file.eof() <<std:: endl;
-    return std::make_pair(0,seal::reflex::Type());
+    return std::make_pair(0,ROOT::Reflex::Type());
   }
 }

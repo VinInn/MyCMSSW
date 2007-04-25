@@ -140,10 +140,10 @@ namespace Persil {
 
 
   template<typename Archive>
-  bool isContainer(Archive & ar, seal::reflex::Object & ob) {
+  bool isContainer(Archive & ar, ROOT::Reflex::Object & ob) {
     
     const std::type_info * ti=0;
-    seal::reflex::Type tc = ob.type();
+    ROOT::Reflex::Type tc = ob.type();
     
     
     for (size_t i=0; i<tc.subTypeCount(); i++) {
@@ -157,13 +157,13 @@ namespace Persil {
 
     //    std::cout << "value_type " << ti->name() << std::endl;
     
-    seal::reflex::Type t =  seal::reflex::Type::byTypeInfo(*ti);
+    ROOT::Reflex::Type t =  ROOT::Reflex::Type::byTypeInfo(*ti);
     
     // std::vector<void*> v; 
-    std::auto_ptr<seal::reflex::CollFuncTable> cft( 
-						   (seal::reflex::CollFuncTable*)(ob.invoke("createCollFuncTable").address())
+    std::auto_ptr<ROOT::Reflex::CollFuncTable> cft( 
+						   (ROOT::Reflex::CollFuncTable*)(ob.invoke("createCollFuncTable").address())
 						   );
-    seal::reflex::Environ<long> env;
+    ROOT::Reflex::Environ<long> env;
     env.object = ob.address();
 
     if (Archive::is_saving::value) {
@@ -172,14 +172,14 @@ namespace Persil {
       ar & s;
       if(s>0)
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
-	  ar & seal::reflex::Object(t,o); env.idx=1;
+	  ar & ROOT::Reflex::Object(t,o); env.idx=1;
 	}
     } else {    
       size_t s;
       ar & s;
       // std::cout << "size " << s << " value_type " << ti->name() << std::endl;     
       if (s>0) {
-	if (tc.templateFamily().name(seal::reflex::SCOPED)=="std::vector"){
+	if (tc.templateFamily().name(ROOT::Reflex::SCOPED)=="std::vector"){
 	  //	  std::cout << "reserve for vector " << s << std::endl;
 	  std::vector<void *> v(1); v[0] = (void*)(&s);
 	  ob.invoke("reserve",v);
@@ -187,7 +187,7 @@ namespace Persil {
 	 
 	env.size=1;
 	for (size_t i=0; i<s; i++) {
-	  seal::reflex::Object v = t.construct(); 
+	  ROOT::Reflex::Object v = t.construct(); 
 	  env.start = v.address();
 	  ar & v;
 	  cft->feed_func(&env);	
@@ -217,15 +217,15 @@ namespace boost {
     
     
     template<typename Archive>
-    void serialize(Archive & ar, seal::reflex::Object & ob, unsigned int) {
-      using seal::reflex::Type;
-      using seal::reflex::Member;
+    void serialize(Archive & ar, ROOT::Reflex::Object & ob, unsigned int) {
+      using ROOT::Reflex::Type;
+      using ROOT::Reflex::Member;
       Type tc = ob.type();
     
       bool locdeb=false;
       
       /*
-      if (tc.templateFamily().name(seal::reflex::SCOPED)=="std::pair"){
+      if (tc.templateFamily().name(ROOT::Reflex::SCOPED)=="std::pair"){
 	 std::cout << "serializing " << tc.name() << " at " <<  ob.address() << std::endl;
 	 Persil::debug()=true;
 	 locdeb=true;
@@ -247,7 +247,7 @@ namespace boost {
 	}
 	
 	for (size_t i=0; i<tc.baseCount(); i++) {
-	  seal::reflex::Object rc(tc.base(i).toType(),ob.address()+tc.base(i).offset(ob.address()));
+	  ROOT::Reflex::Object rc(tc.base(i).toType(),ob.address()+tc.base(i).offset(ob.address()));
 	  ar & rc;
 	}
 	for (size_t i=0; i<tc.dataMemberCount(); i++) {

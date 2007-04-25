@@ -20,7 +20,7 @@ namespace Persil {
 
 
   bool ProtocolDecoder::decode() {
-    seal::reflex::Object ob = get();
+    ROOT::Reflex::Object ob = get();
     std::vector<void *> v(1); v[0] = (void*)(this);
     std::cout << "call action on " << ob.type().name() << std::endl;
     ob.invoke("action",v); 
@@ -28,15 +28,15 @@ namespace Persil {
     return !m_eof;
   }
   
-  seal::reflex::Object ProtocolDecoder::get() {
+  ROOT::Reflex::Object ProtocolDecoder::get() {
     std::string className;
     // stream >> className;
     std::getline(stream,className);
     std::cout << "got " << className << std::endl;
     // load capability (sic)
     // seal::PluginCapabilities::get()->load(std::string("LCGReflex/")+className);
-    seal::reflex::Type t = seal::reflex::Type::byName(className);
-    seal::reflex::Object ob = t.construct();
+    ROOT::Reflex::Type t = ROOT::Reflex::Type::byName(className);
+    ROOT::Reflex::Object ob = t.construct();
     iarchive ia(stream);
     ia >> ob;
     return ob;
@@ -56,14 +56,14 @@ namespace Persil {
 
   template<> 
   void ProtocolEncoder::encode<Protocol>( const Protocol & proc){
-    seal::reflex::Object ob(seal::reflex::Type::byTypeInfo(typeid(proc)),
+    ROOT::Reflex::Object ob(ROOT::Reflex::Type::byTypeInfo(typeid(proc)),
 			    dynamic_cast<void*>(const_cast<Protocol*>(&proc)));
     encode(ob);
   }
   
   template<>
-  void ProtocolEncoder::encode<seal::reflex::Object>(const seal::reflex::Object & ob) {
-    stream << ob.type().name(seal::reflex::SCOPED) <<std::endl;
+  void ProtocolEncoder::encode<ROOT::Reflex::Object>(const ROOT::Reflex::Object & ob) {
+    stream << ob.type().name(ROOT::Reflex::SCOPED) <<std::endl;
     oarchive oa(stream);
     oa << ob;
     stream.flush();
@@ -77,12 +77,12 @@ namespace Persil {
 
   void  ProtocolEncoder::encodeImpl(const std::type_info & ti, void * v) {
     encode<Protocol>(Payload());
-    seal::reflex::Object ob(seal::reflex::Type::byTypeInfo(ti),v);
+    ROOT::Reflex::Object ob(ROOT::Reflex::Type::byTypeInfo(ti),v);
     encode(ob);
   }
 
   void  ProtocolEncoder::encodeDirect(const std::type_info & ti, void * v) {
-    seal::reflex::Object ob(seal::reflex::Type::byTypeInfo(ti),v);
+    ROOT::Reflex::Object ob(ROOT::Reflex::Type::byTypeInfo(ti),v);
     encode(ob);
   }
 

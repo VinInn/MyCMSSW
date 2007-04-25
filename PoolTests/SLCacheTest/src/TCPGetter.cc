@@ -263,13 +263,13 @@ namespace Persil {
 	
 	pool::Token* tok = new pool::Token();
 	tok->fromString(stoken);
-	seal::reflex::Type t = seal::reflex::Type::byName(clName);
+	ROOT::Reflex::Type t = ROOT::Reflex::Type::byName(clName);
 	Baref ref(dataSvc,*tok, t.typeInfo());
 	std::cout << "cache size " << dataSvc->cacheSvc().cacheSize() << std::endl;
 	std::cout << "object of type " <<  t.typeInfo().name() 
 		  << " loaded in cache at " << ref.ptr() << std::endl;
 	tok->release();
-	seal::reflex::Object ob(t,ref.ptr());
+	ROOT::Reflex::Object ob(t,ref.ptr());
 	std::ostringstream file; // (std::ios::binary); // file.setf( std::ios::skipws );
 	boost::archive::binary_oarchive oa(file);
 	//      boost::archive::text_oarchive oa(file);

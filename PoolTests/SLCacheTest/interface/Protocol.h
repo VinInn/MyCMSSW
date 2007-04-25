@@ -6,8 +6,8 @@
 #include <typeinfo>
 #include <sstream>
 
-namespace seal {
-  namespace reflex {
+namespace ROOT {
+  namespace Reflex {
     class Object;
   }
 
@@ -40,7 +40,7 @@ namespace Persil {
 
   struct Consumer {
     virtual ~Consumer(){}
-    virtual void operator()(const seal::reflex::Object &ob)=0;
+    virtual void operator()(const ROOT::Reflex::Object &ob)=0;
   };
 
   class Eof : public Protocol {
@@ -56,7 +56,7 @@ namespace Persil {
 
     bool decode();
 
-    seal::reflex::Object get();
+    ROOT::Reflex::Object get();
     // call consumer...
     void consume();
 
@@ -103,7 +103,7 @@ namespace Persil {
   template<> 
   void ProtocolEncoder::encode<Protocol>(const Protocol & proc);
   template<>
-  void ProtocolEncoder::encode<seal::reflex::Object>(const seal::reflex::Object & ob);
+  void ProtocolEncoder::encode<ROOT::Reflex::Object>(const ROOT::Reflex::Object & ob);
 
 
   /** not a protocol...

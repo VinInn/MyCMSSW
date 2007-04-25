@@ -58,7 +58,7 @@ public:
     me.setDataTransform(dataTransform );
   }
   
-  std::pair< void*, seal::reflex::Type > readObject( const pool::Guid& transientGuid,
+  std::pair< void*, ROOT::Reflex::Type > readObject( const pool::Guid& transientGuid,
 						     const pool::Token& token,
 						     pool::DataHandler* handler = 0 )    {
     LockMutex gl(mutex);
@@ -66,7 +66,7 @@ public:
     return me.readObject(transientGuid, token, handler);
   }
   
-  std::pair< void*, seal::reflex::Type > readObject( const seal::reflex::Type& type,
+  std::pair< void*, ROOT::Reflex::Type > readObject( const ROOT::Reflex::Type& type,
 						     const pool::Token& token,
 						     pool::DataHandler* handler = 0 )    {
     LockMutex gl(mutex);
@@ -74,20 +74,20 @@ public:
     return me.readObject(type, token, handler);
   }
   
-  std::pair< void*, seal::reflex::Type > readObject( const pool::Token& token,
+  std::pair< void*, ROOT::Reflex::Type > readObject( const pool::Token& token,
 						     pool::DataHandler* handler = 0 );
 
 
   pool::Token* registerForWrite( const pool::Placement& place,
 				 const void* object,
-				 const seal::reflex::Type& type,
+				 const ROOT::Reflex::Type& type,
 				 pool::DataHandler* handler = 0 )    {
     LockMutex gl(mutex);
     return me.registerForWrite( place,object,type,handler);
   }
   
   bool updateObject( const void* object,
-		     const seal::reflex::Type& type,
+		     const ROOT::Reflex::Type& type,
 		     const pool::Token& token,
 		     pool::DataHandler* handler = 0 )    {
     LockMutex gl(mutex);

@@ -20,11 +20,11 @@ namespace {
   class LocalConsumer : public NamedPayloadConsumer {
   public:
     explicit LocalConsumer(Store & istore) : store(istore){} 
-    void operator()(const std::string &name, const seal::reflex::Object & meta, 
-		    const seal::reflex::Object & ob) {
+    void operator()(const std::string &name, const ROOT::Reflex::Object & meta, 
+		    const ROOT::Reflex::Object & ob) {
       // LocalConsumer & lc = *this;
-      std::cout << "received " << meta.type().name(seal::reflex::SCOPED)  
-		<< " " << ob.type().name(seal::reflex::SCOPED) <<std::endl;
+      std::cout << "received " << meta.type().name(ROOT::Reflex::SCOPED)  
+		<< " " << ob.type().name(ROOT::Reflex::SCOPED) <<std::endl;
       store[name] = std::pair<ProtocalEx::Meta*,ProtocalEx::Product*>((ProtocalEx::Meta*)(meta.address()), (ProtocalEx::Product*)(ob.address()));
     }
   private:

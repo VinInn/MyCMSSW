@@ -4,8 +4,7 @@
 <use name=zlib>
 <use name=DataSvc>
 <use name=Foundation/SealZip>
-<use name=Dictionary/Reflex>
-<use name=Utilities/Notification>
+<use name=rootrflx>
 <Flags SEAL_PLUGIN_NAME="SLCacheTest">
 
 <export>
@@ -14,8 +13,6 @@
  <use name=zlib>
  <use name=DataSvc>
 <use name=Foundation/SealZip>
-<use name=Dictionary/Reflex>
-<use name=Utilities/GenUtil>
-<use name=Utilities/Notification>
+<use name=rootrflx>
 </export>
 

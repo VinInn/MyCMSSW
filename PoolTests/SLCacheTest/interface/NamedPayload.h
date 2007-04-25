@@ -24,9 +24,9 @@ private:
 
 class NamedPayloadConsumer : public Persil::Consumer {
   public:
-  void operator()(const seal::reflex::Object &) {}
-  virtual void operator()(const std::string &name, const seal::reflex::Object & meta, 
-			const seal::reflex::Object & ob)=0;
+  void operator()(const ROOT::Reflex::Object &) {}
+  virtual void operator()(const std::string &name, const ROOT::Reflex::Object & meta, 
+			const ROOT::Reflex::Object & ob)=0;
 };
 
 

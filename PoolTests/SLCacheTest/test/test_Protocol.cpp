@@ -11,13 +11,13 @@
 namespace {
   class LocalConsumer : public Persil::Consumer {
   public:
-    void operator()(const seal::reflex::Object & ob) {
+    void operator()(const ROOT::Reflex::Object & ob) {
       LocalConsumer & lc = *this;
-      std::cout << "got " << ob.type().name(seal::reflex::SCOPED) <<std::endl;
-      if ( ob.type().name(seal::reflex::SCOPED).find("Persil")!=std::string::npos) 
-	std::cout << "error " <<  ob.type().name(seal::reflex::SCOPED) 
+      std::cout << "got " << ob.type().name(ROOT::Reflex::SCOPED) <<std::endl;
+      if ( ob.type().name(ROOT::Reflex::SCOPED).find("Persil")!=std::string::npos) 
+	std::cout << "error " <<  ob.type().name(ROOT::Reflex::SCOPED) 
 		  << "should not arrive here" <<std::endl;
-      if ( ob.type().name(seal::reflex::SCOPED).find("vector")!=std::string::npos) {
+      if ( ob.type().name(ROOT::Reflex::SCOPED).find("vector")!=std::string::npos) {
 	m_v.reset((std::vector<int>*)(ob.address()));
 	std::cout << "decoded " << lc.v().size() << " " << lc.v()[1] << " " << lc.v()[4] << std::endl;
       } else {
