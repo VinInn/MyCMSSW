@@ -67,14 +67,14 @@ void dump(shevts::Pub const & p) {
   std::cout << p.data.size() << std::endl;
   
 }
-int main(int npar, char * parv) {
+int main(int npar, char * parv[]) {
 
   if (npar<3) 
     std::cout << "provide read/write option and file name"
 	      << std::endl;
 
   std::auto_ptr<shevts::Pub> p;
-  if (parv[1]='w') {
+  if (parv[1]=='w') {
     p.reset(new shevts::Pub);
     fill(*p);
     writeIt(parv[2],p);
