@@ -1,0 +1,6 @@
+<bin name=testBoostStreamer  file=testStreamer.cpp></bin>
+  <use name=boost>
+  <use name=rootrflx>
+  <use name=PoolTests/BoostStreamer>
+  <use name=PoolTests/SchemaEvolution>
+</bin>

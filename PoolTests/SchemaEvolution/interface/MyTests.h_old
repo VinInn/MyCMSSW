@@ -33,6 +33,12 @@ namespace shevts {
     std::vector<FooBase*> data;
   };
 
+  class Pub {
+  public:
+    virtual ~Pub(){}
+
+    std::vector<Foo1> data;
+  };
 
 
 }
