@@ -218,6 +218,8 @@ namespace Persil {
 }
 
 
+
+
 namespace boost {
   namespace serialization {
     
@@ -273,5 +275,13 @@ namespace boost {
   }
   
 }
+BOOST_CLASS_IMPLEMENTATION(
+    ROOT::Reflex::Object, 
+    boost::serialization::object_serializable
+)
+
+BOOST_CLASS_TRACKING(ROOT::Reflex::Object, boost::serialization::track_never) 
+
+
 
 #endif // Persil_Streamer_H
