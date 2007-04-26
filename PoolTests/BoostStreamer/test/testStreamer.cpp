@@ -53,8 +53,8 @@ void readIt(char const * fname, std::auto_ptr<T> & p) {
 }
 
 void set(shevts::Foo1& f) {
-  static int i=0;
-  f.i=i++;
+  static int i=100;
+  f.i=i+=5;
   f.j=2*i;
 }
 
