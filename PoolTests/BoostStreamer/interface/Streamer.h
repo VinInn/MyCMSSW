@@ -250,10 +250,15 @@ namespace boost {
 	// check version (later int...)
 	std::string currentVersion="V0";
 	ROOT::Reflex::PropertyList p = tc.Properties();
-	if (p.HasKey("Version")) {
+	if (p.HasProperty("Version")) {
 	  currentVersion = p.PropertyAsString("Version");
 	 }
 	std::string version=currentVersion;
+
+	if (true) {
+	  std::cout << "Versions " << currentVersion << " " << version << std::endl;
+	}
+
 	ar & version;
 
 	if (true) {
@@ -262,7 +267,7 @@ namespace boost {
 	
 	if (!Archive::is_saving::value) {
 	  if (version !=currentVersion) { // shall evolve... 
-	    if (p.HasKey("EvolveFrom"+version)) {
+	    if (p.HasProperty("EvolveFrom"+version)) {
 	    }
 	  }
 	}
