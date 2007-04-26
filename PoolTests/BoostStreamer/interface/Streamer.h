@@ -253,18 +253,19 @@ namespace boost {
 	if (p.HasKey("Version")) {
 	  currentVersion = p.PropertyAsString("Version");
 	 }
-	std::string version;
+	std::string version=currentVersion;
 	ar & version;
 
 	if (true) {
 	  std::cout << "Versions " << currentVersion << " " << version << std::endl;
 	}
 	
-	if (version !=currentVersion) { // shall evolve... 
-	  if (p.HasKey("EvolveFrom"+version)) {
+	if (!Archive::is_saving::value) {
+	  if (version !=currentVersion) { // shall evolve... 
+	    if (p.HasKey("EvolveFrom"+version)) {
+	    }
 	  }
 	}
-
 
 	if (Persil::debug()) {
 	  for (size_t i=0; i<tc.DataMemberSize(); i++) {
