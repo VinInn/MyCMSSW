@@ -158,7 +158,8 @@ namespace Persil {
 	break;
       }
     }
-    
+
+    //FIXME not real enough to caracterize a "container"
     if (!ti) return false;
 
     //    std::cout << "value_type " << ti->name() << std::endl;
@@ -240,11 +241,30 @@ namespace boost {
       }
       */
 
-      if ( Persil::rttio<Archive>().serializePrimitive(ar, ob.TypeOf().TypeInfo(), ob.Address()) );
-      else if (ob.TypeOf().IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
-      else if (ob.TypeOf().IsArray() )  std::cout << "arrays not supported yet" << std::endl;
+      if ( Persil::rttio<Archive>().serializePrimitive(ar, tc.TypeInfo(), ob.Address()) );
+      else if (tc.IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
+      else if (tc.IsArray() )  std::cout << "arrays not supported yet" << std::endl;
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
+
+	// check version (later int...)
+	std::string currentVersion="V0";
+	ROOT::Reflex::PropertyList p = tc.Properties();
+	if (p.HasKey("Version")) {
+	  currentVersion = p.PropertyAsString("Version");
+	 }
+	std::string version;
+	ar & version;
+
+	if (true) {
+	  std::cout << "Versions " << currentVersion << " " << version << std::endl;
+	}
+	
+	if (version !=currentVersion) { // shall evolve... 
+	  if (p.HasKey("EvolveFrom"+version)) {
+	  }
+	}
+
 
 	if (Persil::debug()) {
 	  for (size_t i=0; i<tc.DataMemberSize(); i++) {
