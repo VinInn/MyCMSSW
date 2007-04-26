@@ -255,10 +255,6 @@ namespace boost {
 	 }
 	std::string version=currentVersion;
 
-	if (true) {
-	  std::cout << "Versions " << currentVersion << " " << version << std::endl;
-	}
-
 	ar & version;
 
 	if (true) {
