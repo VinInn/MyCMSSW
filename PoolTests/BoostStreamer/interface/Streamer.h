@@ -258,7 +258,7 @@ namespace boost {
 	ar & version;
 
 	if (true) {
-	  std::cout << "Versions " << currentVersion << " " << version << std::endl;
+	  std::cout <<  tc.name() << " Versions " << currentVersion << " " << version << std::endl;
 	}
 	
 	if (!Archive::is_saving::value) {
