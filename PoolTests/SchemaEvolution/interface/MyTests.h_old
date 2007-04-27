@@ -37,7 +37,8 @@ namespace shevts {
   public:
     virtual ~Pub(){}
 
-    std::vector<Foo1> data;
+    std::vector<Foo1> data1;
+    std::vector<Foo2> data2;
   };
 
 

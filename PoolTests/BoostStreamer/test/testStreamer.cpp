@@ -52,24 +52,38 @@ void readIt(char const * fname, std::auto_ptr<T> & p) {
   }
 }
 
-void set(shevts::Foo1& f) {
+void set1(shevts::Foo1& f) {
   static int i=100;
+  f.i=i+=5;
+  f.j=2*i+0.3;
+}
+
+void set2(shevts::Foo2& f) {
+  static int i=500;
   f.i=i+=5;
   f.j=2*i;
 }
 
+
 void fill(shevts::Pub & p) {
-  p.data.resize(10);
-  std::for_each(p.data.begin(),p.data.end(),&set);
+  p.data1.resize(10);
+  std::for_each(p.data1.begin(),p.data1.end(),&set1);
+  p.data2.resize(5);
+  std::for_each(p.data2.begin(),p.data2.end(),&set2);
 }
 
 void dumpFoo1(shevts::Foo1 const & f) {
   std::cout << f.i <<"," << f.j <<" "; 
 }
+void dumpFoo2(shevts::Foo2 const & f) {
+  std::cout << f.i <<"," << f.j <<" "; 
+}
 
 void dump(shevts::Pub const & p) {
-  std::cout << p.data.size() << std::endl;
-  std::for_each(p.data.begin(),p.data.end(),&dumpFoo1);
+  std::cout << p.data1.size() << " " << p.data2.size() << std::endl;
+  std::for_each(p.data1.begin(),p.data1.end(),&dumpFoo1);
+  std::cout << std::endl;
+  std::for_each(p.data2.begin(),p.data2.end(),&dumpFoo2);
   std::cout << std::endl;
 }
 

@@ -4,7 +4,8 @@
 
 namespace {
   namespace {
-    std::vector<shevts::FooBase*> dummy1;
-    std::vector<shevts::Foo1> dummy2;
+    std::vector<shevts::FooBase*> dummy0;
+    std::vector<shevts::Foo1> dummy1;
+    std::vector<shevts::Foo2> dummy2;
   }
 }
