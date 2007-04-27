@@ -7,7 +7,7 @@
 namespace shevts {
   
   struct Id {
-    Id(int i) : a(i),b(0){}
+    Id(int i=0) : a(i),b(0){}
     
     int a;
     int b;
@@ -15,7 +15,7 @@ namespace shevts {
 }
 
 inline std::ostream & operator <<(std::ostream& os, shevts::Id id) {
-  return os << id.a << id<<b;
+  return os << id.a << id.b;
 }
 
 
