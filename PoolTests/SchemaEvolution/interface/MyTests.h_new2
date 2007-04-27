@@ -15,7 +15,7 @@ namespace shevts {
 }
 
 inline std::ostream & operator <<(std::ostream& os, shevts::Id id) {
-  return os << id.a << id.b;
+  return os << id.a << ":" << id.b;
 }
 
 
