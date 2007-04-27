@@ -1,0 +1,10 @@
+#include "PoolTests/SchemaEvolution/interface/MyTests.h"
+#include <vector>
+#include <string>
+
+namespace {
+  namespace {
+    std::vector<shevts::FooBase*> dummy1;
+    std::vector<shevts::Foo1> dummy2;
+  }
+}
