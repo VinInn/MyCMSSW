@@ -1,4 +1,4 @@
-#!/bin/csh
+#!/bin/csh -f
 foreach x (*/*_$1)
   set d=`dirname $x`
   set f=`basename $x _$1`

@@ -1,0 +1,118 @@
+#ifndef SchemaEvolution_MyTests_H
+#define SchemaEvolution_MyTests_H
+
+#include <vector>
+#include <ostream>
+
+namespace shevts {
+
+  struct Id {
+    Id(int i) : a(i),b(0){}
+
+    int a;
+    int b;
+  };
+  std::ostream & operator <<(std::ostream& os, Id id) {
+    return os << id.a << id<<b;
+  }
+
+namespace evolve {
+  namespace V0 {
+     namespace shevts {
+ 
+       class FooBase;
+    }
+  }
+}
+
+  class FooBase {
+  public:
+    virtual ~FooBase(){}
+    
+    Id i;
+    
+    friend class evolve::V0::shevts::FooBase;
+  };
+}
+
+namespace evolve {
+  namespace V0 {
+     namespace shevts {
+ 
+       class Foo1;
+    }
+  }
+}
+
+namespace shevts {
+ 
+  // new version
+  class Foo1 : public FooBase {
+  public:
+    
+    float j;
+
+    friend class evolve::V0::shevts::Foo1;
+  };
+
+
+  class Foo2 : public FooBase {
+  public:
+    
+    int j;
+  };
+
+  class Bar {
+  public:
+    virtual ~Bar(){}
+
+    std::vector<FooBase*> data;
+  };
+
+  class Pub {
+  public:
+    virtual ~Pub(){}
+
+    std::vector<Foo1> data1;
+    std::vector<Foo2> data2;
+  };
+
+
+}
+
+
+namespace evolve {
+  namespace V0 {
+    namespace shevts {
+ 
+
+      class FooBase {
+      public:
+	virtual ~FooBase(){}
+
+	int i;
+
+	void evolve(::shevts::FooBase& newV) const {
+	  newV.i = i;
+	}
+      };
+
+       class Foo1 : public ::shevts::FooBase {
+       public: 
+         void evolve(::shevts::Foo1& newV) const {
+	     // base already evolved
+	     ::shevts::FooBase & b = newV;
+	     b = *this;
+             newV.j = j+0.5;
+         }
+
+       public:
+    
+       int j;
+     };
+   }
+  }
+}
+
+
+#endif // SchemaEvolution_MyTests_H
