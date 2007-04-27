@@ -69,8 +69,8 @@ void dumpFoo1(shevts::Foo1 const & f) {
 
 void dump(shevts::Pub const & p) {
   std::cout << p.data.size() << std::endl;
-  std::for_each(p.data.begin(),p.data.end(),&dumpFOO1);
-  std::endl;
+  std::for_each(p.data.begin(),p.data.end(),&dumpFoo1);
+  std::cout << std::endl;
 }
 
 int main(int npar, char * parv[]) {
