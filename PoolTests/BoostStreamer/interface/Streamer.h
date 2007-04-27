@@ -216,81 +216,98 @@ namespace Persil {
     return local;
   }
 
+
+  template<typename Archive>
+  void evolve(ar, ROOT::Reflex::Object & ob, std::string const & version) {
+    using ROOT::Reflex::Type;
+    using ROOT::Reflex::Member;
+    Type tc = ob.TypeOf();
+    std::string oldTypeName = "evolve::"+version+"::"+tc.Name(ROOT::Reflex::SCOPED);
+    Type oldType = Type::ByName(oldTypeName);
+    ROOT::Reflex::Object oldOb =  oldType.Construct();
+    serializeMembers(ar,oldOb);
+    std::vector<void *> v(1); v[0] = ob.Address();
+    oldOb.Invoke("evolve",v);
+  }
+
+
+  template<typename Archive>
+  void serializeMembers(Archive & ar, ROOT::Reflex::Object & ob) {
+    using ROOT::Reflex::Type;
+    using ROOT::Reflex::Member;
+    Type tc = ob.TypeOf();
+    if (Persil::debug()) {
+      for (size_t i=0; i<tc.DataMemberSize(); i++) {
+	Member m = tc.DataMemberAt(i);
+	std::cout << m.Name() << " " << m.TypeOf().Name() << ", ";
+      }     
+      std::cout <<  std::endl;
+    }
+    
+    for (size_t i=0; i<tc.BaseSize(); i++) {
+      ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),(void*)((size_t)(ob.Address())+tc.BaseAt(i).Offset(ob.Address())));
+      ar & rc;
+    }
+    for (size_t i=0; i<tc.DataMemberSize(); i++) {
+      Member m = tc.DataMemberAt(i);
+      if (!m.IsTransient()) { 
+	ROOT::Reflex::Object lo = m.Get(ob); 
+	ar & lo;
+      }
+    }
+  }
 }
-
-
 
 
 namespace boost {
   namespace serialization {
-    
     
     template<typename Archive>
     void serialize(Archive & ar, ROOT::Reflex::Object & ob, unsigned int) {
       using ROOT::Reflex::Type;
       using ROOT::Reflex::Member;
       Type tc = ob.TypeOf();
-    
+      
       bool locdeb=false;
       
       /*
-      if (tc.TemplateFamily().name(ROOT::Reflex::SCOPED)=="std::pair"){
-	 std::cout << "serializing " << tc.name() << " at " <<  ob.address() << std::endl;
-	 Persil::debug()=true;
-	 locdeb=true;
-      }
+	if (tc.TemplateFamily().name(ROOT::Reflex::SCOPED)=="std::pair"){
+	std::cout << "serializing " << tc.name() << " at " <<  ob.address() << std::endl;
+	Persil::debug()=true;
+	locdeb=true;
+	}
       */
-
+      
       if ( Persil::rttio<Archive>().serializePrimitive(ar, tc.TypeInfo(), ob.Address()) );
       else if (tc.IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
       else if (tc.IsArray() )  std::cout << "arrays not supported yet" << std::endl;
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
-
+	
 	// check version (later int...)
 	std::string currentVersion="V0";
 	ROOT::Reflex::PropertyList p = tc.Properties();
 	if (p.HasProperty("Version")) {
 	  currentVersion = p.PropertyAsString("Version");
-	 }
+	}
 	std::string version=currentVersion;
 	// there is a bug! it appears only in gcc4.  touch version force copy
 	version+='a';
 	version.resize(currentVersion.size());
 	ar & version;
-
+	
 	if (true) {
 	  std::cout <<  tc.Name() << " Versions " << currentVersion << " " << version << std::endl;
 	}
 	
 	if (!Archive::is_saving::value) {
 	  if (version !=currentVersion) { // shall evolve... 
-	    if (p.HasProperty("EvolveFrom"+version)) {
-	    }
+	    Persil::evolve(ar, ob, version);
+	    return;
 	  }
 	}
-
-	if (Persil::debug()) {
-	  for (size_t i=0; i<tc.DataMemberSize(); i++) {
-	    Member m = tc.DataMemberAt(i);
-	    std::cout << m.Name() << " " << m.TypeOf().Name() << ", ";
-	  }     
-	  std::cout <<  std::endl;
-	}
-	
-	for (size_t i=0; i<tc.BaseSize(); i++) {
-	  ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),(void*)((size_t)(ob.Address())+tc.BaseAt(i).Offset(ob.Address())));
-	  ar & rc;
-	}
-	for (size_t i=0; i<tc.DataMemberSize(); i++) {
-	  Member m = tc.DataMemberAt(i);
-	  if (!m.IsTransient()) { 
-	    ROOT::Reflex::Object lo = m.Get(ob); 
-	    ar & lo;
-	  }
-	}
+	Persil::serializeMembers(ar, ob);	
       }
-
       if (locdeb) {
 	std::cout << std::endl;
 	Persil::debug()=false;
@@ -299,6 +316,7 @@ namespace boost {
   }
   
 }
+
 BOOST_CLASS_IMPLEMENTATION(
     ROOT::Reflex::Object, 
     boost::serialization::object_serializable
