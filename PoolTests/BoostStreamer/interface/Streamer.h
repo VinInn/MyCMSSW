@@ -218,7 +218,7 @@ namespace Persil {
 
 
   template<typename Archive>
-  void evolve(ar, ROOT::Reflex::Object & ob, std::string const & version) {
+  void evolve(Archive & ar, ROOT::Reflex::Object & ob, std::string const & version) {
     using ROOT::Reflex::Type;
     using ROOT::Reflex::Member;
     Type tc = ob.TypeOf();
