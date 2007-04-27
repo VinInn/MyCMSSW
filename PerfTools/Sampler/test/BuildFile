@@ -1,6 +1,0 @@
-  <use name=PerfTools/Sampler>
-
-<bin name=testPerfToolsSampler file=testRunner.cpp,UDQ.cppunit.cc>
-  <use name=cppunit>
-</bin>
-

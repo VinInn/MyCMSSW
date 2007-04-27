@@ -1,2 +1,0 @@
-c++ -O2 -Wall -I/Users/innocent/RealStuff/boost-1340a/ -I/Users/innocent/RealStuff/boost_1_33_1  -I/Users/innocent/RealStuff/CMSSW/VinInn/ $1
-
