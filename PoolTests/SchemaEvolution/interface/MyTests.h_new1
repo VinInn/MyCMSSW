@@ -64,11 +64,11 @@ namespace evolve {
   namespace V0 {
      namespace shevts {
  
-       class Foo1 : public shevts::FooBase {
+       class Foo1 : public ::shevts::FooBase {
        public: 
-         void evolve(shevts::Foo1& newV) const {
+         void evolve(::shevts::Foo1& newV) const {
 	     // base already evolved
-	     shevts::FooBase & b = newV;
+	     ::shevts::FooBase & b = newV;
 	     b = *this;
              newV.j = j+0.5;
          }
