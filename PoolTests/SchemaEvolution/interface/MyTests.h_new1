@@ -15,6 +15,14 @@ namespace shevts {
   };
 }
 
+namespace evolve {
+  namespace V0 {
+     namespace shevts {
+ 
+       class Foo1;
+    }
+  }
+}
 
 namespace shevts {
  
@@ -24,7 +32,7 @@ namespace shevts {
     
     float j;
 
-    friend class evole::V0::shevts::Foo1;
+    friend class evolve::V0::shevts::Foo1;
   };
 
 
@@ -56,11 +64,11 @@ namespace evolve {
   namespace V0 {
      namespace shevts {
  
-       class Foo1 : public FooBase {
+       class Foo1 : public shevts::FooBase {
        public: 
          void evolve(shevts::Foo1& newV) const {
 	     // base already evolved
-	     (FooBase&) b = newV;
+	     shevts::FooBase & b = newV;
 	     b = *this;
              newV.j = j+0.5;
          }
