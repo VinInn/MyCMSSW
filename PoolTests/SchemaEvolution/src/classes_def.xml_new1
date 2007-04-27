@@ -6,4 +6,5 @@
   <class name="shevts::Bar" />
   <class name="shevts::Pub" Version="V1" />
   <class name="std::vector<shevts::Foo1>"/>
+  <class name="std::vector<shevts::Foo2>"/>
 </lcgdict>
