@@ -236,6 +236,7 @@ namespace Persil {
     using ROOT::Reflex::Type;
     using ROOT::Reflex::Member;
     Type tc = ob.TypeOf();
+
     if (Persil::debug()) {
       for (size_t i=0; i<tc.DataMemberSize(); i++) {
 	Member m = tc.DataMemberAt(i);
@@ -296,7 +297,7 @@ namespace boost {
 	version.resize(currentVersion.size());
 	ar & version;
 	
-	if (true) {
+	if (Persil::debug()) {
 	  std::cout <<  tc.Name() << " Versions " << currentVersion << " " << version << std::endl;
 	}
 	
