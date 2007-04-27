@@ -3,6 +3,7 @@
   <class name="shevts::Foo1" />
   <class name="shevts::Foo2" />
   <class name="shevts::Bar" />
-  <class name="shevts::Pub" />
+  <class name="shevts::Pub" "version=V1">
+  </class>
   <class name="std::vector<shevts::Foo1>"/>
 </lcgdict>
