@@ -254,11 +254,13 @@ namespace boost {
 	  currentVersion = p.PropertyAsString("Version");
 	 }
 	std::string version=currentVersion;
-
+	// there is a bug! it appears only in gcc4.  touch version force copy
+	version+='a';
+	version.resize(currentVersion.size());
 	ar & version;
 
 	if (true) {
-	  std::cout <<  tc.name() << " Versions " << currentVersion << " " << version << std::endl;
+	  std::cout <<  tc.Name() << " Versions " << currentVersion << " " << version << std::endl;
 	}
 	
 	if (!Archive::is_saving::value) {
