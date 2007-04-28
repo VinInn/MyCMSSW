@@ -146,6 +146,18 @@ namespace Persil {
 */
 
   template<typename Archive>
+  void serializeArray(Archive & ar,  ROOT::Reflex::Type type, void * start, size_t size) {
+    using ROOT::Reflex::Type;
+    size_t sz = type.SizeOf();
+    for (size_t i=0; i<size; i++) {
+      ROOT::Reflex::Object ob(type,start);
+      ar & ob;
+      start +=sz;
+    }
+  }
+
+
+  template<typename Archive>
   bool isContainer(Archive & ar, ROOT::Reflex::Object & ob) {
     
     const std::type_info * ti=0;
@@ -187,21 +199,22 @@ namespace Persil {
       // std::cout << "size " << s << " value_type " << ti->name() << std::endl;     
       if (s>0) {
 	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
-	  //	  std::cout << "reserve for vector " << s << std::endl;
+	  //	  std::cout << "resize for vector " << s << std::endl;
 	  std::vector<void *> v(1); v[0] = (void*)(&s);
-	  ob.Invoke("reserve",v);
+	  ob.Invoke("resize",v);
+	  void* o = cft->first_func(&env);
+	  serializeArray(ar,t,o,s);
 	}
-	 
-	env.size=1;
-	for (size_t i=0; i<s; i++) {
-	  ROOT::Reflex::Object v = t.Construct(); 
-	  ar & v;
-	  env.start = v.Address();
-	  cft->feed_func(&env);	
-	  t.Destruct(v.Address());
+	else {
+	  env.size=1;
+	  for (size_t i=0; i<s; i++) {
+	    ROOT::Reflex::Object v = t.Construct(); 
+	    ar & v;
+	    env.start = v.Address();
+	    cft->feed_func(&env);	
+	    t.Destruct(v.Address());
+	  }
 	}
-	
-
       }
       if (s!= *(size_t*)ob.Invoke("size").Address()) 
 	std::cout << "error!!! read " << s << " instead of " 
@@ -261,7 +274,7 @@ namespace Persil {
 
   template<typename Archive>
   bool serializePointer(Archive & ar, ROOT::Reflex::Object & ob) {
-    static const std::string null("NULL"):
+    static const std::string null("NULL");
     using ROOT::Reflex::Type;
     using ROOT::Reflex::Member;
     Type tc = ob.TypeOf();
@@ -273,7 +286,7 @@ namespace Persil {
 	ar << null;
 	return true;
       }
-      ROOT::Reflex::Object ro(raw,address));
+      ROOT::Reflex::Object ro(raw,address);
       if (raw.IsClass()||raw.IsStruct()) {
 	raw = ro.DynamicType();
 	ro = ro.CastObject(raw);
@@ -293,12 +306,12 @@ namespace Persil {
       ROOT::Reflex::Object ro =  raw.Construct();
       ar >> ro;
       address =ro.Address();
-      
-    }
+    } 
+      return true;
+  }
 
-    return true;
+
 }
-
 
 namespace boost {
   namespace serialization {
@@ -321,7 +334,7 @@ namespace boost {
       
       if ( Persil::rttio<Archive>().serializePrimitive(ar, tc.TypeInfo(), ob.Address()) );
       else if (Persil::serializePointer(ar,ob) );
-      else if (tc.IsArray() )  std::cout << "arrays not supported yet" << std::endl;
+      else if (tc.IsArray() ) Persil::serializeArray(ar,tc.RawType(),ob.Address(),tc.ArrayLengh());
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
 	
