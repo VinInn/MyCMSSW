@@ -280,7 +280,7 @@ namespace Persil {
     Type tc = ob.TypeOf();
     if (!tc.IsPointer() ) return false;
     Type raw = tc.RawType();
-    void * address = *(void**)(ob.Address());
+    (void *) & address = *(void**)(ob.Address());
     if (Archive::is_saving::value) {
       if (0==address) {
 	ar << null;
@@ -298,8 +298,8 @@ namespace Persil {
 	std::string tn;
 	ar >> tn;
 	if (tn==null) {
-	  *address =0;
-	  return;
+	  address =0;
+	  return true;
 	}
 	raw = Type::ByName(tn);
       }
@@ -307,7 +307,7 @@ namespace Persil {
       ar >> ro;
       address =ro.Address();
     } 
-      return true;
+    return true;
   }
 
 
@@ -334,7 +334,7 @@ namespace boost {
       
       if ( Persil::rttio<Archive>().serializePrimitive(ar, tc.TypeInfo(), ob.Address()) );
       else if (Persil::serializePointer(ar,ob) );
-      else if (tc.IsArray() ) Persil::serializeArray(ar,tc.RawType(),ob.Address(),tc.ArrayLengh());
+      else if (tc.IsArray() ) Persil::serializeArray(ar,tc.RawType(),ob.Address(),tc.ArrayLength());
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
 	
