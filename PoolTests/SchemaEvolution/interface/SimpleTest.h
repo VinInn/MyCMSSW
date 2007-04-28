@@ -5,11 +5,11 @@ namespace shevsp {
 
   struct B {
     virtual ~B(){}
-    int i;
+    int b;
   };
 
-  struct A1 : public B {};
-  struct A2 : public B {};
+  struct A1 : public B {float a;};
+  struct A2 : public B {double a;};
 
   struct C {
     C() : i(0),b(0) {}

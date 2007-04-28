@@ -21,8 +21,14 @@ void dump(ROOT::Reflex::Object & ob) {
 	     << tc.Name(ROOT::Reflex::SCOPED) << " "
 	     <<  raw.Name(ROOT::Reflex::SCOPED)
 	     << " at " <<  ob.Address() << std::endl;
-    
-    if (!(raw.IsClass()||raw.IsStruct())) return; 
+ 
+    if (tc.IsPointer()) {
+      // ROOT::Reflex::Object lo = ob.CastObject(ob.DynamicType());
+      ROOT::Reflex::Object ro(raw,*(void**)(ob.Address()));
+      dump(ro);
+      return;
+    }
+    if (!(tc.IsClass()||tc.IsStruct())) return; 
 
     std::cout << ob.DynamicType().Name(ROOT::Reflex::SCOPED) << std::endl;
 
