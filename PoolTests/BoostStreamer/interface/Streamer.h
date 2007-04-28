@@ -201,7 +201,7 @@ namespace Persil {
 	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
 	  //	  std::cout << "resize for vector " << s << std::endl;
 	  std::vector<void *> v(1); v[0] = (void*)(&s);
-	  ob.Invoke("resize",v);
+	  ob.Invoke("resize", ROOT::Reflex::Type::ByName("void (size_t)"),v);
 	  void* o = cft->first_func(&env);
 	  serializeArray(ar,t,o,s);
 	}
