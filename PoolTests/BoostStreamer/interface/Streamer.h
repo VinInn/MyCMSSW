@@ -274,7 +274,7 @@ namespace Persil {
 
   template<typename Archive>
   bool serializePointer(Archive & ar, ROOT::Reflex::Object & ob) {
-    static const std::string null("NULL");
+    static /* const */ std::string null("NULL");
     using ROOT::Reflex::Type;
     using ROOT::Reflex::Member;
     Type tc = ob.TypeOf();
