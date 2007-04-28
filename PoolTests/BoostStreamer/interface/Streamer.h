@@ -152,7 +152,7 @@ namespace Persil {
     for (size_t i=0; i<size; i++) {
       ROOT::Reflex::Object ob(type,start);
       ar & ob;
-      start +=sz;
+      (size_t&)(start) +=sz;
     }
   }
 
