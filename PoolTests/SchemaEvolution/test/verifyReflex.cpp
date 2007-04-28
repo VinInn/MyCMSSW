@@ -18,7 +18,7 @@ void dump(ROOT::Reflex::Object & ob) {
     Type tc = ob.TypeOf();
     std::cout << tc.Name(ROOT::Reflex::SCOPED) << " " 
 	      << tc.RawType().Name(ROOT::Reflex::SCOPED) 
-	      << " at " <<  ob.Addess() << endl;
+	      << " at " <<  ob.Address() << endl;
 
     for (size_t i=0; i<tc.BaseSize(); i++) {
       std:: cout <<"base :";
@@ -39,7 +39,7 @@ int main() {
 
   shevsp::C c;
   c.b = new shevsp::A1();
-  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(C));
+  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(c));
   ROOT::Reflex::Object ob(type,&c);
   dump(ob);
 
