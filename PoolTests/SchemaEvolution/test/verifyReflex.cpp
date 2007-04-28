@@ -1,4 +1,4 @@
-#include "PoolTests/SchemaEvolution/interface/SimpleTests.h"
+#include "PoolTests/SchemaEvolution/interface/SimpleTest.h"
 
 
 #include "Reflex/Reflex.h"
