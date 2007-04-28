@@ -16,10 +16,10 @@ void dump(ROOT::Reflex::Object & ob) {
     using ROOT::Reflex::Type;
     using ROOT::Reflex::Member;
     Type tc = ob.TypeOf();
-    Type raw = tc.RawType().Name(ROOT::Reflex::SCOPED);
+    Type raw = tc.RawType();
     std::cout<< tc.TypeTypeAsString() << " "  
 	     << tc.Name(ROOT::Reflex::SCOPED) << " "
-	     <<  raw;
+	     <<  raw.Name(ROOT::Reflex::SCOPED)
 	     << " at " <<  ob.Address() << std::endl;
     
     if (!(raw.IsClass()||raw.IsStruct())) return; 
