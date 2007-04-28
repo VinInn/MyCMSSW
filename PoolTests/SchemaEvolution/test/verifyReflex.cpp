@@ -19,10 +19,11 @@ void dump(ROOT::Reflex::Object & ob) {
     std::cout<< tc.TypeTypeAsString() << " "  
 	     << tc.Name(ROOT::Reflex::SCOPED) << " "
 	     << tc.RawType().Name(ROOT::Reflex::SCOPED) 
-	     << ob.DynamicType().Name(ROOT::Reflex::SCOPED) << " "
 	     << " at " <<  ob.Address() << std::endl;
     
     if (!(tc.IsClass()||tc.IsStruct())) return; 
+
+    std::cout << ob.DynamicType().Name(ROOT::Reflex::SCOPED) << std::endl;
 
     for (size_t i=0; i<tc.BaseSize(); i++) {
       std:: cout <<"base :";
