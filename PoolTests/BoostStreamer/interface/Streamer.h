@@ -228,6 +228,7 @@ namespace Persil {
     serializeMembers(ar,oldOb);
     std::vector<void *> v(1); v[0] = ob.Address();
     oldOb.Invoke("evolve",v);
+    oldOb.Destruct();
   }
 
 
@@ -257,6 +258,45 @@ namespace Persil {
       }
     }
   }
+
+  template<typename Archive>
+  bool serializePointer(Archive & ar, ROOT::Reflex::Object & ob) {
+    static const std::string null("NULL"):
+    using ROOT::Reflex::Type;
+    using ROOT::Reflex::Member;
+    Type tc = ob.TypeOf();
+    if (!tc.IsPointer() ) return false;
+    Type raw = tc.RawType();
+    void * address = *(void**)(ob.Address());
+    if (Archive::is_saving::value) {
+      if (0==address) {
+	ar << null;
+	return true;
+      }
+      ROOT::Reflex::Object ro(raw,address));
+      if (raw.IsClass()||raw.IsStruct()) {
+	raw = ro.DynamicType();
+	ro = ro.CastObject(raw);
+	ar << raw.Name(ROOT::Reflex::SCOPED);
+      }
+      ar << ro;
+    } else {
+      if (raw.IsClass()||raw.IsStruct()) {
+	std::string tn;
+	ar >> tn;
+	if (tn==null) {
+	  *address =0;
+	  return;
+	}
+	raw = Type::ByName(tn);
+      }
+      ROOT::Reflex::Object ro =  raw.Construct();
+      ar >> ro;
+      address =ro.Address();
+      
+    }
+
+    return true;
 }
 
 
@@ -280,7 +320,7 @@ namespace boost {
       */
       
       if ( Persil::rttio<Archive>().serializePrimitive(ar, tc.TypeInfo(), ob.Address()) );
-      else if (tc.IsPointer() )  std::cout << "pointers not supported yet" << std::endl;
+      else if (Persil::serializePointer(ar,ob) );
       else if (tc.IsArray() )  std::cout << "arrays not supported yet" << std::endl;
       else if (Persil::isContainer(ar, ob) );
       else { // class or struct
