@@ -280,23 +280,24 @@ namespace Persil {
     Type tc = ob.TypeOf();
     if (!tc.IsPointer() ) return false;
     Type raw = tc.RawType();
-    (void *) & address = *(void**)(ob.Address());
+    void * & address = *(void**)(ob.Address());
     if (Archive::is_saving::value) {
       if (0==address) {
-	ar << null;
+	ar & null;
 	return true;
       }
       ROOT::Reflex::Object ro(raw,address);
       if (raw.IsClass()||raw.IsStruct()) {
 	raw = ro.DynamicType();
 	ro = ro.CastObject(raw);
-	ar << raw.Name(ROOT::Reflex::SCOPED);
+	std::string name(raw.Name(ROOT::Reflex::SCOPED));
+	ar & name;
       }
-      ar << ro;
+      ar & ro;
     } else {
       if (raw.IsClass()||raw.IsStruct()) {
 	std::string tn;
-	ar >> tn;
+	ar & tn;
 	if (tn==null) {
 	  address =0;
 	  return true;
@@ -304,7 +305,7 @@ namespace Persil {
 	raw = Type::ByName(tn);
       }
       ROOT::Reflex::Object ro =  raw.Construct();
-      ar >> ro;
+      ar & ro;
       address =ro.Address();
     } 
     return true;
