@@ -195,8 +195,8 @@ namespace Persil {
 	env.size=1;
 	for (size_t i=0; i<s; i++) {
 	  ROOT::Reflex::Object v = t.Construct(); 
-	  env.start = v.Address();
 	  ar & v;
+	  env.start = v.Address();
 	  cft->feed_func(&env);	
 	  t.Destruct(v.Address());
 	}

@@ -24,7 +24,10 @@ void dump(ROOT::Reflex::Object & ob) {
  
     if (tc.IsPointer()) {
       void * address = *(void**)(ob.Address());
-      if (0==address) std::cout << "zero pointer" << std::endl;
+      if (0==address) {
+	std::cout << "zero pointer" << std::endl;
+	return;
+      }
       ROOT::Reflex::Object ro(raw,address);
       if (raw.IsClass()||raw.IsStruct()) 
 	ro = ro.CastObject(ro.DynamicType());
@@ -60,6 +63,8 @@ int main() {
   ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(c));
   ROOT::Reflex::Object ob(type,&c);
   dump(ob);
+  std::cout << std::endl;
+
   c.b = 0;
   dump(ob);
 
