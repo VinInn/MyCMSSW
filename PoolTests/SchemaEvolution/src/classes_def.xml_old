@@ -1,4 +1,9 @@
 <lcgdict>
+  <class name="shevsp::B" />
+  <class name="shevsp::A1" />
+  <class name="shevsp::A2" />
+  <class name="shevsp::C" />
+
   <class name="shevts::FooBase" />
   <class name="shevts::Foo1" />
   <class name="shevts::Foo2" />
