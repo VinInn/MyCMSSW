@@ -1,5 +1,5 @@
 #include "PoolTests/SchemaEvolution/interface/MyTests.h"
-#include "PoolTests/SchemaEvolution/interface/SimpleTests.h"
+#include "PoolTests/SchemaEvolution/interface/SimpleTest.h"
 #include <vector>
 #include <string>
 

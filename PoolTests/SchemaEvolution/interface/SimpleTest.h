@@ -1,5 +1,5 @@
-#ifndef SchemaEvolution_SimpleTests_H
-#define SchemaEvolution_SimpleTests_H
+#ifndef SchemaEvolution_SimpleTest_H
+#define SchemaEvolution_SimpleTest_H
 
 namespace shevsp {
 
@@ -12,7 +12,7 @@ namespace shevsp {
   struct A2 : public B {};
 
   struct C {
-    C() : i(0),b(0);
+    C() : i(0),b(0) {}
     typedef A1 M1;
     typedef A2 M2;
     int i;

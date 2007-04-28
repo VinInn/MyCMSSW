@@ -1,0 +1,5 @@
+<bin name=verifyReflex  file=verifyReflex.cpp></bin>
+  <use name=boost>
+  <use name=rootrflx>
+  <use name=PoolTests/SchemaEvolution>
+</bin>
