@@ -21,7 +21,7 @@ void dump(ROOT::Reflex::Object & ob) {
 	     << tc.RawType().Name(ROOT::Reflex::SCOPED) 
 	     << " at " <<  ob.Address() << std::endl;
     
-    if (!(tc.isClass().or.tc.isStruct())) return; 
+    if (!(tc.IsClass()||tc.IsStruct())) return; 
 
     for (size_t i=0; i<tc.BaseSize(); i++) {
       std:: cout <<"base :";
