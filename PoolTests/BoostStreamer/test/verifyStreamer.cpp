@@ -18,8 +18,8 @@
 #include <memory>
 
 
-void verify(C&c) {
-
+void verify(shevsp::C&c) {
+  
   std::stringstream file;
   
   ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(C));
@@ -45,8 +45,8 @@ int main() {
   c.m1.a = 3.14;
   c.m2.a = -1.23567E15
   c.b = new shevsp::A1();
-  *c.b = 1234567890123L;
-  dynamic_cast<A1*>(c.b)->a=14.56;
+  *c.b = 1234567890123LL;
+  dynamic_cast<shevsp::A1*>(c.b)->a=14.56;
   
   verify(c);
   c.b=0;

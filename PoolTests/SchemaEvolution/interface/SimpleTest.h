@@ -4,6 +4,7 @@
 namespace shevsp {
 
   struct B {
+    B() : b(0){}
     virtual ~B(){}
     long long b;
     virtual bool operator==(B const & rh) const { return b==rh.b;}
@@ -11,6 +12,7 @@ namespace shevsp {
   };
 
   struct A1 : public B {
+    A1() : a(0){}
     float a;
     virtual bool operator==(A1 const & rh) const { 
       return B::operator==(rh) && a==rh.a;
@@ -18,6 +20,7 @@ namespace shevsp {
     bool operator!=(A1 const & rh) const { return !((*this)==rh);}
   };
   struct A2 : public B {
+    A2() :a(0){}
     double a;
     virtual bool operator==(A2 const & rh) const { 
       return B::operator==(rh) && a==rh.a;
