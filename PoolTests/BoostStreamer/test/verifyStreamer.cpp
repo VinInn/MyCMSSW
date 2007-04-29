@@ -17,7 +17,7 @@
 #include <string>
 #include <memory>
 
-templater<typename T>
+template<typename T>
 void verify(T&c) {
   
   std::stringstream file;
@@ -57,6 +57,27 @@ int main() {
   shevsp::V v;
   verify(v);
 
+  v.ac[3] = 'b';
+  v.aa[2] = c.m1;
+  v.vf.resize(3,4.340);
+  v.va.resize(5);
+  v.va[1].a = 1.98;
+  v.va[1].b = 33;
+  v.vb.resize(6,(B*)(0));
+  v.vb[2] = new shevsp::A1();
+  v.vb[2]->b = 9876543210LL;
+  dynamic_cast<shevsp::A1*>(v.vb[2])->a=6.28;
+  v.vb[4] = new shevsp::A2();
+  v.vb[4]->b = 76543210LL;
+  dynamic_cast<shevsp::A2*>(v.vb[2])->a=-6.28;
+  v.vb[6] = new shevsp::A1();
+  v.vb[6]->b = 1876543210LL;
+  dynamic_cast<shevsp::A1*>(v.vb[2])->a=4.28;
+  v.vb[8] = new shevsp::A2();
+  v.vb[8]->b = 6543210LL;
+  dynamic_cast<shevsp::A2*>(v.vb[2])->a=-4.28;
+
+  verify(v);
 
 
   return 0;
