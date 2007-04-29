@@ -2,7 +2,7 @@
 #define SchemaEvolution_SimpleTest_H
 
 #include<vector>
-#include<algoritm>
+#include<algorithm>
 
 namespace shevsp {
 
