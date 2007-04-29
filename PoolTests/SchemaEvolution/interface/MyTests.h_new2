@@ -99,15 +99,15 @@ namespace evolve {
 
 	void evolve(::shevts::FooBase& newV) const {
 	  newV.i = i;
+	  newV.i.b =7
 	}
       };
 
-       class Foo1 : public ::shevts::FooBase {
+       class Foo1 : public FooBase {
        public: 
-         void evolve(::shevts::Foo1& newV) const {
-	     // base already evolved
-	     ::shevts::FooBase & b = newV;
-	     b = *this;
+         void evolve(::shevts::Foo1& newV)  {
+	     // base not evolved
+	     FooBase::evolve(newV);
              newV.j = j+0.5;
          }
 
