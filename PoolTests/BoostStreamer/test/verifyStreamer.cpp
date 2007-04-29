@@ -64,18 +64,18 @@ int main() {
   v.va[1].a = 1.98;
   v.va[1].b = 33;
   v.vb.resize(6,(shevsp::B*)(0));
-  v.vb[2] = new shevsp::A1();
-  v.vb[2]->b = 9876543210LL;
-  dynamic_cast<shevsp::A1*>(v.vb[2])->a=6.28;
-  v.vb[4] = new shevsp::A2();
-  v.vb[4]->b = 76543210LL;
-  dynamic_cast<shevsp::A2*>(v.vb[2])->a=-6.28;
-  v.vb[6] = new shevsp::A1();
-  v.vb[6]->b = 1876543210LL;
-  dynamic_cast<shevsp::A1*>(v.vb[2])->a=4.28;
-  v.vb[8] = new shevsp::A2();
-  v.vb[8]->b = 6543210LL;
-  dynamic_cast<shevsp::A2*>(v.vb[2])->a=-4.28;
+  v.vb[1] = new shevsp::A1();
+  v.vb[1]->b = 9876543210LL;
+  dynamic_cast<shevsp::A1*>(v.vb[1])->a=6.28;
+  v.vb[3] = new shevsp::A2();
+  v.vb[3]->b = 76543210LL;
+  dynamic_cast<shevsp::A2*>(v.vb[3])->a=-6.28;
+  v.vb[4] = new shevsp::A1();
+  v.vb[4]->b = 1876543210LL;
+  dynamic_cast<shevsp::A1*>(v.vb[4])->a=4.28;
+  v.vb[5] = new shevsp::A2();
+  v.vb[5]->b = 6543210LL;
+  dynamic_cast<shevsp::A2*>(v.vb[5])->a=-4.28;
 
   verify(v);
 
