@@ -1,8 +1,0 @@
-<use name=PerfTools/Service>
-<use name=PerfTools/Reporter>
-<use name=Foundation/PluginManager>
-<library name="PerfToolsReporterService" file=Reporter.cc>
-</library>
-<library name="PerfToolsSamplerCreatorService" file=SamplerCreator.cc>
-</library>
-
