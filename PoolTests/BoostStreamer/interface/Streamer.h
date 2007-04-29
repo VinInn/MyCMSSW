@@ -9,6 +9,7 @@
 #include <iosfwd>
 #include<map>
 #include<memory>
+#include<sstream>
 
 // #include "DataSvc/RefBase.h"
 // #include "POOLCore/Token.h"
@@ -93,8 +94,11 @@ namespace Persil {
   }
   
   template<typename T>
-  XMLO & serialize(XMLO & ar, T& t, size_t) {
-    return ar & boost::serialization::make_nvp("#",t);
+  XMLO & serialize(XMLO & ar, T& t, size_t n) {
+    static std::ostringstring os; // ok is not thread safe...
+    os.str(""):
+    os << n;
+    return ar & boost::serialization::make_nvp(os.str.c_str(),t);
   }
 
   template<typename T>
