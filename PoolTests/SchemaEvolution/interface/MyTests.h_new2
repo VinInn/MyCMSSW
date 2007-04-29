@@ -97,7 +97,7 @@ namespace evolve {
 
 	int i;
 
-	void evolve(::shevts::FooBase& newV) const {
+	void evolve(::shevts::FooBase& newV)  {
 	  newV.i = i;
 	  newV.i.b =7
 	}

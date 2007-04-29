@@ -2,6 +2,7 @@ cd $CMSSW_BASE/src/PoolTests/SchemaEvolution
 ./prepare old
 scramv1 b
 cd $CMSSW_BASE/src/PoolTests/BoostStreamer
+touch test/testStreamer.cpp
 scramv1 b
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer w a0.txt
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer r a0.txt
@@ -10,6 +11,7 @@ cd $CMSSW_BASE/src/PoolTests/SchemaEvolution
 ./prepare new1
 scramv1 b
 cd $CMSSW_BASE/src/PoolTests/BoostStreamer
+touch test/testStreamer.cpp
 scramv1 b
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer r a0.txt
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer w a1.txt
@@ -19,6 +21,7 @@ cd $CMSSW_BASE/src/PoolTests/SchemaEvolution
 ./prepare new2
 scramv1 b
 cd $CMSSW_BASE/src/PoolTests/BoostStreamer
+touch test/testStreamer.cpp
 scramv1 b
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer r a0.txt
 $CMSSW_BASE/test/slc4_ia32_gcc345/testBoostStreamer r a1.txt
