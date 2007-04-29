@@ -47,7 +47,7 @@ int main() {
   c.m1.a = 3.14;
   c.m2.a = -1.23567E15;
   c.b = new shevsp::A1();
-  *(c.b).b = 1234567890123LL;
+  (*c.b).b = 1234567890123LL;
   dynamic_cast<shevsp::A1*>(c.b)->a=14.56;
   
   verify(c);
