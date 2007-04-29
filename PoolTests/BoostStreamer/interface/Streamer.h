@@ -257,9 +257,13 @@ namespace Persil {
       // std::cout << "size " << s << " value_type " << t.Name() << std::endl;
       Persil::serializeAncillary(ar,s);
       //      ar & s;
-      if(s>0)
+      size_t nn=0;
+      if(s>0) 
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
-	  ROOT::Reflex::Object lo(t,o); ar & lo; env.idx=1;
+	  ROOT::Reflex::Object lo(t,o); 
+	  // ar & lo;
+	  Persil::serialize(ar,lo,nn++);
+	  env.idx=1;
 	}
     } else {    
       size_t s;
