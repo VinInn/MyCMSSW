@@ -99,7 +99,7 @@ namespace evolve {
 
 	void evolve(::shevts::FooBase& newV)  {
 	  newV.i = i;
-	  newV.i.b =7
+	  newV.i.b =7;
 	}
       };
 
