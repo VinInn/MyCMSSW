@@ -182,7 +182,7 @@ namespace Persil {
     //FIXME not real enough to caracterize a "container"
     if (!ok) return false;
 
-    std::cout << "value_type " << t->Name() << std::endl;
+    std::cout << "value_type " << t.Name() << std::endl;
     
     
     // std::vector<void*> v; 
@@ -194,7 +194,7 @@ namespace Persil {
 
     if (Archive::is_saving::value) {
       size_t s = *(size_t*)cft->size_func(&env);
-      // std::cout << "size " << s << " value_type " << t->Name() << std::endl;     
+      // std::cout << "size " << s << " value_type " << t.Name() << std::endl;     
       ar & s;
       if(s>0)
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
@@ -203,7 +203,7 @@ namespace Persil {
     } else {    
       size_t s;
       ar & s;
-      // std::cout << "size " << s << " value_type " << t->Name() << std::endl;     
+      // std::cout << "size " << s << " value_type " << t.Name() << std::endl;     
       if (s>0) {
 	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
 	  //	  std::cout << "resize for vector " << s << std::endl;
