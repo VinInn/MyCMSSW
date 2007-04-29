@@ -43,7 +43,7 @@ void verify(T&c) {
 
   std::ostringstream xfile;
   boost::archive::xml_oarchive ox(xfile);
-  ox << ob;
+  ox << boost::archive::make_nvp("A",ob);
   std::cout << std::endl
 	    << xfile.str() << std::endl;
   
