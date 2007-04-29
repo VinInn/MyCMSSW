@@ -166,23 +166,23 @@ namespace Persil {
   template<typename Archive>
   bool isContainer(Archive & ar, ROOT::Reflex::Object & ob) {
     
-    const std::type_info * ti=0;
     ROOT::Reflex::Type tc = ob.TypeOf();
     
-    
+    ROOT::Reflex::Type t;
+    bool ok=false;
     for (size_t i=0; i<tc.SubTypeSize(); i++) {
       if (tc.SubTypeAt(i).Name()=="value_type") {
-	ti= &tc.SubTypeAt(i).TypeInfo();
+	t= tc.SubTypeAt(i);
+	ok=true;
 	break;
       }
     }
 
     //FIXME not real enough to caracterize a "container"
-    if (!ti) return false;
+    if (!ok) return false;
 
     //    std::cout << "value_type " << ti->name() << std::endl;
     
-    ROOT::Reflex::Type t =  ROOT::Reflex::Type::ByTypeInfo(*ti);
     
     // std::vector<void*> v; 
     std::auto_ptr<ROOT::Reflex::CollFuncTable> cft( 
@@ -193,7 +193,7 @@ namespace Persil {
 
     if (Archive::is_saving::value) {
       size_t s = *(size_t*)cft->size_func(&env);
-      // std::cout << "size " << s << " value_type " << ti->name() << std::endl;     
+      // std::cout << "size " << s << " value_type " << t->Name() << std::endl;     
       ar & s;
       if(s>0)
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
@@ -202,7 +202,7 @@ namespace Persil {
     } else {    
       size_t s;
       ar & s;
-      // std::cout << "size " << s << " value_type " << ti->name() << std::endl;     
+      // std::cout << "size " << s << " value_type " << t->Name() << std::endl;     
       if (s>0) {
 	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
 	  //	  std::cout << "resize for vector " << s << std::endl;
