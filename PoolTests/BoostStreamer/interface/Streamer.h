@@ -45,6 +45,34 @@ namespace Persil {
 
 */
 
+
+  template<typename T, typename Archive >
+  inline Archive & serialize(Archive & ar, T& t) {
+    return ar & t;
+  }
+
+  template<typename T, typename Archive >
+  Archive & serialize(Archive & ar, T& t, const std::string &) {
+    return ar & t;
+  }
+
+  template<typename T, typename Archive >
+  Archive & serialize(Archive & ar, T& t, const char *) {
+    return ar & t;
+  }
+
+  template<typename T, typename Archive >
+  Archive & serialize(Archive & ar, T& t, size_t) {
+    return ar & t;
+  }
+
+  template<typename T, typename Archive >
+  Archive & serializeAncillary(Archive & ar, T& t) {
+    return ar & t;
+  }
+
+
+
   struct TypeNotRegistered {};
   
   template<class T>
@@ -78,7 +106,8 @@ namespace Persil {
   template<typename Archive, typename T>
   struct  Serializer {
     static  void serialize(Archive & ar, const std::type_info &, void * p) {
-      ar & *(T*)(p);
+      Persil::serialize(ar, *(T*)(p));
+      //ar & *(T*)(p);
       // if (debug())  std::cout << p << " ||" << *(T*)(p) << "|| ";
     }
   };
