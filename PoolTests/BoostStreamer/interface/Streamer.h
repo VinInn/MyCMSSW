@@ -96,6 +96,8 @@ namespace Persil {
       regist<int>();
       regist<size_t>();
       regist<unsigned int>();
+      regist<long long>();
+      regist<unsigned long long>();
       regist<std::string>();
       regist<float>();
       regist<double>();
