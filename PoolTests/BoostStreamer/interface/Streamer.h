@@ -16,6 +16,9 @@
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 
+#include <boost/archive/xml_oarchive.hpp>
+
+
 /*
 namespace pool {
   class Token;
@@ -71,6 +74,33 @@ namespace Persil {
     return ar & t;
   }
 
+
+  typedef boost/archive/xml_oarchive.hpp XMLO;
+
+  template<typename T>
+  inline XMLO & serialize<XMLO>(XMLO & ar, T& t) {
+    return ar & boost::serialization::make_nvp("",t);
+  }
+
+  template<typename T>
+  XMLO & serialize(XMLO & ar, T& t, const std::string & name) {
+    return ar & boost::serialization::make_nvp(name.c_str(),t);
+  }
+  
+  template<typename T>
+  XMLO & serialize(XMLO & ar, T& t, const char * name) {
+    return ar & boost::serialization::make_nvp(name,t);  
+  }
+  
+  template<typename T>
+  XMLO & serialize(XMLO & ar, T& t, size_t) {
+    return ar & boost::serialization::make_nvp("#",t);
+  }
+
+  template<typename T>
+  XMLO & serializeAncillary(XMLO & ar, T& t) {
+    return ar;
+  }
 
 
   struct TypeNotRegistered {};

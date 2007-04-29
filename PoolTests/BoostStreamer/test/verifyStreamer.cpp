@@ -41,13 +41,13 @@ void verify(T&c) {
 
   std::cout << file.str() << std::endl;
 
-  /*
+  
   std::ostringstream xfile;
   boost::archive::xml_oarchive ox(xfile);
   ox << boost::serialization::make_nvp("A",ob);
   std::cout << std::endl
 	    << xfile.str() << std::endl;
-  */  
+  
 }
 
 int main() {
