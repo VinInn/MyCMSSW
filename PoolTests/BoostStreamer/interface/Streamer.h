@@ -187,7 +187,8 @@ namespace Persil {
     size_t p = (size_t)(start);
     for (size_t i=0; i<size; i++) {
       ROOT::Reflex::Object ob(type,(void*)(p));
-      ar & ob;
+      Persil::serialize(ar,ob,i);
+      //ar & ob;
       p += sz;
     }
   }
@@ -223,15 +224,17 @@ namespace Persil {
 
     if (Archive::is_saving::value) {
       size_t s = *(size_t*)cft->size_func(&env);
-      // std::cout << "size " << s << " value_type " << t.Name() << std::endl;     
-      ar & s;
+      // std::cout << "size " << s << " value_type " << t.Name() << std::endl;
+      Persil::serializeAncillary(ar,s);
+      //      ar & s;
       if(s>0)
 	for ( void* o = cft->first_func(&env); o; o = cft->next_func(&env)) {
 	  ROOT::Reflex::Object lo(t,o); ar & lo; env.idx=1;
 	}
     } else {    
       size_t s;
-      ar & s;
+      Persil::serializeAncillary(ar,s);
+      //     ar & s;
       // std::cout << "size " << s << " value_type " << t.Name() << std::endl;     
       if (s>0) {
 	if (tc.TemplateFamily().Name(ROOT::Reflex::SCOPED)=="std::vector"){
@@ -245,7 +248,8 @@ namespace Persil {
 	  env.size=1;
 	  for (size_t i=0; i<s; i++) {
 	    ROOT::Reflex::Object v = t.Construct(); 
-	    ar & v;
+	    Persil::serialize(ar,v,i);
+	    //ar & v;
 	    env.start = v.Address();
 	    cft->feed_func(&env);	
 	    t.Destruct(v.Address());
@@ -297,13 +301,15 @@ namespace Persil {
     
     for (size_t i=0; i<tc.BaseSize(); i++) {
       ROOT::Reflex::Object rc(tc.BaseAt(i).ToType(),(void*)((size_t)(ob.Address())+tc.BaseAt(i).Offset(ob.Address())));
-      ar & rc;
+      Persil::serialize(ar,rc);
+      // ar & rc;
     }
     for (size_t i=0; i<tc.DataMemberSize(); i++) {
       Member m = tc.DataMemberAt(i);
       if (!m.IsTransient()) { 
-	ROOT::Reflex::Object lo = m.Get(ob); 
-	ar & lo;
+	ROOT::Reflex::Object lo = m.Get(ob);
+	Persil::serialize(ar,lo,m.Name());
+	// ar & lo;
       }
     }
   }
@@ -327,13 +333,16 @@ namespace Persil {
 	raw = ro.DynamicType();
 	ro = ro.CastObject(raw);
 	std::string name(raw.Name(ROOT::Reflex::SCOPED));
-	ar & name;
+	Persil::serializeAncillary(ar,name);
+	//ar & name;
       }
-      ar & ro;
+      Persil::serialize(ar,ro);
+      //ar & ro;
     } else {
       if (raw.IsClass()||raw.IsStruct()) {
 	std::string tn;
-	ar & tn;
+	// ar & tn;
+	Persil::serializeAncillary(ar,tn);
 	if (tn==null) {
 	  address =0;
 	  return true;
@@ -341,7 +350,8 @@ namespace Persil {
 	raw = Type::ByName(tn);
       }
       ROOT::Reflex::Object ro =  raw.Construct();
-      ar & ro;
+      Persil::serialize(ar,ro);
+      // ar & ro;
       address =ro.Address();
     } 
     return true;
@@ -385,8 +395,9 @@ namespace boost {
 	// there is a bug! it appears only in gcc4.  touch version force copy
 	version+='a';
 	version.resize(currentVersion.size());
-	ar & version;
-	
+	// ar & version;
+	Persil::serializeAncillary(ar,version);
+
 	if (Persil::debug()) {
 	  std::cout <<  tc.Name() << " Versions " << currentVersion << " " << version << std::endl;
 	}
