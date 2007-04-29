@@ -75,10 +75,10 @@ namespace Persil {
   }
 
 
-  typedef boost/archive/xml_oarchive.hpp XMLO;
+  typedef boost::archive::xml_oarchive XMLO;
 
   template<typename T>
-  inline XMLO & serialize<XMLO>(XMLO & ar, T& t) {
+  inline XMLO & serialize(XMLO & ar, T& t) {
     return ar & boost::serialization::make_nvp("",t);
   }
 
@@ -355,7 +355,8 @@ namespace Persil {
     void * & address = *(void**)(ob.Address());
     if (Archive::is_saving::value) {
       if (0==address) {
-	ar & null;
+	Persil::serialize(ar,null);
+	// ar & null;
 	return true;
       }
       ROOT::Reflex::Object ro(raw,address);
