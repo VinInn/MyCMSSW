@@ -37,7 +37,7 @@ void verify(shevsp::C&c) {
   
   if (co!=c) std::cout << "error" << std::endl;
 
-  std::cout << file.rbuf() << std::endl;
+  std::cout << file.str() << std::endl;
 }
 
 int main() {
