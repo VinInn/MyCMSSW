@@ -172,7 +172,7 @@ namespace Persil {
     bool ok=false;
     for (size_t i=0; i<tc.SubTypeSize(); i++) {
       if (tc.SubTypeAt(i).Name()=="value_type") {
-	t= tc.SubTypeAt(i);
+	t= tc.SubTypeAt(i).ToType();
 	ok=true;
 	break;
       }
@@ -181,7 +181,7 @@ namespace Persil {
     //FIXME not real enough to caracterize a "container"
     if (!ok) return false;
 
-    //    std::cout << "value_type " << ti->name() << std::endl;
+    std::cout << "value_type " << t->Name() << std::endl;
     
     
     // std::vector<void*> v; 
