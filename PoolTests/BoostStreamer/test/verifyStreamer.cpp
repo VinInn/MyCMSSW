@@ -36,6 +36,8 @@ void verify(shevsp::C&c) {
   ia >> ib;
   
   if (co!=c) std::cout << "error" << std::endl;
+
+  std::cout << file.rbuf() << std::endl;
 }
 
 int main() {
@@ -45,7 +47,7 @@ int main() {
   c.m1.a = 3.14;
   c.m2.a = -1.23567E15;
   c.b = new shevsp::A1();
-  *c.b.i = 1234567890123LL;
+  *(c.b).b = 1234567890123LL;
   dynamic_cast<shevsp::A1*>(c.b)->a=14.56;
   
   verify(c);
