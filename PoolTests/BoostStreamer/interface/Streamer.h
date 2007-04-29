@@ -182,7 +182,7 @@ namespace Persil {
     //FIXME not real enough to caracterize a "container"
     if (!ok) return false;
 
-    std::cout << "value_type " << t.Name() << std::endl;
+    // std::cout << "value_type " << t.Name() << std::endl;
     
     
     // std::vector<void*> v; 

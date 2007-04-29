@@ -9,6 +9,8 @@
 #include<boost/archive/text_oarchive.hpp>
 #include<boost/archive/binary_oarchive.hpp>
 
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
 
 
 
@@ -35,9 +37,16 @@ void verify(T&c) {
   boost::archive::text_iarchive ia(file);
   ia >> ib;
   
-  if (co!=c) std::cout << "error" << std::endl;
+  if (co!=c) std::cout << "Error" << std::endl;
 
   std::cout << file.str() << std::endl;
+
+  std::ostringstream xfile;
+  boost::archive::xml_oarchive ox(xfile);
+  ox << ob;
+  std::cout << std::endl
+	    << xfile.str() << std::endl;
+  
 }
 
 int main() {
