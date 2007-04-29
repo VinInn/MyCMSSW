@@ -63,7 +63,7 @@ int main() {
   v.va.resize(5);
   v.va[1].a = 1.98;
   v.va[1].b = 33;
-  v.vb.resize(6,(B*)(0));
+  v.vb.resize(6,(shevsp::B*)(0));
   v.vb[2] = new shevsp::A1();
   v.vb[2]->b = 9876543210LL;
   dynamic_cast<shevsp::A1*>(v.vb[2])->a=6.28;
