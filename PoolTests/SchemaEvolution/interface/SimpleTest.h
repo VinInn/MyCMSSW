@@ -46,9 +46,9 @@ namespace shevsp {
     bool operator!=(C const & rh) const { return !((*this)==rh);}
   };
   
- inline struct CompareB{
-    bool operator()(B const * b1,B const * b2) {
-      return (b1==0&&b2==0) || (b1&&b2&&((*b1)==(b2)));
+  struct CompareB{
+    inline bool operator()(B const * b1,B const * b2) {
+      return (b1==0&&b2==0) || (b1&&b2&&((*b1)==(*b2)));
     }
  };
 

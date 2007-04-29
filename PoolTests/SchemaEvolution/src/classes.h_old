@@ -8,5 +8,8 @@ namespace {
     std::vector<shevts::FooBase*> dummy0;
     std::vector<shevts::Foo1> dummy1;
     std::vector<shevts::Foo2> dummy2;
+    std::vector<float> vf;
+    std::vector<shevsp::A1> va;
+    std::vector<shevsp::B*> vb;
   }
 }

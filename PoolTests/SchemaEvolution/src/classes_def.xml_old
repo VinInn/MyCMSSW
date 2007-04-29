@@ -3,7 +3,11 @@
   <class name="shevsp::A1" />
   <class name="shevsp::A2" />
   <class name="shevsp::C" />
-
+  <class name="shevsp::V" />
+  <class name="std::vector<float>" />
+  <class name="std::vector<shevsp::A1>" />
+  <class name="std::vector<shevsp::B*>" />
+  
   <class name="shevts::FooBase" />
   <class name="shevts::Foo1" />
   <class name="shevts::Foo2" />
