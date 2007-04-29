@@ -33,7 +33,7 @@ namespace shevsp {
     M1 m1;
     M2 m2;
     B * b;
-    bool operator==(B const & rh) const { 
+    bool operator==(C const & rh) const { 
       return i==rh.i && m1==rh.m1 && m2==rh.m2 && 
 	( (b==0&&rh.b==0) || (b&&rh.b&&((*b)==(*rh.b))));
     }
