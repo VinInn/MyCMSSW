@@ -22,7 +22,7 @@ void verify(shevsp::C&c) {
   
   std::stringstream file;
   
-  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(C));
+  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(shevsp::C));
   
   ROOT::Reflex::Object ob(type,&c);
   //  boost::archive::binary_oarchive oa(file);
@@ -43,9 +43,9 @@ int main() {
   shevsp::C c;
   c.i = 2;
   c.m1.a = 3.14;
-  c.m2.a = -1.23567E15
+  c.m2.a = -1.23567E15;
   c.b = new shevsp::A1();
-  *c.b = 1234567890123LL;
+  *c.b.i = 1234567890123LL;
   dynamic_cast<shevsp::A1*>(c.b)->a=14.56;
   
   verify(c);
