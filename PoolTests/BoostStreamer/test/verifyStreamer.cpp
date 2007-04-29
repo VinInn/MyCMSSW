@@ -17,12 +17,12 @@
 #include <string>
 #include <memory>
 
-
-void verify(shevsp::C&c) {
+templater<typename T>
+void verify(T&c) {
   
   std::stringstream file;
   
-  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(shevsp::C));
+  ROOT::Reflex::Type type = ROOT::Reflex::Type::ByTypeInfo(typeid(T));
   
   ROOT::Reflex::Object ob(type,&c);
   //  boost::archive::binary_oarchive oa(file);
@@ -30,7 +30,7 @@ void verify(shevsp::C&c) {
   
   oa << ob;
   
-  shevsp::C co;
+  T co;
   ROOT::Reflex::Object ib(type,&co);
   boost::archive::text_iarchive ia(file);
   ia >> ib;
@@ -53,6 +53,10 @@ int main() {
   verify(c);
   c.b=0;
   verify(c);
+
+  shevsp::V v;
+  verify(v);
+
 
 
   return 0;
