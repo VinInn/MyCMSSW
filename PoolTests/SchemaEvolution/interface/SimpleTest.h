@@ -1,6 +1,9 @@
 #ifndef SchemaEvolution_SimpleTest_H
 #define SchemaEvolution_SimpleTest_H
 
+#include<vector>
+#include<algoritm>
+
 namespace shevsp {
 
   struct B {
@@ -41,9 +44,28 @@ namespace shevsp {
 	( (b==0&&rh.b==0) || (b&&rh.b&&((*b)==(*rh.b))));
     }
     bool operator!=(C const & rh) const { return !((*this)==rh);}
-
   };
   
+ inline struct CompareB{
+    bool operator()(B const * b1,B const * b2) {
+      return (b1==0&&b2==0) || (b1&&b2&&((*b1)==(b2)));
+    }
+ };
+
+  struct V {
+    char ac[5];
+    A1 aa[5];
+    std::vector<float> vf;
+    std::vector<A1> va;
+    std::vector<B*> vb;
+    bool operator==(V const & rh) const { 
+      return std::equal(ac,ac+5,rh.ac) && std::equal(aa,aa+5,rh.aa) &&
+	vf==rh.vf && va==rh.va && 
+	std::equal(vb.begin(),vb.end(),rh.vb.begin(),CompareB());
+    }
+    bool operator!=(V const & rh) const { return !((*this)==rh);}
+    
+  };
 
 }
 #endif

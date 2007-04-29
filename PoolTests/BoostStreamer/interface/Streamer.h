@@ -93,8 +93,12 @@ namespace Persil {
     
     RTTio() {
       regist<bool>();
+      regist<char>();
+      regist<unsigned char>();
+      regist<short>();
+      regist<unsigned short>();
       regist<int>();
-      regist<size_t>();
+      regist<size_t>();  // shall we (it is not 64bit portable)???
       regist<unsigned int>();
       regist<long long>();
       regist<unsigned long long>();
