@@ -155,10 +155,11 @@ namespace Persil {
   void serializeArray(Archive & ar,  ROOT::Reflex::Type type, void * start, size_t size) {
     using ROOT::Reflex::Type;
     size_t sz = type.SizeOf();
+    size_t p = (size_t)(start);
     for (size_t i=0; i<size; i++) {
-      ROOT::Reflex::Object ob(type,start);
+      ROOT::Reflex::Object ob(type,(void*)(p));
       ar & ob;
-      (size_t&)(start) +=sz;
+      p += sz;
     }
   }
 
