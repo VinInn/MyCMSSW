@@ -4,3 +4,10 @@
   <use name=PoolTests/BoostStreamer>
   <use name=PoolTests/SchemaEvolution>
 </bin>
+
+<bin name=verifyBoostStreamer  file=verifyStreamer.cpp></bin>
+  <use name=boost>
+  <use name=rootrflx>
+  <use name=PoolTests/BoostStreamer>
+  <use name=PoolTests/SchemaEvolution>
+</bin>
