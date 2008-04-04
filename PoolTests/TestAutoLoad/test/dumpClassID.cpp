@@ -39,7 +39,7 @@ int main() {
       lastClass = itInfo->name_; 
       edmplugin::PluginCapabilities::get()->load(lastClass);
 
-      sts::string cname = lastClass.substr(cPrefix.size());
+      std::string cname = lastClass.substr(cPrefix.size());
       const ROOT::Reflex::Type type=ROOT::Reflex::Type::ByName(cname);
 
       std::string s;
