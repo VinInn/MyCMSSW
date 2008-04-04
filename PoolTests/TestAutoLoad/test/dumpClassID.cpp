@@ -2,6 +2,9 @@
 #include "FWCore/PluginManager/interface/PluginCapabilities.h"
 #include "StorageSvc/DbReflex.h"
 
+
+#include <iostream>
+
 namespace pool {  void genMD5(const std::string& s, void* code);  }
 
 
@@ -14,7 +17,7 @@ int main() {
   CatToInfos::const_iterator itFound = db->categoryToInfos().find("Capability");
   
   if(itFound == db->categoryToInfos().end()) {
-    return;
+    return 0;
   }
   std::string lastClass;
   const std::string cPrefix("LCGReflex/");
@@ -30,7 +33,8 @@ int main() {
       
       lastClass = itInfo->name_; 
       edmplugin::PluginCapabilities::get()->load(lastClass);
-      const ROOT::Reflex::Type type=ROOT::Reflex::Type::ByName(className);
+
+      const ROOT::Reflex::Type type=ROOT::Reflex::Type::ByName(lastClass);
 
       std::string s;
       ROOT::Reflex::PropertyList pl = type.Properties();
@@ -42,7 +46,7 @@ int main() {
 	pool::genMD5(type.Name(ROOT::Reflex::SCOPED),buff);
 	s = ((pool::Guid*)buff)->toString();
       }
-      cout << s << " " << lastClass << std::endl;
+      std::cout << s << " " << lastClass << std::endl;
 
     }
   
