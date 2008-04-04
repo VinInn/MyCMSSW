@@ -40,7 +40,7 @@ int main() {
       edmplugin::PluginCapabilities::get()->load(lastClass);
 
       sts::string cname = lastClass.substr(cPrefix.size());
-      const ROOT::Reflex::Type type=ROOT::Reflex::Type::ByName(lastClass);
+      const ROOT::Reflex::Type type=ROOT::Reflex::Type::ByName(cname);
 
       std::string s;
       ROOT::Reflex::PropertyList pl = type.Properties();
@@ -52,7 +52,7 @@ int main() {
 	pool::genMD5(type.Name(ROOT::Reflex::SCOPED),buff);
 	s = ((pool::Guid*)buff)->toString();
       }
-      std::cout << s << " " << lastClass << std::endl;
+      std::cout << s << " " << cname << std::endl;
 
     }
   
