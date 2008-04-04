@@ -1,14 +1,14 @@
-<bin name=test_autoload_pooltree  file=test_pooltree.cpp></bin>
+#<bin name=test_autoload_pooltree  file=test_pooltree.cpp>
 # <use name=DataFormats/EcalRecHit>
-<use name=boost>
-<use name=DataSvc>
-<use name=Foundation/SealUtil>
-<use name=Collection>
-<use name=DataFormats/Common>
- <use name=Utilities/Timing>
-</bin>
+#<use name=boost>
+#<use name=DataSvc>
+#<use name=Foundation/SealUtil>
+#<use name=Collection>
+#<use name=DataFormats/Common>
+# <use name=Utilities/Timing>
+#</bin>
 
 <bin name=edmDumpClassID file=dumpClassID.cpp>
 <use name=FWCore/PluginManager>
 <use name=StorageSvc>
-</bn> 
+</bin> 

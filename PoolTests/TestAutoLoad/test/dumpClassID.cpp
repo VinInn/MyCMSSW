@@ -13,7 +13,7 @@ namespace pool {  void genMD5(const std::string& s, void* code);  }
 
 int main() {
 
-  PluginManager::configure(standard::config());
+  edmplugin::PluginManager::configure(edmplugin::standard::config());
  
   edmplugin::PluginManager*db =  edmplugin::PluginManager::get();
   
