@@ -1,5 +1,8 @@
 #include "FWCore/PluginManager/interface/PluginManager.h"
 #include "FWCore/PluginManager/interface/PluginCapabilities.h"
+#include "FWCore/PluginManager/interface/standard.h"
+
+ 
 #include "StorageSvc/DbReflex.h"
 
 
@@ -10,6 +13,8 @@ namespace pool {  void genMD5(const std::string& s, void* code);  }
 
 int main() {
 
+  PluginManager::configure(standard::config());
+ 
   edmplugin::PluginManager*db =  edmplugin::PluginManager::get();
   
   typedef edmplugin::PluginManager::CategoryToInfos CatToInfos;
