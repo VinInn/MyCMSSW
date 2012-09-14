@@ -51,10 +51,10 @@ void VinPixelPlot::beginJob() {
 
   edm::Service<TFileService> fs;
   
-  hClusSize=fs->make<TH1F>("clusSize", "cluster size",100,0.,1000.) ;
-  hClusSizeX=fs->make<TH1F>("clusSizeX", "cluster X size",100,0.,1000.) ;
-  hClusSizeY=fs->make<TH1F>("clusSizeY", "cluster Y size",100,0.,1000.) ;
-  hClusSizeRatio=fs->make<TH1F>("clusRatio", "size/(x*y)",100,0.,1.);
+  hClusSize=fs->make<TH1F>("clusSize", "cluster size",100,0.,100.) ;
+  hClusSizeX=fs->make<TH1F>("clusSizeX", "cluster X size",100,0.,100.) ;
+  hClusSizeY=fs->make<TH1F>("clusSizeY", "cluster Y size",100,0.,100.) ;
+  hClusSizeRatio=fs->make<TH1F>("clusRatio", "size/(x*y)",100,0.01,1.01);
   hClusSizeInvRatio=fs->make<TH1F>("clusInvRatio", "(x*y)/size",100,0.,10.);
 
 }
