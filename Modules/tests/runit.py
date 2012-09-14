@@ -13,6 +13,8 @@ process.source = cms.Source("PoolSource",
     )
 )
 
-process.demo = cms.EDAnalyzer('VinPixelPlot'
-)
+process.demo = cms.EDAnalyzer('VinPixelPlot')
+process.mypath = cms.Path(process.demo)
+process.schedule = cms.Schedule(process.mypath)
+
 

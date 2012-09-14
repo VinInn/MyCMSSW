@@ -24,7 +24,7 @@ private:
   virtual void analyze(const edm::Event&, const edm::EventSetup&);
   virtual void endJob();
 
-  std::string pixelclusterLabel_;
+  std::string pixelclusterLabel="siPixelClusters";
 
   long long nev=0;
   long long nclus=0;
@@ -42,7 +42,7 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
 
   nev++;
   edm::Handle<edmNew::DetSetVector<SiPixelCluster> > pixelclusters;
-  iEvent.getByLabel(pixelclusterLabel_,pixelclusters  );    
+  iEvent.getByLabel(pixelclusterLabel,pixelclusters  );    
   for (auto const &  DSV : *pixelclusters ) {
     // uint32_t detid = DSV.id();
     nclus += DSV.size();
