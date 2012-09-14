@@ -28,7 +28,7 @@ private:
 
   long long nev=0;
   long long nclus=0;
-  float maxRatio=0.f;
+  double maxRatio=0.f;
   double totRatio=0.f;
 
 };
@@ -44,7 +44,7 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
   edm::Handle<edmNew::DetSetVector<SiPixelCluster> > pixelclusters;
   iEvent.getByLabel(pixelclusterLabel_,pixelclusters  );    
   for (auto const &  DSV : *pixelclusters ) {
-    uint32_t detid = DSV.id();
+    // uint32_t detid = DSV.id();
     nclus += DSV.size();
     for(auto const & clus : DSV) {  
       double n = clus.size();
