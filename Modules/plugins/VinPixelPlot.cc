@@ -26,10 +26,11 @@ private:
 
   std::string pixelclusterLabel="siPixelClusters";
 
-  long long nev=0;
-  long long nclus=0;
-  double maxRatio=0.f;
-  double totRatio=0.f;
+  int nev=0;
+  int nclus=0;
+  double maxRatio=0.;
+  double minRatio=2.;
+  double totRatio=0.;
 
 };
 
@@ -51,17 +52,18 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
       double nx= clus.sizeX();
       double ny= clus.sizeY();
       double ratio = n/(nx*ny);
-      maxRatio = std::max(maxRatio,ratio);
+      maxRatio = std::max(maxRatio,1./ratio);
+      minRatio = std::max(minRatio,ratio);
       totRatio+=ratio;
     }
   }
-  std::cout << "ciao" << std::endl;
+  // std::cout << "ciao" << std::endl;
 
 }
 
 #include<cstdio>
 void VinPixelPlot::endJob() {
 
-  printf("\nVinPixelPlot: nev/nclus/maxRatio,aveRatio %d/%d/%f/%f\n",nev,nclus,maxRatio,totRatio/double(nclus));
+  printf("\nVinPixelPlot: nev/nclus/minRatio/maxRatio/aveRatio %d/%d/%f/%f/%f\n",nev,nclus,minRatio,maxRatio,totRatio/double(nclus));
   
 }
