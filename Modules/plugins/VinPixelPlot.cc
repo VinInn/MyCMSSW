@@ -96,7 +96,7 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
 #include<cstdio>
 void VinPixelPlot::endJob() {
 
-  printf("\nVinPixelPlot: nev/nclus/maxSizeX/maxSizeY/minRatio/maxRatio/aveRatio %d/%d/%f/%f/%f\n",
+  printf("\nVinPixelPlot: nev/nclus/maxSizeX/maxSizeY/minRatio/maxRatio/aveRatio %d/%d/%d/%d/%f/%f/%f\n",
 	 nev,nclus,maxSizeX,maxSizeY,minRatio,maxRatio,totRatio/double(nclus));
   
 }
