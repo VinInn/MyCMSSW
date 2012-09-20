@@ -37,6 +37,8 @@ private:
   double totRatio=0.;
   int maxSizeY=0;
   int maxSizeX=0;
+  int maxSize=0;
+  int overflow=0;
 
   TH1F * hClusSize;
   TH1F * hClusSizeX;
@@ -75,11 +77,15 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
       int n = clus.size();
       int nx= clus.sizeX();
       int ny= clus.sizeY();
+      if (clus.overflow()) ++overflow;
+      maxSize = std::max(maxSize,n);
       maxSizeX = std::max(maxSizeX,nx);
       maxSizeY = std::max(maxSizeY,ny);
       double ratio = double(n)/double(nx*ny);
-      maxRatio = std::max(maxRatio,ratio);
-      minRatio = std::max(minRatio,1./ratio);
+      if (!clus.overflow()) {
+	maxRatio = std::max(maxRatio,ratio);
+	minRatio = std::max(minRatio,1./ratio);
+      }
       totRatio+=ratio;
       hClusSize->Fill(n);
       hClusSizeX->Fill(nx);
@@ -96,7 +102,7 @@ VinPixelPlot::analyze(const edm::Event& iEvent, const edm::EventSetup&) {
 #include<cstdio>
 void VinPixelPlot::endJob() {
 
-  printf("\nVinPixelPlot: nev/nclus/maxSizeX/maxSizeY/minRatio/maxRatio/aveRatio %d/%d/%d/%d/%f/%f/%f\n",
-	 nev,nclus,maxSizeX,maxSizeY,minRatio,maxRatio,totRatio/double(nclus));
+  printf("\nVinPixelPlot: nev/nclus/overflow/maxSize/maxSizeX/maxSizeY/minRatio/maxRatio/aveRatio %d/%d/%d/%d/%d/%d/%f/%f/%f\n",
+	 nev,nclus,overflow,maxSize,maxSizeX,maxSizeY,minRatio,maxRatio,totRatio/double(nclus));
   
 }
