@@ -8,7 +8,8 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
-        'file:reco2012.root'
+#        'file:reco2012.root'
+        'file:reco2012_New.root'
     )
 )
 
