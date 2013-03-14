@@ -2,6 +2,7 @@
 <use name="FWCore/PluginManager"/>
 <use name="FWCore/ParameterSet"/>
 <use name="CommonTools/UtilAlgos"/>
+<use name="DataFormats/TrackReco"/>
 <library   file="*.cc" name="VinModulesPlugins">
   <flags   EDM_PLUGIN="1"/>
 </library>
